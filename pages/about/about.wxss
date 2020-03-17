@@ -1,0 +1,51 @@
+/* pages/about/about.wxss */
+
+.card-wrap {
+  padding: 0 24rpx;
+  margin-top: 20rpx;
+}
+
+.card {
+  box-shadow: 0px 6px 10px 0px rgba(221, 243, 255, 0.05);
+  border-radius: 10rpx;
+  background: #fff;
+  padding: 36rpx 0;
+}
+
+.logo {
+  width: 150rpx;
+  height: 150rpx;
+  margin: 90rpx auto 0 auto;
+}
+.logo image{
+  width: 100%;
+  height: 100%;
+}
+.connect{
+  margin-top:126rpx;
+}
+.title{
+  color:#333;
+  font-size:32rpx;
+  font-weight: 500;
+  margin-left: 24rpx;
+}
+.connect-list{
+  margin-top:32rpx;
+  padding: 32rpx 24rpx 0 24rpx;
+  border-top:1rpx solid #EEE;
+}
+.item{
+  font-size:26rpx;
+  font-weight: 500;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  line-height: 2
+}
+.left{
+  color:#666
+}
+.right{
+  color:#333
+}

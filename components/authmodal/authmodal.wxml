@@ -1,0 +1,51 @@
+<!--components/authmodal/authmodal.wxml-->
+<view class='authmodal'>
+  <!-- 授权弹窗->授权 -->
+  <view class='modal-box' wx:if="{{authFlag}}">
+    <view class='close-modal' data-flag='true' bindtap='handleCloseModal'>
+      <icon class='iconfont icon-guanbi1'></icon>
+    </view>
+    <view class='box-head'>
+      <view class='head-title'>登录</view>
+    </view>
+    <button class='wx-type' open-type="getPhoneNumber" bindgetphonenumber="handleWxAuth">微信授权登录</button>
+    <view class='tel-type' bindtap='handleTelAuth'>短信验证码授权登录</view>
+  </view>
+  <!-- 授权弹窗->手机号 -->
+  <view class='modal-box' wx:if="{{authSecondFlag}}">
+    <view class='back' bindtap='handleBackFirst'>
+      <icon class='iconfont icon-fanhui1'></icon>
+    </view>
+    <view class='box-head'>
+      <view class='head-title'>手机号</view>
+    </view>
+    <view class='tel-input'>
+      <input placeholder='请输入手机号' type='number' bindinput='handleEnterTel' maxlength="11" focus></input>
+    </view>
+    <view class='next' bindtap='handleGetCode'>下一步</view>
+  </view>
+  <!-- 授权弹窗->验证码 -->
+  <view class='modal-box' wx:if="{{authLastFlag}}">
+    <view class='back'>
+      <icon class='iconfont icon-fanhui1' bindtap='handleBackSecond'></icon>
+      <icon class='iconfont icon-guanbi1' bindtap='handleCloseModal'></icon>
+    </view>
+    <view class='box-head'>
+      <view class='head-title'>输入验证码</view>
+    </view>
+    <view class='con'>
+      <view class='tel-num'>
+        <view class='num'>{{mobile}}</view>
+        <view class='count' wx:if="{{countFlag}}">{{count}}秒</view>
+        <view class='count-no' wx:if="{{!countFlag}}" bindtap='handleRefreshSend'>重新发送</view>
+      </view>
+      <view class='vercode'>
+        <view class='code-num' wx:for="{{codeLength}}" wx:key="index">
+          <input catchtap='focusBox' adjust-position='true' value='{{code.length>=1?code[index]:""}}' disabled></input>
+        </view>
+        <input class='real-code' adjust-position='true' type="number" focus="{{isFocus}}" bindinput="inputCode" maxlength='{{codeLength}}' name="code"></input>
+      </view>
+    </view>
+
+  </view>
+</view>

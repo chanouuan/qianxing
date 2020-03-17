@@ -1,13 +1,56 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+  <!--轮播-->
+  <view class="selection">
+    <swiper class="custom-swiper" autoplay="true">
+      <block wx:for="{{imgUrls}}" wx:key="index">
+        <swiper-item>
+          <view class="item-img" style="background-image:url({{item}})"></view>
+        </swiper-item>
+      </block>
+    </swiper>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+  <!--天气-->
+  <view class="top-bar">
+    <scroll-view scroll-x="true" class="top-view" wx:if="{{weather}}"><text class="top-ct">今日天气</text>{{weather.city.data}}，{{weather.temperature.data}}℃ ({{weather.weather.data}})，湿度:{{weather.humidity.data}}，风速:{{weather.winddirection.data}}{{weather.windpower.data}}</scroll-view>
+    <view class="loading-wrap" wx:else>
+      <icon class="icon-loading"></icon>
+    </view>
+  </view>
+  <!--内容框1-->
+  <view class="main-con">
+    <view class="main-item">
+      <view class="main-icon">
+        <icon class="iconfont icon-guzhangbaojing"></icon>
+      </view>
+      <view class="main-desc">事故报案</view>
+    </view>
+  </view>
+  <!--内容框2-->
+  <view class="more-con">
+    <view class="more-item">
+      <view class="more-icon">
+        <icon class="iconfont icon-orders"></icon>
+      </view>
+      <view class="more-desc">报案查询</view>
+    </view>
+    <view class="more-item">
+      <view class="more-icon">
+        <icon class="iconfont icon-cars"></icon>
+      </view>
+      <view class="more-desc">挪车求助</view>
+    </view>
+    <view class="more-item">
+      <view class="more-icon">
+        <icon class="iconfont icon-sousuo"></icon>
+      </view>
+      <view class="more-desc">违法查询</view>
+    </view>
+    <view class="more-item" bindtap="moreApp">
+      <view class="more-icon">
+        <icon class="iconfont icon-gengduo"></icon>
+      </view>
+      <view class="more-desc">更多</view>
+    </view>
   </view>
 </view>
