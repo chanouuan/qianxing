@@ -1,0 +1,24 @@
+<!--pages/call.wxml-->
+<!-- 验证手机弹窗 -->
+<auth-modal wx:if="{{authModalFlag}}" bind:closemodal="handleCloseModal" bind:bindok="handleBindOk"></auth-modal>
+
+<view class='map-wrap'>
+  <map id='map' scale="15" markers="{{markers}}" latitude='{{latitude}}' longitude='{{longitude}}' show-location bindregionchange='getCenterLocation'>
+    <cover-image class='custome' src='../../images/map/custome.png' bindtap='customeCall'></cover-image>
+    <cover-image class='location' src='../../images/map/getLocation.png' bindtap='getNowLocation'></cover-image>
+    <cover-image id="center-location" class='center-location' src='../../images/map/Marker.png' ></cover-image>
+  </map>
+  <view class="form-wrap">
+    <view class="form-item">
+      <text class="form-label">地址</text>
+      <view class="form-txt"><input value="{{address}}" placeholder="请输入" maxlength="50" /></view>
+    </view>
+    <view class="form-item">
+      <text class="form-label">姓名</text>
+      <view class="form-txt"><input placeholder="请输入" maxlength="50" /></view>
+    </view>
+    <view class="form-item">
+      <button class="cx-btn">提交</button>
+    </view>
+  </view>
+</view>

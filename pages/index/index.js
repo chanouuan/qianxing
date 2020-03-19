@@ -45,6 +45,15 @@ Page({
   },
 
   /**
+   * 事故报案
+   */
+  callTap () {
+    wx.navigateTo({
+      url: '/pages/call/call'
+    })
+  },
+
+  /**
    * 更多应用
    */
   moreApp () {

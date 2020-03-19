@@ -18,7 +18,7 @@
     </view>
   </view>
   <!--内容框1-->
-  <view class="main-con">
+  <view class="main-con" bindtap="callTap">
     <view class="main-item">
       <view class="main-icon">
         <icon class="iconfont icon-guzhangbaojing"></icon>

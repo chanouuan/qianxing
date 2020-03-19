@@ -8,7 +8,10 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+    hideTabBar: {
+      type: Boolean,
+      value: false
+    }
   },
 
   /**
@@ -27,23 +30,28 @@ Component({
 
   lifetimes: {
     created () {
-      // 隐藏
-      setTimeout(() => {
-        wx.hideTabBar()
-      }, 300)
+      //
     },
     attached () {
+      // 隐藏TabBar
+      if (this.properties.hideTabBar) {
+        setTimeout(() => {
+          wx.hideTabBar()
+        }, 300)
+      }
       // 获取用户信息
       app.getUserInfo().then(res => {
         this.setData(res)
       })
     },
     detached () {
-      // 显示
+      // 显示TabBar
       this.resetCountDown()
-      setTimeout(() => {
-        wx.showTabBar()
-      }, 300)
+      if (this.properties.hideTabBar) {
+        setTimeout(() => {
+          wx.showTabBar()
+        }, 300)
+      }
     }
   },
 
