@@ -1,6 +1,7 @@
 {
   "pages": [
-    "pages/index/index",
+    "pages/test/test",
+    "pages/manager/index/index",
     "pages/mine/mine",
     "pages/about/about",
     "pages/more/more",
@@ -16,24 +17,6 @@
     "scope.userLocation": {
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
-  },
-  "tabBar": {
-    "color": "#3333333",
-    "selectedColor": "#0F81E3",
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "首页",
-        "iconPath": "images/tab/tab_home.png",
-        "selectedIconPath": "images/tab/select_tab_home.png"
-      },
-      {
-        "pagePath": "pages/mine/mine",
-        "text": "我的",
-        "iconPath": "images/tab/tab_mine.png",
-        "selectedIconPath": "images/tab/select_tab_mine.png"
-      }
-    ]
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"

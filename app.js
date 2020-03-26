@@ -1,6 +1,6 @@
 //app.js
-const amapFile = require('./utils/amap-wx.js');
-const config = require('./config.js');
+const amapFile = require('./utils/amap-wx.js')
+const config = require('./config.js')
 
 App({
   onLaunch: function () {
@@ -78,7 +78,8 @@ App({
     screenHeight: 0,
     windowHeight: 0,
     userInfo: null,
-    canIUseByGetUserInfo: wx.canIUse('button.open-type.getUserInfo')
+    canIUseByGetUserInfo: wx.canIUse('button.open-type.getUserInfo'),
+    selectTabIndex: 0
   },
   getUserInfo () {
     return new Promise((resolve, reject) => {
@@ -112,5 +113,8 @@ App({
         })
       }
     })
+  },
+  getTabBarList () {
+    return config.tabBar1
   }
 })

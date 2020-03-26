@@ -1,0 +1,112 @@
+<!--index.wxml-->
+<view class="container">
+  <!--轮播-->
+  <view class="selection">
+    <swiper class="custom-swiper" autoplay="true">
+      <block wx:for="{{imgUrls}}" wx:key="index">
+        <swiper-item>
+          <view class="swiper-img" style="background-image:url({{item}})">
+            <text class="swiper-txt">加强疫情防控工作指导</text>
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+
+  <view class="count-con">
+    <view class="count-item count-border">
+      <text class="count-num">5</text>
+      <text class="count-txt">待处理</text>
+    </view>
+    <view class="count-item count-border">
+      <text class="count-num">4</text>
+      <text class="count-txt">待审核</text>
+    </view>
+    <view class="count-item">
+      <text class="count-num">12</text>
+      <text class="count-txt">已处理</text>
+    </view>
+  </view>
+
+  <view class="main-con">
+    <view class="main-item">
+      <view class="main-icon">
+        <icon class="iconfont icon-guzhangbaojing"></icon>
+      </view>
+      <view class="main-desc">事故处理</view>
+    </view>
+    <view class="main-item">
+      <view class="main-icon bc-1">
+        <icon class="iconfont icon-guzhangbaojing"></icon>
+      </view>
+      <view class="main-desc">施工监管</view>
+    </view>
+    <view class="main-item">
+      <view class="main-icon bc-2">
+        <icon class="iconfont icon-guzhangbaojing"></icon>
+      </view>
+      <view class="main-desc">道路巡查</view>
+    </view>
+    <view class="main-item">
+      <view class="main-icon bc-3">
+        <icon class="iconfont icon-guzhangbaojing"></icon>
+      </view>
+      <view class="main-desc">动态监测</view>
+    </view>
+  </view>
+
+  <view class="con-title">常用功能</view>
+
+  <view class="more-con">
+    <view class="more-item mb60">
+      <view class="more-icon">
+        <icon class="iconfont icon-cars"></icon>
+      </view>
+      <view class="more-desc">报案查询</view>
+    </view>
+    <view class="more-item mb60">
+      <view class="more-icon">
+        <icon class="iconfont icon-cars"></icon>
+      </view>
+      <view class="more-desc">挪车求助</view>
+    </view>
+    <view class="more-item mb60">
+      <view class="more-icon">
+        <icon class="iconfont icon-cars"></icon>
+      </view>
+      <view class="more-desc">违法查询</view>
+    </view>
+    <view class="more-item mb60">
+      <view class="more-icon">
+        <icon class="iconfont icon-cars"></icon>
+      </view>
+      <view class="more-desc">违法查询</view>
+    </view>
+    <view class="more-item">
+      <view class="more-icon">
+        <icon class="iconfont icon-cars"></icon>
+      </view>
+      <view class="more-desc">报案查询</view>
+    </view>
+    <view class="more-item">
+      <view class="more-icon">
+        <icon class="iconfont icon-cars"></icon>
+      </view>
+      <view class="more-desc">挪车求助</view>
+    </view>
+    <view class="more-item">
+      <view class="more-icon">
+        <icon class="iconfont icon-cars"></icon>
+      </view>
+      <view class="more-desc">违法查询</view>
+    </view>
+    <view class="more-item" bindtap="moreApp">
+      <view class="more-icon">
+        <icon class="iconfont icon-gengduo"></icon>
+      </view>
+      <view class="more-desc">更多</view>
+    </view>
+  </view>
+
+  <tab-bar></tab-bar>
+</view>

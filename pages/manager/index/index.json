@@ -1,7 +1,5 @@
 {
   "usingComponents": {
-    "nav-bar": "/components/navbar/navbar",
-    "auth-modal": "/components/authmodal/authmodal",
     "tab-bar": "/components/tabbar/tabbar"
   },
   "navigationBarTextStyle": "white",
