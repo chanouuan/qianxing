@@ -1,0 +1,17 @@
+<!--components/idcardcheck/idcardcheck.wxml-->
+<view class="modal-warp">
+  <view class='modal-box'>
+    <view class='close-modal' bindtap='closeModal'>
+      <icon class='iconfont icon-guanbi1'></icon>
+    </view>
+    <view class='box-head'>
+      <view class='head-title'>请输入身份证后 4 位</view>
+    </view>
+    <view class='vercode'>
+      <view class='code-num' wx:for="{{codeLength}}" wx:key="index">
+        <input catchtap='focusBox' adjust-position='true' value='{{code.length>=1?code[index]:""}}' disabled></input>
+      </view>
+    </view>
+    <input class='real-code' adjust-position='true' type="idcard" focus="{{isFocus}}" bindinput="inputCode" maxlength='{{codeLength}}' name="code"></input>
+  </view>
+</view>

@@ -1,0 +1,73 @@
+<!--pages/mine/mine.wxml-->
+<!-- 顶部nav -->
+<nav-bar navbar-data='{{navbarData}}' go-path="{{goPath}}"></nav-bar>
+<!-- 验证手机弹窗 -->
+<auth-modal wx:if="{{authModalFlag}}" bind:closemodal="closeAuthModal" bind:bindok="bindOk"></auth-modal>
+<idcardcheck wx:if="{{idCardCheckModalFlag}}" bind:closemodal="closeIdcardCheckModal" bind:bindok="idcardCheckOk"></idcardcheck>
+
+<!-- 内容 -->
+<view class="mine">
+  <view class='top-bg'>
+    <view class='ava-wrap' wx:if="{{userInfo.telephone}}">
+      <image src="{{userInfo.avatar}}" mode="cover"></image>
+    </view>
+    <view class='def-ava' wx:else bindtap="bindPhone">
+      <icon class='iconfont icon-touxiang'></icon>
+    </view>
+     <view class='bind-btn' wx:if="{{userInfo.telephone}}">{{userInfo.nick_name}}</view>
+    <view class='bind-btn' wx:else bindtap="bindPhone">登录后更精彩</view>
+  </view>
+
+  <view class="list">
+    <view class="item" bindtap='tapOrder'>
+      <view class="item-icon">
+        <icon class="iconfont icon-orders" style="color:#A52A2A"></icon>
+        <text>我的案件</text>
+      </view>
+      <view class="item-desc">
+        <icon class="iconfont icon-right"></icon>
+      </view>
+    </view>
+    <view wx:if="{{userInfo.group_id}}" class="item" bindtap='changeLaw'>
+      <view class="item-icon">
+        <icon class="iconfont icon-touxiang" style="color:#5F9EA0"></icon>
+        <text>进入管理</text>
+      </view>
+      <view class="item-desc">
+        <icon class="iconfont icon-right"></icon>
+      </view>
+    </view>
+  </view>
+
+  <view class="list">
+    <view class="item" bindtap='handleAbout'>
+      <view class="item-icon">
+        <icon class="iconfont icon-gongsi-" style="color:#1FD390"></icon>
+        <text>关于我们</text>
+      </view>
+      <view class="item-desc">
+        <icon class="iconfont icon-right"></icon>
+      </view>
+    </view>
+    <view class="item" bindtap='customeCall'>
+      <view class="item-icon">
+        <icon class="iconfont icon-kefu" style="color:#36B9FD"></icon>
+        <text>联系客服</text>
+      </view>
+      <view class="item-desc">
+        <icon class="iconfont icon-right"></icon>
+      </view>
+    </view>
+    <button class="btn-feedback" open-type="feedback">
+      <view class="item">
+        <view class="item-icon">
+            <icon class="iconfont icon-fankui" style="color:#FF7F50"></icon>
+            <text>意见反馈</text>
+        </view>
+        <view class="item-desc">
+          <icon class="iconfont icon-right"></icon>
+        </view>
+      </view>
+    </button>
+  </view>
+</view>

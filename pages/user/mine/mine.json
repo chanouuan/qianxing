@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "nav-bar": "/components/navbar/navbar",
+    "auth-modal": "/components/authmodal/authmodal",
+    "idcardcheck": "/components/idcardcheck/idcardcheck"
+  },
+  "navigationBarTextStyle": "white",
+  "navigationStyle": "custom"
+}

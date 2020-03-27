@@ -1,0 +1,68 @@
+/* components/idcardcheck/idcardcheck.wxss */
+@import "/iconfont.wxss";
+
+.modal-warp {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 99999;
+}
+
+.modal-warp .modal-box {
+  width: 600rpx;
+  height: 330rpx;
+  background-color: #fff;
+  box-shadow: 0px 6rpx 10rpx 0px rgba(221, 243, 255, 0.2);
+  border-radius: 10rpx;
+}
+
+.modal-warp .close-modal {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 10px;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+
+.modal-warp .box-head {
+  height: 100rpx;
+  line-height: 100rpx;
+}
+
+.modal-warp .head-title {
+  text-align: center;
+  color: #222;
+  font-size: 14px;
+}
+
+.modal-warp .vercode {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.modal-warp .real-code{
+  width:0;
+  height: 0
+}
+
+.modal-warp .code-num {
+  width: 80rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  color: #333;
+  font-weight: 500;
+  border: 1rpx solid #ccc;
+  border-radius: 10rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
