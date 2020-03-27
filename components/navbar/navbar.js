@@ -46,13 +46,16 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    // 返回上一页面
     navLeftTap () {
       if (~this.data.navbarData.leftFont.indexOf('fanhui')) {
         wx.navigateBack()
       } else if (~this.data.navbarData.leftFont.indexOf('home')) {
         wx.switchTab({
-          url: '/pages/index/index',
+          url: this.properties.goPath
+        })
+      } else {
+        wx.redirectTo({
+          url: this.properties.goPath
         })
       }
     }

@@ -1,11 +1,21 @@
 //app.js
-const amapFile = require('./utils/amap-wx.js')
+const QQMapWX = require('./utils/qqmap-wx-jssdk.min.js')
 const config = require('./config.js')
+const util = require('./utils/util.js')
+const api = require('./api/api.js')
 
 App({
   onLaunch: function () {
     // 清空缓存
     wx.clearStorage()
+
+    // 云开发
+    if (wx.cloud) {
+      wx.cloud.init({
+        env: 'http-method-k3d5g',
+        traceUser: true
+      })
+    }
 
     // 系统参数
     wx.getSystemInfo({
@@ -20,7 +30,12 @@ App({
     const updateManager = wx.getUpdateManager()
     updateManager.onCheckForUpdate(function (res) {
       // 请求完新版本信息的回调
-      console.log(res)
+      if (res.hasUpdate) {
+        wx.showToast({
+          title: '正在准备更新新版本！',
+          icon: 'none'
+        })
+      }
     })
     updateManager.onUpdateReady(function () {
       wx.showModal({
@@ -37,15 +52,10 @@ App({
     updateManager.onUpdateFailed(function (res) {
       // 新版本下载失败
       console.log(res)
-    })
-
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        // Object.assign(this.globalData.userInfo || {}, res.userInfo)
-        // wx.setStorageSync('token', null)
-      }
+      wx.showToast({
+        title: '新版本下载失败！',
+        icon: 'none'
+      })
     })
 
     // 获取用户信息
@@ -68,44 +78,69 @@ App({
       }
     })
 
-    // 高德地图API
-    this.globalData.amapFun = new amapFile.AMapWX({
-      key: config.geoKey
+    // QQ地图API
+    this.globalData.qqmapsdk = new QQMapWX({
+      key: config.qqmapKey
     })
+
+    // 客服电话
+    this.globalData.phone = config.phone
   },
   globalData: {
     statusBarHeight: 20,
     screenHeight: 0,
     windowHeight: 0,
     userInfo: null,
-    canIUseByGetUserInfo: wx.canIUse('button.open-type.getUserInfo'),
-    selectTabIndex: 0
+    phone: ''
+  },
+  login () {
+    return new Promise((resolve, reject) => {
+      this.getUserInfo().then(userInfo => {
+        if (userInfo.token) {
+          resolve({ userInfo })
+          return
+        }
+        // 登录
+        wx.login({
+          success: res => {
+            userInfo.code = res.code
+            api.login(userInfo).then(res => {
+              this.globalData.userInfo = Object.assign(this.globalData.userInfo || {}, res)
+              util.setToken(res.token)
+              resolve({
+                userInfo: this.globalData.userInfo
+              })
+            }).catch(res => {
+              reject(res)
+            })
+          }
+        })
+      }).catch(res => {
+        wx.showToast({
+          title: '获取用户信息失败',
+          icon: 'none'
+        })
+        reject(res)
+      })
+    })
   },
   getUserInfo () {
     return new Promise((resolve, reject) => {
       if (this.globalData.userInfo) {
-        resolve({
-          userInfo: this.globalData.userInfo,
-          hasUserInfo: true
-        })
-      } else if (this.globalData.canIUseByGetUserInfo) {
+        resolve(this.globalData.userInfo)
+      } else if (wx.canIUse('button.open-type.getUserInfo')) {
         // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
         // 所以此处加入 callback 以防止这种情况
         this.userInfoReadyCallback = res => {
-          resolve({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
+          this.globalData.userInfo = Object.assign(this.globalData.userInfo || {}, res.userInfo)
+          resolve(this.globalData.userInfo)
         }
       } else {
         // 在没有 open-type=getUserInfo 版本的兼容处理
         wx.getUserInfo({
           success: res => {
             this.globalData.userInfo = Object.assign(this.globalData.userInfo || {}, res.userInfo)
-            resolve({
-              userInfo: res.userInfo,
-              hasUserInfo: true
-            })
+            resolve(this.globalData.userInfo)
           },
           fail: res => {
             reject(res)
@@ -113,8 +148,5 @@ App({
         })
       }
     })
-  },
-  getTabBarList () {
-    return config.tabBar1
   }
 })

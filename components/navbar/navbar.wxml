@@ -1,5 +1,5 @@
 <!--components/navbar/navbar.wxml-->
-<view class='nav-wrap' style='padding-top:{{height}}px;background-color:{{navbarData.bgColor?navbarData.bgColor:"none"}};box-shadow:{{navbarData.bgColor?"0px 6rpx 10rpx 0px rgba(221, 243, 255, 0.3)":"none"}}'>
+<view class='nav-wrap' style='margin-top:{{height}}px;background-color:{{navbarData.bgColor?navbarData.bgColor:"none"}};box-shadow:{{navbarData.bgColor?"0px 6rpx 10rpx 0px rgba(221, 243, 255, 0.3)":"none"}}'>
   <view class='nav-back' bindtap='navLeftTap'>
     <icon class='iconfont icon-{{navbarData.leftFont}}' style='color:{{navbarData.leftFontColor}}'></icon>
   </view>

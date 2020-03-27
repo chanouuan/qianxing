@@ -20,7 +20,7 @@
       <view class='head-title'>手机号</view>
     </view>
     <view class='tel-input'>
-      <input placeholder='请输入手机号' type='number' bindinput='handleEnterTel' maxlength="11" focus></input>
+      <input placeholder='请输入手机号' type='number' bindinput='handleEnterTel' maxlength="11" adjust-position focus></input>
     </view>
     <view class='next' bindtap='handleGetCode'>下一步</view>
   </view>
@@ -37,7 +37,7 @@
       <view class='tel-num'>
         <view class='num'>{{mobile}}</view>
         <view class='count' wx:if="{{countFlag}}">{{count}}秒</view>
-        <view class='count-no' wx:if="{{!countFlag}}" bindtap='handleRefreshSend'>重新发送</view>
+        <view class='count-no' wx:if="{{!countFlag}}" bindtap='handleGetCode'>重新发送</view>
       </view>
       <view class='vercode'>
         <view class='code-num' wx:for="{{codeLength}}" wx:key="index">

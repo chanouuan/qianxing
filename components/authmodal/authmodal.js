@@ -1,5 +1,7 @@
 // components/authmodal/authmodal.js
 
+const api = require('../../api/api.js')
+
 //获取应用实例
 const app = getApp()
 
@@ -23,8 +25,6 @@ Component({
     authLastFlag: false,
     count: 60,
     codeLength: 6,
-    userInfo: {},
-    hasUserInfo: false,
     mobile: ''
   },
 
@@ -35,22 +35,14 @@ Component({
     attached () {
       // 隐藏TabBar
       if (this.properties.hideTabBar) {
-        setTimeout(() => {
-          wx.hideTabBar()
-        }, 300)
+        wx.hideTabBar()
       }
-      // 获取用户信息
-      app.getUserInfo().then(res => {
-        this.setData(res)
-      })
     },
     detached () {
       // 显示TabBar
       this.resetCountDown()
       if (this.properties.hideTabBar) {
-        setTimeout(() => {
-          wx.showTabBar()
-        }, 300)
+        wx.showTabBar()
       }
     }
   },
@@ -62,21 +54,30 @@ Component({
 
     //点击微信授权
     handleWxAuth(e) {
-      wx.showLoading({
-        title: '加载中'
-      })
       let encryptedData = e.detail.encryptedData;
       let iv = e.detail.iv;
-      if (!iv) {
-        wx.hideLoading()
+      if (!encryptedData || !iv) {
         wx.showToast({
           title: '取消授权',
           icon: 'none'
         })
+        return
       }
-      wx.showToast({
-        title: '授权成功',
-        icon: 'none'
+      wx.login({
+        success: res => {
+          api.changePhone({
+            code: res.code,
+            encryptedData: encryptedData,
+            iv: iv
+          }).then(res => {
+            wx.showToast({
+              title: '授权成功',
+              icon: 'none'
+            })
+            app.globalData.userInfo = Object.assign(app.globalData.userInfo, res) 
+            this.triggerEvent('bindok')
+          })
+        }
       })
     },
 
@@ -98,7 +99,6 @@ Component({
 
     //获取验证码
     handleGetCode () {
-      let count = this.data.count
       let mobile = this.data.mobile
       if (!/^1[0-9]{10}$/.test(mobile)) {
         wx.showToast({
@@ -107,27 +107,20 @@ Component({
         })
         return
       }
-      this.setData({
-        authFlag: false,
-        authSecondFlag: false,
-        authLastFlag: true,
-      }, () => {
-        wx.showToast({
-          title: '验证码已发送',
-          icon: 'none'
+      api.sendSms(mobile)
+      .then(res => {
+        this.setData({
+          authFlag: false,
+          authSecondFlag: false,
+          authLastFlag: true,
+        }, () => {
+          wx.showToast({
+            title: '验证码已发送',
+            icon: 'none'
+          })
+          this.countDown()
         })
-        this.countDown()
-      })
-    },
-
-    // 重新发送
-    handleRefreshSend() {
-      let mobile = this.data.mobile
-      wx.showToast({
-        title: '验证码已发送',
-        icon: 'none'
-      })
-      this.countDown()
+      }).catch(err => {})
     },
 
     //验证码输入验证
@@ -140,19 +133,17 @@ Component({
         if (vercode.length < this.data.codeLength) {
           return
         }
-        wx.login({
-          success: code => {
-            if (!code) {
-              return
-            }
-            wx.showToast({
-              title: '绑定成功',
-              icon: 'none'
-            })
-            this.triggerEvent('bindok')
-            this.handleCloseModal()
-          }
-        })
+        api.changePhone({
+          telephone: mobile,
+          msgcode: vercode,
+        }).then(res => {
+          wx.showToast({
+            title: '绑定成功',
+            icon: 'none'
+          })
+          app.globalData.userInfo = Object.assign(app.globalData.userInfo, res)
+          this.triggerEvent('bindok')
+        }).catch(err => {})
       })
     },
 
