@@ -3,6 +3,7 @@
 <nav-bar navbar-data='{{navbarData}}' go-path="{{goPath}}"></nav-bar>
 <!-- 验证手机弹窗 -->
 <auth-modal wx:if="{{authModalFlag}}" bind:closemodal="closeAuthModal" bind:bindok="bindOk"></auth-modal>
+<!-- 身份证验证弹框 -->
 <idcardcheck wx:if="{{idCardCheckModalFlag}}" bind:closemodal="closeIdcardCheckModal" bind:bindok="idcardCheckOk"></idcardcheck>
 
 <!-- 内容 -->

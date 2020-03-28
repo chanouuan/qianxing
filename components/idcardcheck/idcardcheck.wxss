@@ -44,7 +44,7 @@
 .modal-warp .vercode {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 
 .modal-warp .real-code{
@@ -53,6 +53,7 @@
 }
 
 .modal-warp .code-num {
+  margin-right: 20rpx;
   width: 80rpx;
   height: 80rpx;
   line-height: 80rpx;

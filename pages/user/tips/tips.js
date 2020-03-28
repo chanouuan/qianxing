@@ -28,7 +28,7 @@ Page({
 
   golist () {
     wx.switchTab({
-      url: '/pages/mine/mine'
+      url: '/pages/user/mine/mine'
     })
   },
 

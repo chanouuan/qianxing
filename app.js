@@ -90,6 +90,7 @@ App({
     statusBarHeight: 20,
     screenHeight: 0,
     windowHeight: 0,
+    customTabBarTemplateId: 'user',
     userInfo: null,
     phone: ''
   },

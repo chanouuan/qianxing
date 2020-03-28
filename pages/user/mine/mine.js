@@ -28,6 +28,11 @@ Page({
     })
   },
 
+  onShow () {
+    // tabbar 回显
+    this.getTabBar().switchPage(1)
+  },
+
   /**
    * 用户点击右上角分享
    */
@@ -46,16 +51,21 @@ Page({
       })
     } else {
       wx.navigateTo({
-        url: '/pages/user/orders/orders'
+        url: '/pages/user/reportevents/reportevents'
       })
     }
   },
 
   /**
-   * 切换管理
+   * 进入管理
    */
   changeLaw () {
-
+    // 切换 TabBar 风格
+    this.getTabBar().switchMenu('law')
+    // 跳转到管理端首页
+    wx.switchTab({
+      url: '/pages/law/index/index'
+    })
   },
 
   /**
@@ -86,7 +96,7 @@ Page({
     if (this.data.userInfo.idcard && this.data.userInfo.idcard.substr(-4) === e.detail.idcard) {
       // 验证通过
       wx.navigateTo({
-        url: '/pages/user/orders/orders'
+        url: '/pages/user/reportevents/reportevents'
       })
     } else {
       wx.showToast({

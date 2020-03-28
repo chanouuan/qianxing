@@ -1,1 +1,81 @@
 /* pages/user/reportevents/reportevents.wxss */
+
+.container {
+  height: auto;
+}
+
+.con-main {
+  padding: 40px 0 10px 0;
+}
+
+.con-item {
+  padding: 40rpx;
+  font-size: 14px;
+  color: #222;
+  margin-top: 10px;
+  background-color: #fff;
+  box-shadow: 0px 6px 10px 0px rgba(221, 243, 255, 0.2);
+}
+
+.con-header {
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20rpx;
+}
+
+.con-header-c {
+  flex: 1;
+}
+
+.con-header-status {
+  color: red;
+}
+
+.con-body {
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+  padding: 20rpx 0;
+}
+
+.con-body-l {
+  display: flex;
+  line-height: 50rpx;
+}
+
+.con-body-mark {
+  color: #999;
+  white-space: nowrap;
+}
+
+.con-footer {
+  padding-top: 40rpx;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.btn {
+  font-size: 14px;
+  width: 288rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  color: #fff;
+  background: linear-gradient(45deg, rgba(91, 222, 130, 1), rgba(31, 211, 144, 1));
+  border-radius: 10rpx;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.btn-default {
+  background: #ccc;
+}
+
+.con-loading {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #ccc;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+}

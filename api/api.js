@@ -28,3 +28,12 @@ export const changePhone = (post) => {
     body: post
   })
 }
+
+// 获取用户案件
+export const getUserReportEvents = (post) => {
+  post.token = util.getToken()
+  return axios.request({
+    url: '/miniprogramServer/getUserReportEvents',
+    body: post
+  })
+}

@@ -24,6 +24,11 @@ Page({
 
   },
 
+  onShow() {
+    // tabbar 回显
+    this.getTabBar().switchPage(0)
+  },
+
   /**
    * 事故报案
    */
