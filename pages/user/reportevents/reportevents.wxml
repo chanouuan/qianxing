@@ -1,7 +1,7 @@
 <!--pages/user/reportevents/reportevents.wxml-->
 
 <view class="container">
-  <tab tabList="{{[{name: '全部案件'},{name: '已完成'}]}}" currentTab="{{tabIndex}}" bind:clickTab="onClickTab" />
+  <tab tabList="{{[{name: '全部案件'},{name: '已完成'}]}}" currentTab="{{tabIndex}}" catch:clickTab="onClickTab" />
   <view class="con-main">
     <view class="con-item" wx:for="{{datalist}}" wx:key="index">
       <view class="con-header">

@@ -4,7 +4,7 @@
 
 <view class="container">
   <view class='map-wrap' wx:if="{{pageFlag}}">
-    <map id='map' scale="20" latitude='{{latitude}}' longitude='{{longitude}}' show-location bindregionchange='getCenterLocation'>
+    <map id='map' scale="16" latitude='{{latitude}}' longitude='{{longitude}}' show-location bindregionchange='getCenterLocation'>
       <cover-image class='custome' src='../../../images/map/custome.png' bindtap='customeCall'></cover-image>
       <cover-image class='location' src='../../../images/map/getLocation.png' bindtap='getNowLocation'></cover-image>
       <cover-image id="center-location" class="center-location {{animation ? 'locationpicker-animation' : ''}}" src='../../../images/map/Marker.png' bindanimationend="onMarkerAnimationend"></cover-image>

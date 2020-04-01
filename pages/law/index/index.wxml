@@ -13,6 +13,12 @@
     </swiper>
   </view>
 
+  <view class="info-con">
+    <view>{{userInfo.group_name}}</view>
+    <view>{{userInfo.nick_name}}</view>
+    <view class='{{isWork?"green":"grey"}}'>{{isWork?"上班":"休息"}}</view>
+  </view>
+
   <view class="count-con">
     <view class="count-item count-border">
       <text class="count-num">5</text>
@@ -29,7 +35,7 @@
   </view>
 
   <view class="main-con">
-    <view class="main-item">
+    <view class="main-item" bindtap="inEvents">
       <view class="main-icon">
         <icon class="iconfont icon-guzhangbaojing"></icon>
       </view>

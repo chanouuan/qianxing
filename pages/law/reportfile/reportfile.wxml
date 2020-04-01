@@ -1,0 +1,96 @@
+<!--pages/law/reportfile/reportfile.wxml-->
+
+<!--菜单-->
+<tab tabList="{{[{name:'证件采集'},{name:'勘验笔录'},{name:'签字确认'}]}}" currentTab="{{tabIndex}}" catch:clickTab="onClickTab" />
+
+<scroll-view scroll-y class="content {{tabIndex === 0 ? 'content-show' : '' }}">
+  <!--证件采集-->
+  <view class="content-inner">
+    <view class="title">现场图照</view>
+    <view class="panel1">
+      <view wx:for="{{site_photos}}" wx:key="index" data-index="{{index}}" class="panel1-item" bindtap="takeSitePhotos">
+        <image mode="aspectFill" src="{{item.src}}" wx:if="{{item.src}}"></image>
+        <icon class="iconfont icon-zhaoxiang" wx:else></icon>
+        <view class="progress" style="width:{{item.progress}}%" wx:if="{{item.progress}}"></view>
+      </view>
+    </view>
+    <view class="title">身份证照</view>
+    <view class="panel2">
+      <view class="panel2-item" data-name="idcard_front">
+        <ocr-navigator bind:onSuccess="idcardsuccess" certificateType="idCard" opposite="{{false}}">
+          <view class="panel2-item-img">
+            <image mode="aspectFill" src="{{idcard_front}}" wx:if="{{idcard_front}}"></image>
+            <icon class="iconfont icon-zhaoxiang" wx:else></icon>
+            <view class="progress" style="width:{{idcard_front_progress}}%" wx:if="{{idcard_front_progress}}"></view>
+          </view>
+        </ocr-navigator>
+        <view class="panel2-item-t">身份证头像面</view>
+      </view>
+      <view class="panel2-item">
+        <view class="panel2-item-img" data-name="idcard_behind" bindtap="takePhoto">
+          <image mode="aspectFill" src="{{idcard_behind}}" wx:if="{{idcard_behind}}"></image>
+          <icon class="iconfont icon-zhaoxiang" wx:else></icon>
+          <view class="progress" style="width:{{idcard_behind_progress}}%" wx:if="{{idcard_behind_progress}}"></view>
+        </view>
+        <view class="panel2-item-t">身份证国徽面</view>
+      </view>
+    </view>
+    <view class="title">驾驶证照</view>
+    <view class="panel2">
+      <view class="panel2-item">
+        <view class="panel2-item-img" data-name="driver_license_front" bindtap="takePhoto">
+          <image mode="aspectFill" src="{{driver_license_front}}" wx:if="{{driver_license_front}}"></image>
+          <icon class="iconfont icon-zhaoxiang" wx:else></icon>
+          <view class="progress" style="width:{{driver_license_front_progress}}%" wx:if="{{driver_license_front_progress}}"></view>
+        </view>
+        <view class="panel2-item-t">拍照上传驾驶证正面</view>
+      </view>
+      <view class="panel2-item">
+        <view class="panel2-item-img" data-name="driver_license_behind" bindtap="takePhoto">
+          <image mode="aspectFill" src="{{driver_license_behind}}" wx:if="{{driver_license_behind}}"></image>
+          <icon class="iconfont icon-zhaoxiang" wx:else></icon>
+          <view class="progress" style="width:{{driver_license_behind_progress}}%" wx:if="{{driver_license_behind_progress}}"></view>
+        </view>
+        <view class="panel2-item-t">拍照上传驾驶证背面</view>
+      </view>
+    </view>
+    <view class="title">行驶证照</view>
+    <view class="panel2">
+      <view class="panel2-item" data-name="driving_license_front">
+        <ocr-navigator bind:onSuccess="driversuccess" certificateType="drivingLicense" selectedOptions="{{['plateNum']}}">
+          <view class="panel2-item-img">
+            <image mode="aspectFill" src="{{driving_license_front}}" wx:if="{{driving_license_front}}"></image>
+            <icon class="iconfont icon-zhaoxiang" wx:else></icon>
+            <view class="progress" style="width:{{driving_license_front_progress}}%" wx:if="{{driving_license_front_progress}}"></view>
+          </view>
+        </ocr-navigator>
+        <view class="panel2-item-t">拍照上传行驶证正面</view>
+      </view>
+      <view class="panel2-item">
+        <view class="panel2-item-img" data-name="driving_license_behind" bindtap="takePhoto">
+          <image mode="aspectFill" src="{{driving_license_behind}}" wx:if="{{driving_license_behind}}"></image>
+          <icon class="iconfont icon-zhaoxiang" wx:else></icon>
+          <view class="progress" style="width:{{driving_license_behind_progress}}%" wx:if="{{driving_license_behind_progress}}"></view>
+        </view>
+        <view class="panel2-item-t">拍照上传行驶证背面</view>
+      </view>
+    </view>
+    <view class="title">其他图照</view>
+    <view class="panel-add">
+      <view class="btn">更多照片</view>
+    </view>
+    <view class="panel-bottom">
+      <button class="btn" bindtap="cardinfo">保存并进行下一步</button>
+    </view>
+  </view>
+</scroll-view>
+
+<view class="content {{tabIndex === 1 ? 'content-show' : '' }}">
+  <!--勘验笔录-->
+  2
+</view>
+
+<view class="content {{tabIndex === 2 ? 'content-show' : '' }}">
+  <!--签字确认-->
+  3
+</view>

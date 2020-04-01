@@ -5,12 +5,12 @@
   left: 0;
   right: 0;
   height: 48px;
-  background: #fff;
+  background: rgb(255, 255, 255);
   display: flex;
   padding-bottom: env(safe-area-inset-bottom);
   overflow: hidden;
   box-sizing: border-box;
-  box-shadow: 0px 0px 10px 0px rgba(221, 243, 255, 0.8);
+  box-shadow: 0px 0px 10px 0px rgba(216, 211, 211, 0.6);
 }
 
 .tab-bar-item {
@@ -23,11 +23,13 @@
 }
 
 .tab-bar-image {
-  width: 27px;
-  height: 27px;
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
 }
 
 .tab-bar-text {
   font-size: 12px;
-  font-family: Arial, Helvetica, sans-serif;
+  height: 18px;
+  line-height: 18px;
 }

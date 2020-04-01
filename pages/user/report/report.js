@@ -1,4 +1,4 @@
-
+const api = require('../../../api/api.js')
 const app = getApp()
 
 Page({
@@ -11,10 +11,9 @@ Page({
     authModalFlag: false,
     userInfo: {},
     address: '',
-    adcode: 0,
-    street: '',
     latitude: 0, // 27.48074
     longitude: 0, // 106.375
+    form: {},
     submit: false
   },
 
@@ -39,21 +38,24 @@ Page({
     }
   },
 
-  /**
-   * 定位
-   */
   mapPostion () {
+    // 定位
     wx.showNavigationBarLoading()
     return new Promise((resolve, reject) => {
       app.globalData.qqmapsdk.reverseGeocoder({
         success: (res) => {
           res = res.result
+          this.data.form = {
+            location: res.location.lng + ',' + res.location.lat,
+            address: res.formatted_addresses.recommend,
+            adcode: res.ad_info.adcode,
+            district: res.ad_info.district,
+            city: res.ad_info.city
+          }
           this.setData({
             latitude: res.location.lat,
             longitude: res.location.lng,
-            address: res.formatted_addresses.recommend,
-            adcode: res.ad_info.adcode,
-            street: res.address_component.street
+            address: res.formatted_addresses.recommend
           }, () => {
             resolve()
           })
@@ -112,10 +114,15 @@ Page({
           location: res.latitude + ',' + res.longitude,
           success: (res) => {
             res = res.result
-            this.setData({
+            this.data.form = {
+              location: res.location.lng + ',' + res.location.lat,
               address: res.formatted_addresses.recommend,
               adcode: res.ad_info.adcode,
-              street: res.address_component.street,
+              district: res.ad_info.district,
+              city: res.ad_info.city
+            }
+            this.setData({
+              address: res.formatted_addresses.recommend,
               animation: true
             })
           },
@@ -168,8 +175,14 @@ Page({
     this.setData({
       submit: true
     })
-    wx.redirectTo({
-      url: '/pages/user/tips/tips'
-    })
+    api.reportEvent(this.data.form).then(res => {
+      wx.redirectTo({
+        url: '/pages/user/tips/tips'
+      })
+    }).catch(err => {
+      this.setData({
+        submit: false
+      })
+    })    
   }
 })

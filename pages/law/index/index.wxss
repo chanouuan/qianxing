@@ -1,12 +1,15 @@
 /**index.wxss**/
 
 page {
-  background-color: #fff;
+  background: #fff;
 }
 
 .container {
-  font-size: 12px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-bottom: 60px;
 }
 
 .custom-swiper {
@@ -27,19 +30,43 @@ page {
 .swiper-txt {
   position: absolute;
   bottom: 0;
-  background: rgba(0, 0, 0, .5);
+  background: rgba(0, 0, 0, 0.5);
   height: 50rpx;
   line-height: 50rpx;
   width: 100%;
   padding: 0 30rpx;
   overflow: hidden;
-  font-size: 12px;
-  color: #eee;
+  font-size: 14px;
+  color: #fff;
 }
 
-.count-con{
-  margin: 45rpx 30rpx 0 30rpx;
-  box-shadow: 0px 0px 15px 0px rgba(221, 243, 255, 0.8);
+.info-con {
+  padding: 0 30rpx;
+  height: 100rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info-con .green {
+  color: #fff;
+  background: rgba(7, 197, 7, 0.5);
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 10px;
+}
+
+.info-con .grey {
+  color: #fff;
+  background: rgba(195, 196, 209, 0.5);
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 10px;
+}
+
+.count-con {
+  margin: 0 30rpx 0 30rpx;
+  box-shadow: 0px 0px 10px 0px rgba(221, 223, 224, 0.8);
   background-color: #fff;
   border-radius: 10px;
   height: 150rpx;
@@ -62,18 +89,17 @@ page {
 }
 
 .count-num {
-  font-size: 23px;
+  font-size: 50rpx;
   font-weight: bold;
   color: #333;
 }
 
 .count-txt {
-  font-size: 12px;
   color: #666;
 }
 
 .main-con {
-  margin: 45rpx 30rpx 0 30rpx;
+  margin: 40rpx 30rpx 0 30rpx;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -84,7 +110,7 @@ page {
 }
 
 .main-icon {
-  background-image: linear-gradient(to right, rgba(183,197,234,1), rgba(165,186,233,1));
+  background-image: linear-gradient(to right, rgba(183, 197, 234, 1), rgba(165, 186, 233, 1));
   border-radius: 5px;
   height: 100rpx;
   width: 160rpx;
@@ -95,15 +121,15 @@ page {
 }
 
 .bc-1 {
-  background-image: linear-gradient(to right, rgba(153,229,154,1), rgba(142,209,118,1));
+  background-image: linear-gradient(to right, rgba(153, 229, 154, 1), rgba(142, 209, 118, 1));
 }
 
 .bc-2 {
-  background-image: linear-gradient(to right, rgba(239,215,152,1), rgba(243,190,74,1));
+  background-image: linear-gradient(to right, rgba(239, 215, 152, 1), rgba(243, 190, 74, 1));
 }
 
 .bc-3 {
-  background-image: linear-gradient(to right, rgba(234,158,163,1), rgba(231,132,126,1));
+  background-image: linear-gradient(to right, rgba(234, 158, 163, 1), rgba(231, 132, 126, 1));
 }
 
 .main-icon icon {
@@ -113,25 +139,24 @@ page {
 
 .main-desc {
   margin-top: 20rpx;
-  font-size: 12px;
-  color: #666;
+  color: #222;
   text-align: center;
 }
 
 .con-title {
-  margin: 60rpx 0 0 30rpx;
+  margin: 40rpx 0 30rpx 30rpx;
   font-size: 16px;
   font-weight: 700;
-  color: #666;
+  color: #222;
 }
 
 .more-con {
-  margin-top: 45rpx;
-  background-color: #fff;
+  flex: 1;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: space-evnaly;
+  align-items: center;
 }
 
 .more-item {
@@ -139,7 +164,7 @@ page {
 }
 
 .mb60 {
-  margin-bottom: 60rpx;
+  
 }
 
 .more-icon {
@@ -151,12 +176,11 @@ page {
 }
 
 .more-icon icon {
-  color: #879DCC;
+  color: #879dcc;
   font-size: 70rpx;
 }
 
 .more-desc {
   text-align: center;
-  color: #666;
-  font-size: 12px;
+  color: #222;
 }

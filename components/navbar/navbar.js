@@ -51,7 +51,7 @@ Component({
         wx.navigateBack()
       } else if (~this.data.navbarData.leftFont.indexOf('home')) {
         wx.switchTab({
-          url: this.properties.goPath
+          url: this.properties.goPath || '/pages/' + app.globalData.templateId + '/index/index'
         })
       } else {
         wx.redirectTo({

@@ -28,13 +28,13 @@ Page({
 
   golist () {
     wx.switchTab({
-      url: '/pages/user/mine/mine'
+      url: '/pages/mine/mine'
     })
   },
 
   gohome () {
     wx.switchTab({
-      url: '/pages/user/index/index'
+      url: '/pages/' + app.globalData.templateId + '/index/index'
     })
   }
 

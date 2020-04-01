@@ -5,7 +5,7 @@ const util = require('./utils/util.js')
 const api = require('./api/api.js')
 
 App({
-  onLaunch: function () {
+  onLaunch: function() {
     // 清空缓存
     wx.clearStorage()
 
@@ -28,7 +28,7 @@ App({
 
     // 管理更新
     const updateManager = wx.getUpdateManager()
-    updateManager.onCheckForUpdate(function (res) {
+    updateManager.onCheckForUpdate(function(res) {
       // 请求完新版本信息的回调
       if (res.hasUpdate) {
         wx.showToast({
@@ -37,11 +37,11 @@ App({
         })
       }
     })
-    updateManager.onUpdateReady(function () {
+    updateManager.onUpdateReady(function() {
       wx.showModal({
         title: '更新提示',
         content: '新版本已经准备好，是否重启应用？',
-        success: function (res) {
+        success: function(res) {
           if (res.confirm) {
             // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
             updateManager.applyUpdate()
@@ -49,7 +49,7 @@ App({
         }
       })
     })
-    updateManager.onUpdateFailed(function (res) {
+    updateManager.onUpdateFailed(function(res) {
       // 新版本下载失败
       console.log(res)
       wx.showToast({
@@ -90,23 +90,25 @@ App({
     statusBarHeight: 20,
     screenHeight: 0,
     windowHeight: 0,
-    customTabBarTemplateId: 'user',
+    templateId: 'user',
     userInfo: null,
     phone: ''
   },
-  login () {
+  login() {
     return new Promise((resolve, reject) => {
+      if (util.getToken()) {
+        resolve({
+          userInfo: this.globalData.userInfo
+        })
+        return
+      }
       this.getUserInfo().then(userInfo => {
-        if (userInfo.token) {
-          resolve({ userInfo })
-          return
-        }
         // 登录
         wx.login({
           success: res => {
             userInfo.code = res.code
             api.login(userInfo).then(res => {
-              this.globalData.userInfo = Object.assign(this.globalData.userInfo || {}, res)
+              this.globalData.userInfo = res
               util.setToken(res.token)
               resolve({
                 userInfo: this.globalData.userInfo
@@ -125,7 +127,7 @@ App({
       })
     })
   },
-  getUserInfo () {
+  getUserInfo() {
     return new Promise((resolve, reject) => {
       if (this.globalData.userInfo) {
         resolve(this.globalData.userInfo)

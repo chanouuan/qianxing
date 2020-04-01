@@ -1,0 +1,125 @@
+/* pages/user/reportevents/reportevents.wxss */
+
+.container {
+  height: auto;
+}
+
+.add-btn {
+  position: fixed;
+  z-index: 9999;
+	right: 0;
+  width: 50px;
+  text-align: center;
+	height: 40px;
+  line-height: 40px;
+	background: #FFF;
+}
+
+.add-btn icon {
+  font-size: 24px;
+  color: #0689F1;
+}
+
+.con-main {
+  padding: 40px 0 10px 0;
+  opacity: 0;
+}
+
+.con-item {
+  padding: 40rpx;
+  font-size: 14px;
+  color: #222;
+  margin-top: 10px;
+  background-color: #fff;
+  box-shadow: 0px 6px 10px 0px rgba(221, 243, 255, 0.2);
+}
+
+.con-header {
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 20rpx;
+}
+
+.con-header-c {
+  display: flex;
+  justify-content: space-between;
+  height: 30px;
+  line-height: 30px;
+}
+
+.con-header-addr icon {
+  font-size: 20px;
+}
+
+.con-header-status {
+  color: red;
+}
+
+.con-body {
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+  padding: 20rpx 0;
+}
+
+.con-body-tel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.con-body-tel-icon icon{
+  font-size: 22px;
+  background: #3253E3;
+  color: #fff;
+  padding: 0 2px;
+  border-radius: 5px;
+}
+
+.con-footer {
+  padding-top: 40rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  font-size: 14px;
+  width: 200rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  color: #fff;
+  background: linear-gradient(45deg, rgba(91, 222, 130, 1), rgba(31, 211, 144, 1));
+  border-radius: 80rpx;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.btn-default {
+  background: #ccc;
+}
+
+.con-loading {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #ccc;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+}
+
+.empty {
+  position: fixed;
+  top: 40px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  color: #ccc;
+}
+
+.con-show {
+  opacity: 1;
+  transition: .3s;
+}

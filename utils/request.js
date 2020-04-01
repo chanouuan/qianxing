@@ -17,6 +17,41 @@ class HttpRequest {
     }
     return config
   }
+  upfile(options) {
+    return new Promise((resolve, reject) => {
+      let UploadTask = wx.uploadFile({
+        url: options.url,
+        filePath: options.filePath,
+        header: {
+          "Content-Type": "multipart/form-data"
+        },
+        formData: options.body,
+        name: 'upfile',
+        success: res => {
+          this.response(JSON.parse(res.data), resolve, reject)
+        },
+        fail: err => {
+          wx.showToast({
+            title: '连接超时，请检查网络！',
+            icon: 'none'
+          })
+          reject(err)
+        },
+        complete: res => {
+          if (options.progress) {
+            UploadTask.offProgressUpdate(options.progress)
+          }
+          UploadTask = null
+          options = null
+        }
+      })
+      if (UploadTask) {
+        if (options.progress) {
+          UploadTask.onProgressUpdate(options.progress)
+        }
+      }
+    })
+  }
   response(data, resolve, reject) {
     if (typeof data === 'object') {
       if ('errorcode' in data) {
@@ -31,7 +66,8 @@ class HttpRequest {
         }
         wx.showToast({
           title: data.message,
-          icon: 'none'
+          icon: 'none',
+          duration: 3000
         })
       }
     }
@@ -81,6 +117,9 @@ class HttpRequest {
   request (options) {
     options = Object.assign(this.getInsideConfig(), options || {})
     options.url = this.baseUrl + options.url;
+    if (options.upfile) {
+      return this.upfile(options)
+    }
     if (options.proxy) {
       return this.cloudMethod(options)
     } else {

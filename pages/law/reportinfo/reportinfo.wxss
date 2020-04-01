@@ -1,0 +1,81 @@
+/* pages/law/reportinfo/reportinfo.wxss */
+
+.container {
+  height: auto;
+  padding-bottom: 25rpx;
+}
+
+.form-con {
+  font-size: 14px;
+  background-color: #fff;
+  box-shadow: 0px 6px 10px 0px rgba(221, 243, 255, 0.2);
+  border-radius: 20rpx;
+  width: 700rpx;
+  color: #222;
+  margin: 0 auto;
+  padding: 25rpx;
+  margin-top: 25rpx;
+}
+
+.form-head {
+  font-weight: bold;
+}
+
+.form-item {
+  height: 48px;
+  line-height: 48px;
+  padding: 0 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+}
+
+.form-item:last-child {
+  border-bottom: none;
+}
+
+.form-con input {
+  text-align: right;
+  width: 100%;
+  color: #222;
+}
+
+.form-placeholder {
+  font-size: 12px;
+  color: #ccc;
+}
+
+.form-text {
+  text-align: right;
+  color: rgba(34, 34, 34, 0.5);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-left: 20rpx;
+  font-size: 12px;
+}
+
+.form-text icon {
+  font-size: 20px;
+}
+
+.form-word {
+  height: 20px;
+  line-height: 20px;
+}
+
+.btn {
+  font-size: 14px;
+  width: 288rpx !important;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  color: #fff;
+  background: linear-gradient(45deg, rgba(91, 222, 130, 1), rgba(31, 211, 144, 1));
+  border-radius: 10rpx;
+  font-weight: 500;
+  margin-top: 25rpx;
+  padding: 0;
+  border: none;
+}

@@ -1,0 +1,44 @@
+<!--pages/user/reportevents/reportevents.wxml-->
+
+<view class="container">
+  <tab tabList="{{[{name: '待受理'},{name: '受理中'},{name: '已完成'}]}}" currentTab="{{tabIndex}}" catch:clickTab="onClickTab" />
+  <view class="add-btn" catchtap="reloadReport">
+    <icon class="iconfont icon-add"></icon>
+  </view>
+  <view class="empty" wx:if="{{isEmpty}}">暂无记录</view>
+  <view class="con-main {{datalist.length?'con-show':''}}">
+    <view class="con-item" wx:for="{{datalist}}" wx:key="id">
+      <view class="con-header">
+        <view class="con-header-c">
+          <view class="con-header-addr" data-index="{{index}}"><icon class="iconfont icon-dingwei" bindtap="position"></icon> <text>{{item.address}}</text></view>
+          <view class="con-header-status">{{item.status_str}}</view>
+        </view>
+        <view class="con-header-date">{{item.create_time}}</view>
+      </view>
+      <view class="con-body">
+        <view class="con-body-tel">
+          <view>报警人电话</view>
+          <view>{{item.user_mobile?item.user_mobile:'未确认'}}</view>
+          <view class="con-body-tel-icon" data-index="{{index}}" bindtap="callUser">
+            <icon class="iconfont icon-call"></icon>
+          </view>
+        </view>
+      </view>
+      <view class="con-footer">
+        <block wx:if="{{tabIndex===0}}">
+          <view data-id="{{item.id}}" class="btn btn-default">删除报案</view>
+          <view data-id="{{item.id}}" class="btn">移交报案</view>
+          <view data-id="{{item.id}}" bindtap="acceptReport" class="btn">受理报案</view>
+        </block>
+        <block wx:else>
+          <view class="btn btn-default">通知交警</view>
+          <view class="btn btn-default">通知救援</view>
+          <view data-id="{{item.id}}" bindtap="reloadReport" class="btn">案件处置</view>
+        </block>
+      </view>
+    </view>
+    <view class="con-loading">
+      <view wx:if="{{isEnd}}">没有更多了</view>
+    </view>
+  </view>
+</view>

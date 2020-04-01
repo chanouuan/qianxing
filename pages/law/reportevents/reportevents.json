@@ -1,8 +1,8 @@
 {
   "usingComponents": {
+    "tab": "/components/tab/tab"
   },
-  "navigationBarTextStyle": "white",
-  "navigationStyle": "custom",
+  "navigationBarTitleText": "我的案件",
   "enablePullDownRefresh": true,
   "backgroundTextStyle": "dark",
   "backgroundColor": "#EFEFF4"

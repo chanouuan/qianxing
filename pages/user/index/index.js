@@ -11,9 +11,13 @@ Page({
       'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583919641265&di=6ae0797a17b3694a1eed72035c653bdc&imgtype=0&src=http%3A%2F%2Fn8.cmsfile.pg0.cn%2Fgroup1%2FM00%2F05%2FBE%2FCgoOEF44uECAcjmtAAGG93HQVEs970.jpg'
     ]
   },
-  onLoad () {
+  onLoad() {
+    wx.showLoading({
+      title: '加载中...'
+    })
     // 获取用户信息
     app.login().then(res => {
+      wx.hideLoading();
       console.log(res)
       this.setData(res)
     }).catch(res => {
@@ -21,7 +25,16 @@ Page({
         this.setData(res)
       })
     })
+  },
 
+  onPullDownRefresh() {
+    // 下拉刷新
+    app.login().then(res => {
+      wx.stopPullDownRefresh()
+      this.setData(res)
+    }).catch(res => {
+      wx.stopPullDownRefresh()
+    })
   },
 
   onShow() {
@@ -29,19 +42,28 @@ Page({
     this.getTabBar().switchPage(0)
   },
 
-  /**
-   * 事故报案
-   */
-  callTap () {
+  tapLawApp() {
+    // 进入管理端
+    wx.showToast({
+      icon: 'loading',
+      duration: 2000,
+      title: '正在进入'
+    })
+    this.getTabBar().switchMenu('law')
+    wx.switchTab({
+      url: '/pages/law/index/index'
+    })
+  },
+
+  callTap() {
+    // 事故报案
     wx.navigateTo({
       url: '/pages/user/report/report'
     })
   },
 
-  /**
-   * 更多应用
-   */
-  moreApp () {
+  moreApp() {
+    // 更多应用
     wx.navigateTo({
       url: '/pages/more/more'
     })

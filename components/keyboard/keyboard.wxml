@@ -1,0 +1,37 @@
+<!--components/keyboard/keyboard.wxml-->
+<view class="license-wrap" catchtap="handleCloseKeyboard">
+  <view class='license-keyboard' catchtap="nodata">
+    <!-- 按键音 -->
+    <!-- 关闭 -->
+    <view class='keyboard-head' catchtap='handleCloseKeyboard'>
+      <view class='keyboard-close'>关闭</view>
+    </view>
+    <!-- 省键盘 -->
+    <view class='province' wx:if="{{provinceFlag}}">
+      <view class='key-item' hover-class='key-hover' hover-stay-time='40' style='margin-right:{{index==9||index==19||index==29||index==provinceArr.length-1?"0":"12rpx"}}' wx:key="{{index}}" wx:for='{{provinceArr}}'>
+        <view class='key' data-value="{{item}}" catchtap='handleSelectLicense'>{{item}}</view>
+      </view>
+    </view>
+    <!-- 数字键盘 -->
+    <view class='province num' wx:else>
+      <!-- 不能点数字 -->
+      <view class='key-item no-btn' style='margin-right:{{index==9?"0":"12rpx"}}' wx:if='{{!showNumFlag}}' data-value="{{item}}" wx:key="{{index}}" wx:for='{{numArr}}'>
+        <view class='key '>{{item}}</view>
+      </view>
+      <!-- 能点数字 -->
+      <view class='key-item' hover-class='key-hover' hover-stay-time='40' style='margin-right:{{index==9?"0":"12rpx"}}' wx:if='{{showNumFlag}}' wx:key="{{index}}" wx:for='{{numArr}}'>
+        <view class='key' data-value="{{item}}" catchtap='handleSelectLicense'>{{item}}</view>
+      </view>
+      <!-- 字母键盘 -->
+      <view class='key-item {{(index==7||index==8)?"no-btn":""}}' hover-class='key-hover' hover-stay-time='40' style='margin-left:{{index==10?"24rpx":"0"}};margin-right:{{index==9?"0":index==18?"24rpx":index==letterArr.length-1?"0":"12rpx"}}' wx:key="{{index}}"
+        wx:for='{{letterArr}}'>
+        <view class='key ' wx:if='{{index==7||index==8}}' data-value="{{item}}">{{item}}</view>
+        <view class='key' wx:else data-value="{{item}}" catchtap='handleSelectLicense'>{{item}}</view>
+      </view>
+      <view class='delete-key' hover-class='hover-delete' hover-stay-time='40' catchtap='handleDeleteLicense'>
+        <text style='font-size:12px;color:#000'>后退</text>
+      </view>
+    </view>
+    <!-- 回退 -->
+  </view>
+</view>

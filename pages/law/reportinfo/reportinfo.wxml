@@ -1,0 +1,96 @@
+<!--pages/law/reportinfo/reportinfo.wxml-->
+
+<view class="pure-top container">
+  <view class="form-con">
+    <view class="form-item">
+      <view class="form-head">车主信息</view>
+    </view>
+    <view class="form-item">
+      <text class="form-label">时间</text>
+      <view class="form-text">
+        <pickerYMDHM placeholder="请输入时间" mode="date" data="{{datainfo.event_time}}" bind:onPickerChange="eventTimeChange">
+          {{datainfo.event_time}}
+          <icon class="iconfont icon-riqi"></icon>
+        </pickerYMDHM>
+      </view>
+    </view>
+    <view class="form-item">
+      <text class="form-label">地点</text>
+      <view class="form-text">
+        {{datainfo.address}}
+        <icon class="iconfont icon-dingwei" bindtap="mapPostion"></icon>
+      </view>
+    </view>
+    <view class="form-item">
+      <text class="form-label">桩号</text>
+      <view class="form-text">
+        <input bindinput="stakeNumberInput" value="{{datainfo.stake_number}}" maxlength="50" placeholder-class="form-placeholder" placeholder="例如：G75兰海高速K1247+500M下行"></input>
+      </view>
+    </view>
+    <view class="form-item">
+      <text class="form-label">天气</text>
+      <view class="form-text">
+        <picker bindchange="weatherChange" range-key="name" value="{{weatherIndex}}" range="{{weatherItems}}">
+          {{weatherItems[weatherIndex].name}}
+        </picker>
+      </view>
+    </view>
+    <view class="form-item">
+      <text class="form-label">车型</text>
+      <view class="form-text">
+        <picker bindchange="carTypeChange" range-key="name" value="{{carTypeIndex}}" range="{{carTypeItems}}">
+          {{carTypeItems[carTypeIndex].name}}
+        </picker>
+      </view>
+    </view>
+  </view>
+
+  <view class="form-con">
+    <view class="form-item">
+      <text class="form-label">事件类型</text>
+      <view class="form-text">
+        <picker bindchange="eventTypeChange" range-key="name" value="{{eventTypeIndex}}" range="{{eventTypeItems}}">
+          {{eventTypeItems[eventTypeIndex].name}}
+        </picker>
+      </view>
+    </view>
+    <view class="form-item">
+      <text class="form-label">受伤情况</text>
+      <view class="form-text">
+        <picker bindchange="driverStateChange" range-key="name" value="{{driverStateIndex}}" range="{{driverStateItems}}">
+          {{driverStateItems[driverStateIndex].name}}
+        </picker>
+      </view>
+    </view>
+    <view class="form-item">
+      <text class="form-label">车辆情况</text>
+      <view class="form-text">
+        <picker bindchange="carStateChange" range-key="name" value="{{carStateIndex}}" range="{{carStateItems}}">
+          {{carStateItems[carStateIndex].name}}
+        </picker>
+      </view>
+    </view>
+    <view class="form-item">
+      <text class="form-label">交通情况</text>
+      <view class="form-text">
+        <picker bindchange="trafficStateChange" range-key="name" value="{{trafficStateIndex}}" range="{{trafficStateItems}}">
+          {{trafficStateItems[trafficStateIndex].name}}
+        </picker>
+      </view>
+    </view>
+  </view>
+  
+  <view class="form-con">
+    <view class="form-item">
+      <text class="form-label">执法人员</text>
+      <view class="form-text">
+        <picker bindchange="colleagueChange" range-key="name" value="{{colleagueIndex}}" range="{{colleagueItems}}">
+          {{colleagueItems[colleagueIndex].name}}
+        </picker>
+      </view>
+    </view>
+    <view class="form-item">
+      <button class="btn" loading="{{submit}}" bindtap="reportInfo">进入处置</button>
+    </view>
+  </view>
+</view>

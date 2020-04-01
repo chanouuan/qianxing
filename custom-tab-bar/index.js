@@ -48,7 +48,7 @@ Component({
   lifetimes: {
     attached() {
       this.setData({
-        templateId: app.globalData.customTabBarTemplateId || this.data.templateId
+        templateId: app.globalData.templateId || this.data.templateId
       })
     }
   },
@@ -61,12 +61,12 @@ Component({
     },
     switchPage(selected) {
       this.setData({
-        templateId: app.globalData.customTabBarTemplateId,
+        templateId: app.globalData.templateId,
         selected: selected
       })
     },
     switchMenu(templateId) {
-      app.globalData.customTabBarTemplateId = templateId
+      app.globalData.templateId = templateId
       this.setData({
         templateId: templateId
       })

@@ -71,11 +71,11 @@
       </view>
       <view class="more-desc">挪车求助</view>
     </view>
-    <view class="more-item">
+    <view class="more-item" wx:if="{{userInfo.group_id}}" bindtap="tapLawApp">
       <view class="more-icon">
-        <icon class="iconfont icon-sousuo"></icon>
+        <icon class="iconfont icon-baoanlipei"></icon>
       </view>
-      <view class="more-desc">违法查询</view>
+      <view class="more-desc">路政管理</view>
     </view>
     <view class="more-item" bindtap="moreApp">
       <view class="more-icon">

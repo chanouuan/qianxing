@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "tab": "/components/tab/tab",
+    "ocr-navigator": "plugin://ocr-plugin/ocr-navigator"
+  },
+  "navigationBarTitleText": "案件处理"
+}

@@ -2,12 +2,22 @@
   "pages": [
     "pages/user/index/index",
     "pages/user/reportevents/reportevents",
-    "pages/mine/mine",
     "pages/user/tips/tips",
     "pages/user/report/report",
     "pages/law/index/index",
+    "pages/law/reportinfo/reportinfo",
+    "pages/law/reportevents/reportevents",
+    "pages/law/cardinfo/cardinfo",
+    "pages/law/reportfile/reportfile",
+    "pages/mine/mine",
     "pages/about/about"
   ],
+  "plugins": {
+    "ocr-plugin": {
+      "version": "3.0.2",
+      "provider": "wx4418e3e031e551be"
+    }
+  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
