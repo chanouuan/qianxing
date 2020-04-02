@@ -18,7 +18,6 @@ Page({
     // 获取用户信息
     app.login().then(res => {
       wx.hideLoading();
-      console.log(res)
       this.setData(res)
     }).catch(res => {
       app.login().then(res => {

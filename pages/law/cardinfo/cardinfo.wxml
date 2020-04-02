@@ -1,6 +1,6 @@
 <!--pages/law/cardinfo/cardinfo.wxml-->
 <!-- 键盘 -->
-<keyboard wx:if='{{keyboardFlag}}' bind:setlicense="handleSetLicense" bind:closeBoard="handleCloseKeyboard" licenseList="{{licenseList}}" />
+<keyboard wx:if='{{keyboardFlag}}' bind:setlicense="handleSetLicense" bind:closeBoard="handleCloseKeyboard" licenseList="{{form.plate_num}}" />
 
 <view class="pure-top container">
   <form bindsubmit="tapCardinfo">

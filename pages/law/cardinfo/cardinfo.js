@@ -6,7 +6,6 @@ Page({
 
   data: {
     keyboardFlag: false,
-    licenseList: [],
     report_id: 0,
     submit: false,
     form: {}
@@ -20,11 +19,10 @@ Page({
     })
     api.getReportDetail({
       report_id: this.data.report_id,
-      data_type: 'info'
+      data_type: 'card'
     }).then(res => {
       wx.hideLoading()
       this.setData({
-        licenseList: res.plate_num ? res.plate_num.split('') : [],
         form: {
           addr: res.addr,
           full_name: res.full_name,
@@ -58,8 +56,7 @@ Page({
   handleSetLicense(e) {
     // 键盘组件中拿到车牌号
     this.setData({
-      'form.plate_num': e.detail.license_num.join(''),
-      licenseList: e.detail.license_num
+      'form.plate_num': e.detail.license_num.join('')
     })
   },
 
@@ -86,8 +83,20 @@ Page({
     })
     e.detail.value.report_id = this.data.report_id
     api.cardInfo(e.detail.value).then(res => {
+      let routes = getCurrentPages()
+      routes.forEach(route => {
+        if (~route.route.indexOf('reportfile')) {
+          // 跳转到勘验笔录
+          route.onClickTab({
+            detail: {
+              current: 1
+            }
+          })
+        }
+      })
       wx.navigateBack()
     }).catch(err => {
+      console.log(err)
       this.setData({
         submit: false
       })

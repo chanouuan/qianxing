@@ -120,3 +120,21 @@ export const cardInfo = (post) => {
     body: post
   })
 }
+
+// 搜索路产赔损项目
+export const searchPropertyItems = (post) => {
+  post.token = util.getToken()
+  return axios.request({
+    url: '/miniprogramServer/searchPropertyItems',
+    body: post
+  })
+}
+
+// 保存勘验笔录
+export const reportItem = (post) => {
+  post.token = util.getToken()
+  return axios.request({
+    url: '/miniprogramServer/reportItem',
+    body: post
+  })
+}

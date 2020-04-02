@@ -1,5 +1,6 @@
 {
   "pages": [
+    
     "pages/user/index/index",
     "pages/user/reportevents/reportevents",
     "pages/user/tips/tips",

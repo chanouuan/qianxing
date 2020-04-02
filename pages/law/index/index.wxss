@@ -5,7 +5,7 @@ page {
 }
 
 .container {
-  font-size: 14px;
+  font-size: 12px;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -36,7 +36,7 @@ page {
   width: 100%;
   padding: 0 30rpx;
   overflow: hidden;
-  font-size: 14px;
+  font-size: 12px;
   color: #fff;
 }
 
