@@ -71,11 +71,11 @@ Page({
         driver_license_behind: res.driver_license_behind,
         driving_license_front: res.driving_license_front,
         driving_license_behind: res.driving_license_behind,
-        involved_action: res.involved_action,
+        involved_action: res.involved_action || {},
         involved_act: res.involved_act,
         extra_info: res.extra_info,
         involved_build_project: res.involved_build_project,
-        involved_action_type: res.involved_action_type,
+        involved_action_type: res.involved_action_type || {},
         items: res.items,
         totalMoney: res.pay
       }
@@ -347,6 +347,12 @@ Page({
     })
   },
 
+  goTab(e) {
+    this.setData({
+      tabIndex: e.currentTarget.dataset.index
+    })
+  },
+
   cardinfo() {
     // 证件采集下一步
     wx.navigateTo({
@@ -379,9 +385,20 @@ Page({
       involved_action_type: JSON.stringify(this.data.involved_action_type),
       extra_info: this.data.extra_info
     }).then(res => {
-      this.setData({
-        submit: false,
-        tabIndex: 2
+      wx.navigateTo({
+        url: '/pages/law/paper/paper?report_id=' + this.data.report_id,
+        events: {
+          paperCallBack: (res) => {
+            this.setData({
+              tabIndex: 2
+            })
+          }
+        },
+        success: () => {
+          this.setData({
+            submit: false
+          })
+        }
       })
     }).catch(err => {
       this.setData({

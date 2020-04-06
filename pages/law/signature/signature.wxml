@@ -1,0 +1,26 @@
+<view class="wrapper">
+  <view class="handBtn">
+    <image catchtap="selectColorEvent" src="{{ selectColor === 'black' ? '../../../images/color_black_selected.png' : '../../../images/color_black.png' }}" class="{{ selectColor === 'black' ? 'color_select' : '' }} black-select" data-color="black"
+      data-color-value="#1A1A1A"></image>
+    <image catchtap="selectColorEvent" src="{{ selectColor === 'red' ? '../../../images/color_red_selected.png' : '../../../images/color_red.png' }}" class="{{ selectColor === 'red' ? 'color_select' : '' }} red-select" data-color="red"
+      data-color-value="#ca262a"></image>
+    <view catchtap="retDraw" class="inner-btn delBtn">重写</view>
+		<view hidden catchtap="previewCanvasImg" class="inner-btn previewBtn">预览</view>
+    <view catchtap="subCanvas" class="inner-btn subBtn">完成</view>
+  </view>
+  <view class="handCenter">
+    <canvas id="handWriting" class="handWriting" type="2d" disable-scroll="true" bindtouchstart="uploadScaleStart" bindtouchmove="uploadScaleMove"
+      bindtouchend="uploadScaleEnd" canvas-id="handWriting">
+    </canvas>
+  </view>
+  <view class="handRight">
+    <view class="boxGroup">
+      <radio-group class="radioGroup" bindchange="radioChange">
+        <radio value="signature_checker" checked>勘验人</radio>
+        <radio value="signature_writer">记录人</radio>
+        <radio value="signature_agent">当事人</radio>
+        <radio value="signature_invitee">被邀请人</radio>
+      </radio-group>
+    </view>
+  </view>
+</view>

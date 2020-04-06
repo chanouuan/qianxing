@@ -3,7 +3,7 @@
 <!--菜单-->
 <tab tabList="{{[{name:'证件采集'},{name:'勘验笔录'},{name:'签字确认'}]}}" currentTab="{{tabIndex}}" catch:clickTab="onClickTab" />
 
-<scroll-view catchtap="nodata" scroll-y class="content-view {{tabIndex === 0 ? 'content-show' : '' }}">
+<scroll-view catchtap="nodata" scroll-y class="content-view {{tabIndex == 0 ? 'content-show' : '' }}">
   <!--证件采集-->
   <view class="content-wrap">
     <view class="content-inner">
@@ -78,16 +78,16 @@
       </view>
       <view class="title">其他图照</view>
       <view class="panel-add">
-        <view class="btn">更多照片</view>
+        <view class="default-button">更多照片</view>
       </view>
       <view class="panel-bottom">
-        <button class="btn" bindtap="cardinfo">保存并进行下一步</button>
+        <button class="default-button" bindtap="cardinfo">保存并进行下一步</button>
       </view>
     </view>
   </view>
 </scroll-view>
 
-<scroll-view catchtap="nodata" scroll-y class="content-view {{tabIndex === 1 ? 'content-show' : '' }}">
+<scroll-view catchtap="nodata" scroll-y class="content-view {{tabIndex == 1 ? 'content-show' : '' }}">
   <!--勘验笔录-->
   <view class="content-wrap">
     <view class="content-inner">
@@ -179,14 +179,25 @@
         </view>
       </view>
       <view class="panel-bottom">
-        <button class="btn" loading="{{submit}}" bindtap="reportitem">保存并进行下一步</button>
+        <button class="default-button" loading="{{submit}}" bindtap="reportitem">保存并进行下一步</button>
       </view>
     </view>
   </view>
 </scroll-view>
 
-<scroll-view catchtap="nodata" scroll-y class="content-view {{tabIndex === 2 ? 'content-show' : '' }}">
+<scroll-view catchtap="nodata" scroll-y class="content-view {{tabIndex == 2 ? 'content-show' : '' }}">
   <!--签字确认-->
-  <view class="content-inner">
+  <view class="content-wrap">
+    <view class="content-inner">
+      <view class="warn-title">签字前请确认以下事项</view>
+      <view class="warn-info">
+        <view>1. 现场执法人员（姓名：XXX 执法证号XXX  姓名：XXX 执法证号XXX 自动获取）与你有无利害关系。</view>
+        <view>2. 对此次事故的现场勘验笔录、现场勘验图照是否属实，有无异议。如没有利害关系且对现场勘验结果无异议，请签字确认。</view>
+      </view>
+      <view class="warn-btn">
+        <view class="default-button" data-index="1" bindtap="goTab">现场勘验笔录</view>
+        <view class="default-button" data-index="0" bindtap="goTab">现场勘验图照</view>
+      </view>
+    </view>
   </view>
 </scroll-view>

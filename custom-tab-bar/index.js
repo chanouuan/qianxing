@@ -11,7 +11,7 @@ Component({
         "borderStyle": "white",
         "list": [
           {
-            "pagePath": "/pages/user/index/index",
+            "pagePath": "/pages/index/index",
             "text": "首页",
             "iconPath": "/images/tab/tab_home.png",
             "selectedIconPath": "/images/tab/select_tab_home.png"
@@ -30,8 +30,8 @@ Component({
         "borderStyle": "white",
         "list": [
           {
-            "pagePath": "/pages/law/index/index",
-            "text": "路政",
+            "pagePath": "/pages/index/index",
+            "text": "首页",
             "iconPath": "/images/tab/tab_home.png",
             "selectedIconPath": "/images/tab/select_tab_home.png"
           },

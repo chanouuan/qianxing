@@ -1,15 +1,15 @@
 {
   "pages": [
-    
-    "pages/user/index/index",
+    "pages/index/index",
     "pages/user/reportevents/reportevents",
     "pages/user/tips/tips",
     "pages/user/report/report",
-    "pages/law/index/index",
     "pages/law/reportinfo/reportinfo",
     "pages/law/reportevents/reportevents",
     "pages/law/cardinfo/cardinfo",
     "pages/law/reportfile/reportfile",
+    "pages/law/signature/signature",
+    "pages/law/paper/paper",
     "pages/mine/mine",
     "pages/about/about"
   ],
@@ -34,13 +34,10 @@
     "custom": true,
     "list": [
       {
-        "pagePath": "pages/user/index/index"
+        "pagePath": "pages/index/index"
       },
       {
         "pagePath": "pages/mine/mine"
-      },
-      {
-        "pagePath": "pages/law/index/index"
       }
     ]
   },

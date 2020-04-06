@@ -1,5 +1,30 @@
 /* pages/law/reportfile/reportfile.wxss */
 
+/*checkbox 整体大小  */
+checkbox {
+ 
+}
+/*checkbox 选项框大小  */
+checkbox .wx-checkbox-input {
+  width: 14px;
+  height: 14px;
+}
+/*checkbox选中后样式  */
+checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+  
+}
+/*checkbox选中后图标样式  */
+checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
+  width: 28rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  text-align: center;
+  font-size: 22rpx;
+  background: transparent;
+  transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
+}
+
 .content-view {
   position: absolute;
   z-index: 1;
@@ -35,8 +60,8 @@
 
 .title {
   font-weight: bold;
-  height: 50px;
-  line-height: 50px;
+  height: 100rpx;
+  line-height: 100rpx;
 }
 
 .panel1 {
@@ -127,19 +152,6 @@
   box-shadow: 0 0 10px 0 rgba(216, 211, 211, 0.6)
 }
 
-.btn {
-  font-size: 14px;
-  height: 88rpx;
-  line-height: 88rpx;
-  text-align: center;
-  color: #fff;
-  background: linear-gradient(45deg, rgba(91, 222, 130, 1), rgba(31, 211, 144, 1));
-  border-radius: 10rpx;
-  font-weight: 500;
-  padding: 0;
-  border: none;
-}
-
 .panel-search {
   margin: 40rpx 0;
 }
@@ -187,7 +199,7 @@
 }
 
 .panel-checkbox label {
-  height: 40px;
+  height: 70rpx;
   display: flex;
   align-items: center;
 }
@@ -209,16 +221,11 @@
 }
 
 .panel-form-item {
-  height: 40px;
-  line-height: 40px;
-  padding: 0 20rpx;
+  height: 70rpx;
+  line-height: 70rpx;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.panel-form-item:last-child {
-  border-bottom: none;
 }
 
 .panel-form-item input {
@@ -232,5 +239,35 @@
   flex: 1;
   white-space: nowrap;
   padding-left: 20rpx;
+  font-size: 12px;
+}
+
+.warn-title {
+  font-size: 12px;
+  color: #aaa;
+  height: 100rpx;
+  line-height: 100rpx;
+}
+
+.warn-info {
+  font-size: 12px;
+  background: #F9FAFC;
+  padding: 40rpx;
+}
+
+.warn-info view:first-child {
+  margin-bottom: 40rpx;
+}
+
+.warn-btn {
+  display: flex;
+  justify-content: space-between;
+  height: 150rpx;
+  align-items: center;
+}
+
+.warn-btn view {
+  background: #E8EDF2;
+  color: rgb(22, 91, 220);
   font-size: 12px;
 }

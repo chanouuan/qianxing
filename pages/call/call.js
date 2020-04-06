@@ -1,5 +1,5 @@
 // pages/call.js
-const coordtransform = require('coordtransform')
+//const coordtransform = require('coordtransform')
 
 const app = getApp()
 

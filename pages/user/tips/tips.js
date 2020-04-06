@@ -34,7 +34,7 @@ Page({
 
   gohome () {
     wx.switchTab({
-      url: '/pages/' + app.globalData.templateId + '/index/index'
+      url: '/pages/index/index'
     })
   }
 

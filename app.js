@@ -10,12 +10,12 @@ App({
     wx.clearStorage()
 
     // 云开发
-    if (wx.cloud) {
-      wx.cloud.init({
-        env: 'http-method-k3d5g',
-        traceUser: true
-      })
-    }
+    // if (wx.cloud) {
+    //   wx.cloud.init({
+    //     env: 'http-method-k3d5g',
+    //     traceUser: true
+    //   })
+    // }
 
     // 系统参数
     wx.getSystemInfo({

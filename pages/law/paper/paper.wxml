@@ -1,0 +1,137 @@
+
+<view class="paper-panel">
+  <view class="paper-wrap">
+    <movable-area class="movable-area">
+      <movable-view wx:if="{{pageFlag}}" class="paper" damping="20" scale-value="0.5" scale-min="0.5" scale-max="1" direction="all" out-of-bounds scale animation="{{false}}">
+        <view class="paper-title">高速公路路产勘验（检查）笔录</view>
+        <view class="paper-flex-end paper-margin-bottom">
+          <text>黔遵高路</text>龙坪路勘〔2020〕<text></text>号
+        </view>
+        <view class="paper-flex-between">
+          勘验（检查）时间：<text>{{datainfo.check_start_time.year}}</text>年<text>{{datainfo.check_start_time.month}}</text>月<text>{{datainfo.check_start_time.day}}</text>日<text>{{datainfo.check_start_time.hour}}</text>时<text>{{datainfo.check_start_time.minute}}</text>分至<text>{{datainfo.check_end_time.month}}</text>月<text>{{datainfo.check_end_time.day}}</text>日<text>{{datainfo.check_end_time.hour}}</text>时<text>{{datainfo.check_end_time.minute}}</text>分
+        </view>
+        <view class="paper-flex-between">
+          勘验（检查）地点：<text class="paper-flex5">{{datainfo.address}}</text>天气情况：<text class="paper-flex2">{{datainfo.weather}}</text>
+        </view>
+        <view>勘验（检查）情况及结果：</view>
+        <view class="paper-flex-between">
+          1.事发时间：<text>{{datainfo.event_time.year}}</text>年<text>{{datainfo.event_time.month}}</text>月<text>{{datainfo.event_time.day}}</text>日 ，事发地点：<text class="paper-flex4">{{datainfo.address}}</text>
+        </view>
+        <view>
+          2.涉案车辆：<text>1</text>辆
+        </view>
+        <view>
+          <view>车牌：{{datainfo.plate_num||''}}</view> 
+          <view>车型：{{datainfo.car_type}}</view> 
+          <view>驾驶人：{{datainfo.full_name||''}}</view>
+        </view>
+        <view>3.导致路政赔（补）偿的行为：</view>
+        <view><text class="paper-checkbox">{{datainfo.involved_action.a?'☑':'☐'}}涉案车辆发生交通事故。</text></view>
+        <view><text class="paper-checkbox">{{datainfo.involved_action.b?'☑':'☐'}}涉案车辆发生故障。</text></view>
+        <view class="paper-flex-between">
+          <text class="paper-checkbox">{{datainfo.involved_action.c?'☑':'☐'}}涉案车辆装载物</text><text class="paper-flex1"></text>
+          <view class="paper-flex-between paper-flex2 paper-margin-bottom0">
+            发生：
+            <text class="paper-checkbox">{{datainfo.involved_action.c1?'☑':'☐'}}掉落</text>
+            <text class="paper-checkbox">{{datainfo.involved_action.c2?'☑':'☐'}}遗洒</text>
+            <text class="paper-checkbox">{{datainfo.involved_action.c3?'☑':'☐'}}飘散</text>
+            <text class="paper-checkbox">{{datainfo.involved_action.c4?'☑':'☐'}}触地拖行。</text>
+          </view>
+        </view>
+        <view class="paper-flex-between">
+          <text class="paper-checkbox">{{datainfo.involved_action.d?'☑':'☐'}}事发地点有以下施工活动：</text><text class="paper-flex1">{{datainfo.involved_build_project||''}}</text>
+        </view>
+        <view class="paper-flex-between">
+          <text class="paper-checkbox">{{datainfo.involved_action.e?'☑':'☐'}}事发地点有以下行为：</text><text class="paper-flex1">{{datainfo.involved_act||''}}</text>
+        </view>
+        <view class="paper-flex-align-center">
+          4.涉案行为类别：
+          <text class="paper-checkbox">{{datainfo.involved_action_type.a?'☑':'☐'}}损坏</text>
+          <text class="paper-checkbox paper-margin-left">{{datainfo.involved_action_type.b?'☑':'☐'}}污染</text>
+          <text class="paper-checkbox paper-margin-left">{{datainfo.involved_action_type.c?'☑':'☐'}}占用</text>
+        </view>
+        <view class="paper-flex-between">
+          5.路产受损情况：
+          <text class="paper-flex1">{{datainfo.items[0]}}</text>
+        </view>
+        <view class="paper-flex-between paper-height20">
+          <text class="paper-flex1">{{datainfo.items[1]}}</text>
+        </view>
+        <view class="paper-flex-between paper-height20">
+          <text class="paper-flex1">{{datainfo.items[2]}}</text>
+        </view>
+        <view class="paper-flex-between">
+          6.勘验、检查中的其他情况：<text class="paper-flex1">{{datainfo.extra_info||''}}</text>
+        </view>
+        <view>在勘验、检查中，依法收集、制作了以下证据材料（附后）：</view>
+        <view class="paper-flex-between">
+          <text class="paper-checkbox">☐当事人身份证件</text>
+          <text class="paper-checkbox paper-margin-left">☐驾驶证</text>
+          <text class="paper-checkbox paper-margin-left">☐驾驶人从业资格证</text>
+          <text class="paper-checkbox paper-margin-left">☐行驶证</text>
+          <text class="paper-checkbox paper-margin-left paper-flex1">☐道路运输证</text>
+        </view>
+        <view class="paper-flex-between">
+          <text class="paper-checkbox">☐路政赔（补）偿清单</text>
+          <text class="paper-checkbox paper-margin-left">☐现场照片</text>
+          <text class="paper-checkbox paper-margin-left">☐现场示意图</text>
+          <text class="paper-checkbox paper-margin-left paper-flex1">☐超限检测磅单</text>
+        </view>
+        <view class="paper-flex-between">
+          <text class="paper-checkbox">☐车辆通行费发票</text>
+          <text class="paper-checkbox paper-margin-left">☑视频资料</text>
+          <text class="paper-checkbox paper-margin-left">☐音频资料</text>
+          <text class="paper-checkbox paper-margin-left">☐电子数据</text>
+          <text class="paper-checkbox paper-margin-left">☐其他：</text>
+          <text class="paper-flex1"></text>
+        </view>
+        <view class="paper-padding">
+          <view class="paper-flex-between">
+            勘验（检查）人：<view class="paper-img paper-flex1"><image  vx:if="{{datainfo.signature_checker}}" src="{{datainfo.signature_checker}}" mode="widthFix"></image></view> 记录人：<view class="paper-img paper-flex1"><image  vx:if="{{datainfo.signature_writer}}" src="{{datainfo.signature_writer}}" mode="widthFix"></image></view>
+          </view>
+          <view class="paper-flex-between">
+            执法证号：<text class="paper-flex1">{{datainfo.law_lawnum}}　{{datainfo.colleague_lawnum}}</text>
+          </view>
+          <view class="paper-flex-end">
+            <text>{{date.year}}</text>年<text>{{date.month}}</text>月<text>{{date.day}}</text>日
+          </view>
+        </view>
+        <view class="paper-flex-align-center">
+          <text class="paper-flex1"></text>
+        </view>
+        <view>
+          以下由当事人或其代理人填写：
+        </view>
+        <view class="paper-padding">
+          <view class="paper-flex-between paper-padding-top0">
+            上述勘验、检查情况及结果：<text class="paper-checkbox">☐属实</text><text class="paper-checkbox paper-margin-left">☐不属实</text>，理由： <text class="paper-flex1"></text>
+          </view>
+          <view class="paper-flex-between">
+            当事人或其代理人： <view class="paper-img paper-flex1"><image  vx:if="{{datainfo.signature_agent}}" src="{{datainfo.signature_agent}}" mode="widthFix"></image></view> 联系电话：<text class="paper-flex1"></text>
+          </view>
+          <view class="paper-flex-end">
+            <text>{{date.year}}</text>年<text>{{date.month}}</text>月<text>{{date.day}}</text>日
+          </view> 
+        </view>
+        <view class="paper-flex-align-center">
+          <text class="paper-flex1"></text>
+        </view>
+        <view class="paper-padding">
+          <view class="paper-flex-between paper-padding-top0">
+            被邀请人签名： <view class="paper-img paper-flex1"><image  vx:if="{{datainfo.signature_invitee}}" src="{{datainfo.signature_invitee}}" mode="widthFix"></image></view> 联系电话：<text class="paper-flex1"></text>
+          </view>
+          <view class="paper-flex-between">
+            备注：<text class="paper-flex1"></text>
+          </view>
+        </view>
+      </movable-view>
+      <view wx:else class="loading-wrap">
+        <icon class="icon-loading"></icon>
+      </view>
+    </movable-area>
+  </view>
+  <view class="paper-btn">
+    <view class="default-button" bindtap="tapSign">签字</view>
+    <view class="default-button" bindtap="tapSave">保存并进行下一步</view>
+  </view>
+</view>

@@ -63,3 +63,10 @@
 .b1 {
   background: #ccc;
 }
+
+.introduce {
+  font-size: 14px;
+  color: #222;
+  line-height: 50rpx;
+  margin-bottom: 40rpx;
+}

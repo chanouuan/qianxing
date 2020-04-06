@@ -36,7 +36,7 @@
 }
 
 .active{
-  color: #3875FF;
-	border-bottom: 2px solid #3875FF;
+  color: rgb(22, 91, 220);
+	border-bottom: 2px solid rgb(22, 91, 220);
 	font-weight:600;
 }

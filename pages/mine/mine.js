@@ -77,16 +77,13 @@ Page({
     if (this.data.templateId === 'law') {
       // 进入用户端
       this.getTabBar().switchMenu('user')
-      wx.switchTab({
-        url: '/pages/user/index/index'
-      })
     } else {
       // 进入管理端
       this.getTabBar().switchMenu('law')
-      wx.switchTab({
-        url: '/pages/law/index/index'
-      })
     }
+    wx.switchTab({
+      url: '/pages/index/index'
+    })
   },
 
   /**

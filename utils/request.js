@@ -6,7 +6,7 @@ class HttpRequest {
   }
   getInsideConfig() {
     const config = {
-      timeout: 5000,
+      timeout: 10000,
       method: 'POST',
       qs: {},
       body: {},
@@ -25,6 +25,7 @@ class HttpRequest {
         header: {
           "Content-Type": "multipart/form-data"
         },
+        timeout: options.timeout,
         formData: options.body,
         name: 'upfile',
         success: res => {

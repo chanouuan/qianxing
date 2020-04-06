@@ -17,6 +17,17 @@ const formatDate = date => {
   return [year, month, day].map(formatNumber).join('-')
 }
 
+const splitTime = date => {
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+  const hour = date.getHours()
+  const minute = date.getMinutes()
+  const second = date.getSeconds()
+
+  return { year, month, day, hour, minute, second }
+}
+
 const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
@@ -41,6 +52,7 @@ const hasKey = (obj, key) => {
 module.exports = {
   formatTime: formatTime,
   formatDate: formatDate,
+  splitTime: splitTime,
   setToken: setToken,
   getToken: getToken,
   hasKey: hasKey
