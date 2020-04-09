@@ -41,6 +41,15 @@ export const changePhone = (post) => {
   })
 }
 
+// 获取区域执法单位
+export const getDistrictGroup = (post) => {
+  post.token = util.getToken()
+  return axios.request({
+    url: '/miniprogramServer/getDistrictGroup',
+    body: post
+  })
+}
+
 // 用户报警
 export const reportEvent = (post) => {
   post.token = util.getToken()
@@ -135,6 +144,69 @@ export const reportItem = (post) => {
   post.token = util.getToken()
   return axios.request({
     url: '/miniprogramServer/reportItem',
+    body: post
+  })
+}
+
+// 下发赔偿通知书
+export const reportFile = (post) => {
+  post.token = util.getToken()
+  return axios.request({
+    url: '/miniprogramServer/reportFile',
+    body: post
+  })
+}
+
+// 删除报案
+export const deleteReport = (post) => {
+  post.token = util.getToken()
+  return axios.request({
+    url: '/miniprogramServer/deleteReport',
+    body: post
+  })
+}
+
+// 撤销案件
+export const cancelReport = (post) => {
+  post.token = util.getToken()
+  return axios.request({
+    url: '/miniprogramServer/cancelReport',
+    body: post
+  })
+}
+
+// 获取赔偿清单
+export const getPropertyPayItems = (post) => {
+  post.token = util.getToken()
+  return axios.request({
+    url: '/miniprogramServer/getPropertyPayItems',
+    body: post
+  })
+}
+
+// 生成交易单
+export const createPay = (post) => {
+  post.token = util.getToken()
+  return axios.request({
+    url: '/miniprogramServer/createPay',
+    body: post
+  })
+}
+
+// 查询支付
+export const payQuery = (post) => {
+  post.token = util.getToken()
+  return axios.request({
+    url: '/miniprogramServer/payQuery',
+    body: post
+  })
+}
+
+// 支付参数
+export const payParams = (post) => {
+  post.token = util.getToken()
+  return axios.request({
+    url: '/' + post.payway + '/api',
     body: post
   })
 }

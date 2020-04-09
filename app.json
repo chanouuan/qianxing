@@ -4,6 +4,7 @@
     "pages/user/reportevents/reportevents",
     "pages/user/tips/tips",
     "pages/user/report/report",
+    "pages/user/propertypay/propertypay",
     "pages/law/reportinfo/reportinfo",
     "pages/law/reportevents/reportevents",
     "pages/law/cardinfo/cardinfo",

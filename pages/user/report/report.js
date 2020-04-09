@@ -3,39 +3,52 @@ const app = getApp()
 
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
     pageFlag: false,
     authModalFlag: false,
     userInfo: {},
+    report_type: 1,
     address: '',
+    addr_des: '',
     latitude: 0, // 27.48074
     longitude: 0, // 106.375
     form: {},
+    groupIndex: 0,
+    groupList: [{id: 0, name: '区域内无执法单位'}],
     submit: false
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-    this.setData({
-      userInfo: app.globalData.userInfo
-    })
+    this.data.userInfo = app.globalData.userInfo
     if (this.data.userInfo.telephone) {
       this.mapPostion().then(() => {
         this.setData({
           pageFlag: true
+        }, () => {
+          this.getDistrictGroup()
         })
-      })
+      }).catch(err => {})
     } else {
       this.setData({
         pageFlag: false,
         authModalFlag: true
       })
     }
+  },
+
+  getDistrictGroup() {
+    // 获取区域执法单位
+    api.getDistrictGroup(this.data.form).then(res => {
+      this.setData({
+        groupIndex: 0,
+        groupList: res && res.length ? res : [{ id: 0, name: '区域内无执法单位' }]
+      })
+    }).catch(err => {
+      this.setData({
+        groupIndex: 0,
+        groupList: [{ id: 0, name: '区域内无执法单位' }]
+      })
+    })
   },
 
   mapPostion () {
@@ -55,17 +68,43 @@ Page({
           this.setData({
             latitude: res.location.lat,
             longitude: res.location.lng,
-            address: res.formatted_addresses.recommend
+            address: res.formatted_addresses.recommend,
+            addr_des: res.address
           }, () => {
             resolve()
           })
         },
         fail: (err) => {
-          wx.showToast({
-            title: '获取地理位置失败' + err,
-            icon: 'none'
+          wx.getSetting({
+            success: function (res) {
+              if (!res.authSetting['scope.userLocation']) {
+                wx.showModal({
+                  title: '温馨提示',
+                  content: ' 获取定位失败，请前往设置打开定位权限',
+                  cancelText: '取消',
+                  confirmText: '设置',
+                  success: function (res) {
+                    if (res.confirm) {
+                      wx.openSetting()
+                    } else {
+                      wx.navigateBack()
+                    }
+                  }
+                })
+              } else {
+                wx.showModal({
+                  title: '温馨提示',
+                  content: '请在系统设置中打开定位服务',
+                  cancelText: '取消',
+                  confirmText: '确定',
+                  success: function (res) {
+                    wx.navigateBack()
+                  }
+                })
+              }
+            }
           })
-          reject()
+          reject(err)
         },
         complete: (res) => {
           wx.hideNavigationBarLoading()
@@ -74,10 +113,8 @@ Page({
     })
   },
 
-  /**
-   * 关闭授权弹窗
-   */
   handleCloseModal () {
+    // 关闭授权弹窗
     this.setData({
       authModalFlag: false
     }, () => {
@@ -85,23 +122,21 @@ Page({
     })
   },
 
-  /**
-   * 绑定授权成功
-   */
   handleBindOk () {
+    // 绑定授权成功
     this.mapPostion().then(() => {
       this.setData({
         pageFlag: true,
         authModalFlag: false,
         userInfo: app.globalData.userInfo
+      }, () => {
+        this.getDistrictGroup()
       })
-    })
+    }).catch(err => {})
   },
 
-  /**
-   * 获取中心位置坐标
-   */
-  getCenterLocation (e) {
+  getCenterLocation(e) {
+    // 获取中心位置坐标
     if (!(e.type == 'end' && e.causedBy == 'drag')) {
       return
     }
@@ -123,7 +158,10 @@ Page({
             }
             this.setData({
               address: res.formatted_addresses.recommend,
+              addr_des: res.address,
               animation: true
+            }, () => {
+              this.getDistrictGroup()
             })
           },
           fail: (err) => {
@@ -140,49 +178,77 @@ Page({
     })
   },
 
-  /**
-   * 地图控件动画结束
-   */
   onMarkerAnimationend () {
+    // 地图控件动画结束
     this.setData({
       animation: false
     })
   },
 
-  /**
-   * 拨打客服电话
-   */
   customeCall () {
+    // 拨打客服电话
     wx.makePhoneCall({
       phoneNumber: app.globalData.phone
     })
   },
 
-  /**
-   * 重置定位
-   */
   getNowLocation () {
-    this.mapPostion()
+    // 重置定位
+    this.mapPostion().then(res => {
+      this.getDistrictGroup()
+    }).catch(err => {})
   },
 
-  /**
-   * 提交报案
-   */
+  groupChange(e) {
+    // 单位选择
+    this.setData({
+      groupIndex: e.detail.value
+    })
+  },
+
+  changeReportType(e) {
+    // 报警类型选择
+    this.setData({
+      report_type: e.currentTarget.dataset.type
+    })
+  },
+
   report () {
+    // 提交报案
     if (this.data.submit) {
       return
     }
-    this.setData({
-      submit: true
+    if (!this.data.groupList[this.data.groupIndex] || !this.data.groupList[this.data.groupIndex].id) {
+      wx.showToast({
+        icon: 'none',
+        duration: 3000,
+        title: '区域内无执法单位，建议拨打12328'
+      })
+      return
+    }
+    wx.showModal({
+      title: '',
+      content: '您当前选择的是' + this.data.groupList[this.data.groupIndex].name + '，是否确认继续？',
+      confirmText: '是',
+      cancelText: '否',
+      success: (res) => {
+        if (res.confirm) {
+          this.setData({
+            submit: true
+          })
+          this.data.form.report_type = this.data.report_type
+          this.data.form.group_id = this.data.groupList[this.data.groupIndex].id
+          api.reportEvent(this.data.form).then(res => {
+            wx.redirectTo({
+              url: '/pages/user/tips/tips?phone=' + res.phone
+            })
+          }).catch(err => {
+            this.setData({
+              submit: false
+            })
+          })
+        }
+      }
     })
-    api.reportEvent(this.data.form).then(res => {
-      wx.redirectTo({
-        url: '/pages/user/tips/tips'
-      })
-    }).catch(err => {
-      this.setData({
-        submit: false
-      })
-    })    
   }
 })

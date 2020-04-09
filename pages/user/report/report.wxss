@@ -22,6 +22,7 @@ map {
 .map-wrap {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .custome {
@@ -53,55 +54,89 @@ map {
   overflow: hidden;
 }
 
-.form-wrap {
-  font-size: 14px;
-  background-color: #fff;
-  box-shadow: 0px 6px 10px 0px rgba(221, 243, 255, 0.2);
-}
-
-.form-item {
-  height: 56px;
-  line-height: 56px;
-	padding: 0 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
-}
-
-.form-wrap input {
-  text-align: right;
-	width: 100%;
-	height: 20px;
-	line-height: 20px;
-	color: #222;
-}
-
-.form-txt {
-  text-align: right;
-  color:rgba(34,34,34,0.5);
+.mark-con {
   flex: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #fff;
+  font-size: 12px;
+  color: #222;
+  padding: 40rpx;
 }
 
-.form-txt-t {
-  height: 20px;
-	line-height: 20px;
+.mark-tip {
+  font-size: 15px;
+  font-weight: bold;
 }
 
-.cx-btn {
-  font-size: 32rpx;
-  width: 288rpx;
-  height: 88rpx;
-  line-height: 88rpx;
+.mark-type {
+  display: flex;
+  align-items: center;
+}
+
+.mark-type view {
+  font-size: 12px;
+  width: 180rpx;
+  height: 70rpx;
+  line-height: 70rpx;
   text-align: center;
+  border-radius: 100rpx;
+  margin-right: 40rpx;
+  color: #666;
+  background: #fff;
+  box-shadow: 0 0 5px 0 rgba(187, 184, 184, 0.5);
+}
+
+.mark-type .active {
   color: #fff;
-  background: linear-gradient(45deg, rgba(91, 222, 130, 1), rgba(31, 211, 144, 1));
-  border-radius: 10rpx;
-  font-weight: 500;
-  margin: 0;
-  padding: 0;
-  border: none;
+  background: linear-gradient(180deg, rgba(91, 134, 235, 0.8), rgba(22, 91, 220, 1));
+  box-shadow: 0;
+}
+
+.mark-addr {
+  display: flex;
+}
+
+.mark-addr-icon {
+  height: 100%;
+}
+
+.mark-addr-icon icon {
+  font-size: 50rpx;
+  color: #4074E2;
+}
+
+.mark-addr-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-left: 20rpx;
+}
+
+.mark-addr-1 {
+  font-size: 14px;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 10rpx;
+}
+
+.mark-addr-2 {
+  font-size: 12px;
+  color: #999;
+}
+
+.mark-btn button{
+  font-size: 14px;
+  width: 100% !important;
+}
+
+.mark-group {
+  text-align: right;
+}
+
+.mark-group-picker {
+  font-size: 14px;
+  font-weight: bold;
+  color: #999;
 }

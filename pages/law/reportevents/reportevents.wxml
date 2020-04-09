@@ -9,31 +9,38 @@
   <view class="con-main {{datalist.length?'con-show':''}}">
     <view class="con-item" wx:for="{{datalist}}" wx:key="id">
       <view class="con-header">
-        <view class="con-header-c">
-          <view class="con-header-addr" data-index="{{index}}"><icon class="iconfont icon-dingwei" bindtap="position"></icon> <text>{{item.address}}</text></view>
-          <view class="con-header-status">{{item.status_str}}</view>
+        <view class="con-header-addr" data-index="{{index}}" bindtap="position">
+          <icon class="iconfont icon-dingwei"></icon>
+          <view>{{item.status==0?item.address:item.stake_number}}</view>
         </view>
-        <view class="con-header-date">{{item.create_time}}</view>
+        <view class="status-{{item.status}}">{{item.status_str}}</view>
       </view>
       <view class="con-body">
-        <view class="con-body-tel">
+        <view class="con-body-item">
           <view>报警人电话</view>
           <view>{{item.user_mobile?item.user_mobile:'未确认'}}</view>
           <view class="con-body-tel-icon" data-index="{{index}}" bindtap="callUser">
             <icon class="iconfont icon-call"></icon>
           </view>
         </view>
+        <view class="con-body-item">
+          <view>报警时间</view>
+          <view style="width:66%">{{item.create_time}}</view>
+        </view>
       </view>
       <view class="con-footer">
-        <block wx:if="{{tabIndex===0}}">
-          <view data-id="{{item.id}}" class="btn btn-default">删除报案</view>
-          <view data-id="{{item.id}}" class="btn">移交报案</view>
-          <view data-id="{{item.id}}" bindtap="acceptReport" class="btn">受理报案</view>
+        <block wx:if="{{item.status==0}}">
+          <view bindtap="deletereport" data-id="{{item.id}}" class="default-button default">删除</view>
+          <view data-id="{{item.id}}" class="default-button default">移交</view>
+          <view data-id="{{item.id}}" bindtap="acceptReport" class="default-button">受理报案</view>
+        </block>
+        <block wx:elif="{{item.status==1}}">
+          <view class="default-button default">通知交警</view>
+          <view class="default-button default">通知救援</view>
+          <view data-id="{{item.id}}" bindtap="reloadReport" class="default-button">案件处置</view>
         </block>
         <block wx:else>
-          <view class="btn btn-default">通知交警</view>
-          <view class="btn btn-default">通知救援</view>
-          <view data-id="{{item.id}}" bindtap="reloadReport" class="btn">案件处置</view>
+          <view class="default-button default">下载卷宗</view>
         </block>
       </view>
     </view>

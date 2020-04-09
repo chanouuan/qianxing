@@ -405,6 +405,35 @@ Page({
         submit: false
       })
     })
+  },
+
+  reportfile() {
+    // 下发赔偿通知书
+    if (this.data.submit) {
+      return
+    }
+    wx.showModal({
+      title: '',
+      content: '是否确认下发赔偿通知书？',
+      confirmText: '确认',
+      cancelText: '取消',
+      success: (res) => {
+        if (res.confirm) {
+          this.setData({
+            submit: true
+          })
+          api.reportFile({
+            report_id: this.data.report_id,
+          }).then(res => {
+            wx.navigateBack()
+          }).catch(err => {
+            this.setData({
+              submit: false
+            })
+          })
+        }
+      }
+    })
   }
 
 })

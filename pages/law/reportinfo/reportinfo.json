@@ -2,7 +2,5 @@
   "usingComponents": {
     "pickerYMDHM": "/components/pickerYMDHM/pickerYMDHM"
   },
-  "navigationBarBackgroundColor": "#1fd39a",
-  "navigationBarTextStyle": "white",
   "navigationBarTitleText": "信息报送"
 }

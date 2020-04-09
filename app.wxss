@@ -19,14 +19,39 @@ icon {
   vertical-align: middle;
 }
 
+.status-0 {
+  color: #e64340;
+}
+
+.status-1 {
+  color: #576b95;
+}
+
+.status-2 {
+  color: #09bb07;
+}
+
+.status-3 {
+  color: #888;
+}
+
+.status--1 {
+  color: #ccc;
+}
+
+.status--3 {
+  color: #ccc;
+}
+
 .default-button {
   font-size: 14px;
+  font-weight: normal;
   min-width: 288rpx;
   height: 80rpx;
   line-height: 80rpx;
   text-align: center;
   color: #fff;
-  background: linear-gradient(45deg, rgba(44, 103, 241, 1), rgba(22, 91, 220, 1));
+  background: linear-gradient(180deg, rgb(132, 163, 233), rgb(22, 91, 220));
   border-radius: 80rpx;
   margin: 0;
   padding: 0;

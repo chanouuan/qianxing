@@ -2,5 +2,5 @@
   "usingComponents": {
     "auth-modal": "/components/authmodal/authmodal"
   },
-  "navigationBarTitleText": "正在报案"
+  "navigationBarTitleText": "正在报警"
 }

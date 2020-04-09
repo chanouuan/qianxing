@@ -8,65 +8,70 @@
 
 .con-main {
   background-color: #fff;
-  border-radius: 20rpx;
+  border-radius: 10rpx;
   width: 700rpx;
-  box-shadow: 0px 6px 10px 0px rgba(221, 243, 255, 0.2);
+  box-shadow: 0px 6px 10px 0px rgba(210, 209, 228, 0.6);
   color: #222;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   margin: 0 auto;
   padding: 40rpx;
   text-align: center;
 }
 
-.con-warn {
-  font-size: 14px;
-  color: #222;
+.con-top icon{
+  font-size: 222rpx;
+  color: rgb(22, 91, 220);
 }
 
-.con-warn-i {
+.con-light {
+  font-size: 38rpx;
+  font-weight: bold;
+}
+
+.con-tip {
+  font-size: 12px;
+  font-weight: normal;
+  color: #999;
+  margin-top: 20rpx;
+}
+
+.con-call {
   width: 100%;
-  text-align: left;
-  height: 100rpx;
-  display: flex;
-  align-items: center;
 }
 
-.con-warn-i icon {
-  margin-right: 40rpx;
+.con-call .default-button {
+  height: 88rpx;
+  line-height: 88rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+  width: 100%;
+  background: #fff;
+  color: #3176F7;
+  border: 0.5px solid #3176F7;
+}
+
+.con-warn {
+  font-size: 12px;
+  color: #999;
+  text-align: left;
+}
+
+.con-warn view {
+  height: 60rpx;
+  line-height: 60rpx;
 }
 
 .con-btn {
-  margin-top: 20rpx;
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
 
-.btn {
-  font-size: 14px;
-  width: 288rpx;
-  height: 88rpx;
-  line-height: 88rpx;
-  text-align: center;
-  color: #fff;
-  background: linear-gradient(45deg, rgba(91, 222, 130, 1), rgba(31, 211, 144, 1));
-  border-radius: 10rpx;
-  font-weight: 500;
-  margin: 0;
-  padding: 0;
-  border: none;
-}
-
-.b1 {
-  background: #ccc;
-}
-
-.introduce {
-  font-size: 14px;
-  color: #222;
-  line-height: 50rpx;
-  margin-bottom: 40rpx;
+.con-btn view {
+  background: #E8EDF2;
+  color: rgb(22, 91, 220);
+  font-size: 12px;
 }

@@ -1,37 +1,45 @@
 // pages/user/reportevents/reportevents.js
 
-const api = require("../../../api/api.js")
+const api = require('../../../api/api.js')
+const util = require('../../../utils/util.js')
 
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
     form: {},
+    tabIndex: 0,
     loading: false,
+    isEnd: false,
     isEmpty: false,
     datalist: []
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    this.loadList()
+  onLoad(options) {
+
   },
 
-  loadList () {
+  onShow() {
+    this.onPullDownRefresh()
+  },
+
+  loadList() {
     wx.showNavigationBarLoading()
     this.setData({
       loading: true
     })
-    api.getUserReportEvents(this.data.form).then(res => {
+    api.getReportEvents(this.data.form).then(res => {
       wx.hideNavigationBarLoading()
       wx.stopPullDownRefresh()
       if (res.list.length) {
+        res.list.map(n => {
+          let date = util.splitTime(new Date(n.event_time))
+          n.event_time = [date.year, date.month, date.day].join('.')
+          n.event_date = [date.year, '年', date.month, '月', date.day, '日', date.hour > 12 ? '下午' : '上午', date.hour, '时', date.minute, '分'].join('')
+          return n
+        })
         this.setData({
           loading: false,
+          isEnd: false,
           isEmpty: false,
           datalist: this.data.datalist.concat(res.list)
         })
@@ -39,7 +47,8 @@ Page({
       } else {
         this.setData({
           loading: false,
-          isEmpty: true
+          isEnd: this.data.datalist.length > 0,
+          isEmpty: this.data.datalist.length === 0
         })
       }
     }).catch(err => {
@@ -47,9 +56,11 @@ Page({
     })
   },
 
-  onPullDownRefresh () {
+  onPullDownRefresh() {
     this.data.form.lastpage = ''
-    this.data.datalist = []
+    this.setData({
+      datalist: []
+    })
     this.loadList()
   },
 
@@ -57,19 +68,25 @@ Page({
     this.loadList()
   },
 
-  onClickTab (e) {
-    if (e.detail.current === 0) {
-      // 全部案件
-      this.data.form.status = ''
-    }
+  onClickTab(e) {
+    this.data.form.status = e.detail.current
+    this.setData({
+      tabIndex: e.detail.current
+    })
     wx.pageScrollTo({
       scrollTop: 0
     })
     this.onPullDownRefresh()
   },
 
-  handleStep1 () {
+  openDocument(e) {
+    // 查看文书
+    let id = ~~e.currentTarget.dataset.id
+  },
+
+  handleStep1(e) {
     // 自主处理 1
+    let id = ~~e.currentTarget.dataset.id
     wx.showModal({
       title: '',
       content: '请你在申请自主处理前，在“查看文书”栏中对道路赔补偿通知书内容及结果进行确认，是否同意结果？',
@@ -79,13 +96,13 @@ Page({
       cancelColor: 'red',
       success: (res) => {
         if (res.confirm) {
-          this.handleStep2()
+          this.handleStep2(id)
         }
       }
     })
   },
 
-  handleStep2() {
+  handleStep2(id) {
     // 自主处理 2
     wx.showModal({
       title: '',
@@ -96,13 +113,13 @@ Page({
       cancelColor: 'red',
       success: (res) => {
         if (res.confirm) {
-          this.handleStep3()
+          this.handleStep3(id)
         }
       }
     })
   },
 
-  handleStep3() {
+  handleStep3(id) {
     // 自主处理 3
     wx.showModal({
       title: '',
@@ -114,6 +131,9 @@ Page({
       success: (res) => {
         if (res.confirm) {
           // 同意
+          wx.navigateTo({
+            url: '/pages/user/propertypay/propertypay?report_id=' + id
+          })
         }
       }
     })

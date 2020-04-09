@@ -1,0 +1,71 @@
+/* pages/user/propertypay/propertypay.wxss */
+
+.pay-con {
+  height: auto;
+}
+
+.pay-items {
+  font-size: 12px;
+  background-color: #fff;
+  box-shadow: 0px 6px 10px 0px rgba(201, 208, 212, 0.2);
+  width: 100%;
+  min-height: 100rpx; 
+  color: #222;
+}
+
+.pay-item {
+  border-top: 1rpx solid #f8f8f8;
+  padding: 36rpx;
+}
+
+.pay-item-name {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.pay-item-mark {
+  color: #999;
+  margin-top: 15rpx;
+}
+
+.pay-item-mark text {
+  margin-right: 40rpx;
+}
+
+.pay-item-money {
+  color: #999;
+  text-align: right;
+}
+
+.pay-item-money text {
+  color: #ffa556;
+  font-size: 14px;
+  padding: 20rpx 0;
+}
+
+.pay-total {
+  height: 115rpx;
+  line-height: 115rpx;
+  padding: 0 25rpx;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12rpx;
+  background: #fff;
+  box-shadow: 0px 6px 10px 0px rgba(201, 208, 212, 0.2);
+}
+
+.pay-total-word {
+  color: #2a74ed;
+}
+
+.pay-foot {
+  padding: 44rpx;
+}
+
+.pay-foot button {
+  width: 100% !important;
+  height: 100rpx;
+  line-height: 100rpx;
+}

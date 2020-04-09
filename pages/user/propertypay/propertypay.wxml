@@ -1,0 +1,27 @@
+<!--pages/user/propertypay/propertypay.wxml-->
+<view class="pay-con">
+  <view class="pay-items">
+    <block wx:if="{{pageFlag}}">
+      <view class="pay-item" wx:for="{{items}}" wx:key="id">
+        <view class="pay-item-name">{{item.name}}</view>
+        <view class="pay-item-mark">
+          <text>{{item.unit}}</text>
+          <text>X{{item.amount}}</text>
+        </view>
+        <view class="pay-item-money">赔偿金额：
+          <text>{{item.total_money}}元</text>
+        </view>
+      </view>
+    </block>
+    <view class="loading-wrap" wx:else>
+      <view class="icon-loading"></view>
+    </view>
+  </view>
+  <view class="pay-total">
+    <view>合计赔偿</view>
+    <view class="pay-total-word">{{pay}}元</view>
+  </view>
+  <view class="pay-foot">
+    <button class="default-button" loading="{{submit}}" bindtap="createpay">立即支付</button>
+  </view>
+</view>

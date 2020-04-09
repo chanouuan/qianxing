@@ -9,10 +9,19 @@
     <view class="content-inner">
       <view class="title">现场图照</view>
       <view class="panel1">
-        <view wx:for="{{site_photos}}" wx:key="index" data-index="{{index}}" class="panel1-item" bindtap="takeSitePhotos">
-          <image mode="aspectFill" src="{{item.src}}" wx:if="{{item.src}}"></image>
-          <icon class="iconfont icon-zhaoxiang" wx:else></icon>
-          <view class="progress" style="width:{{item.progress}}%" wx:if="{{item.progress}}"></view>
+        <view wx:for="{{site_photos}}" wx:key="index">
+          <view data-index="{{index}}" class="panel1-item" bindtap="takeSitePhotos">
+            <image mode="aspectFill" src="{{item.src}}" wx:if="{{item.src}}"></image>
+            <icon class="iconfont icon-zhaoxiang" wx:else></icon>
+            <view class="progress" style="width:{{item.progress}}%" wx:if="{{item.progress}}"></view>
+          </view>
+          <view class="panel1-item-t">
+            <block wx:if="{{index==0}}">前面</block>
+            <block wx:elif="{{index==1}}">侧面</block>
+            <block wx:elif="{{index==2}}">后面</block>
+            <block wx:elif="{{index==3}}">全景</block>
+            <block wx:elif="{{index==4}}">全景</block>
+          </view>
         </view>
       </view>
       <view class="title">身份证照</view>
@@ -197,6 +206,9 @@
       <view class="warn-btn">
         <view class="default-button" data-index="1" bindtap="goTab">现场勘验笔录</view>
         <view class="default-button" data-index="0" bindtap="goTab">现场勘验图照</view>
+      </view>
+      <view class="sub-btn">
+        <button class="default-button" loading="{{submit}}" bindtap="reportfile">保存并下发赔偿通知书</button>
       </view>
     </view>
   </view>

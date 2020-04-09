@@ -1,6 +1,6 @@
 <!--pages/law/reportinfo/reportinfo.wxml-->
 
-<view class="pure-top container">
+<view class="container">
   <view class="form-con">
     <view class="form-item">
       <view class="form-head">车主信息</view>
@@ -8,10 +8,12 @@
     <view class="form-item">
       <text class="form-label">时间</text>
       <view class="form-text">
-        <pickerYMDHM placeholder="请输入时间" mode="date" data="{{datainfo.event_time}}" bind:onPickerChange="eventTimeChange">
-          {{datainfo.event_time}}
-          <icon class="iconfont icon-riqi"></icon>
-        </pickerYMDHM>
+        <block wx:if="{{datainfo.event_time}}">
+          <pickerYMDHM placeholder="请输入时间" date="{{datainfo.event_time}}" bind:onPickerChange="eventTimeChange">
+            {{datainfo.event_time}}
+            <icon class="iconfont icon-riqi"></icon>
+          </pickerYMDHM>
+        </block>
       </view>
     </view>
     <view class="form-item">
@@ -89,8 +91,9 @@
         </picker>
       </view>
     </view>
-    <view class="form-item">
-      <button class="btn" loading="{{submit}}" bindtap="reportInfo">进入处置</button>
+    <view class="btn-panel">
+      <button wx:if="{{report_id>0}}" class="default-button" style="background:#ccc" bindtap="cancelreport">撤销案件</button>
+      <button class="default-button" loading="{{submit}}" bindtap="reportInfo">进入处置</button>
     </view>
   </view>
 </view>

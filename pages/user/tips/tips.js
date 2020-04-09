@@ -1,38 +1,61 @@
 // pages/user/tips/tips.js
 
-const app = getApp()
-
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
-    phone: ''
+    phone: '',
+    second: 5,
+    clearTimeThread: null
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+  onLoad(options) {
+    this.data.phone = options.phone || '12328'
+    this.data.clearTimeThread = setInterval(() => {
+      if (this.data.second > 0) {
+        this.setData({
+          second: this.data.second - 1
+        })
+      } else {
+        clearInterval(this.data.clearTimeThread)
+        this.customeCall()
+      }
+    }, 1000)
+  },
+
+  onUnload() {
+    clearInterval(this.data.clearTimeThread)
+  },
+
+  onHide() {
+    clearInterval(this.data.clearTimeThread)
     this.setData({
-      phone: app.globalData.phone
+      second: 0
     })
   },
 
   customeCall() {
-    wx.makePhoneCall({
-      phoneNumber: app.globalData.phone
-    })
+    // 打电话
+    if (this.data.second > 0) {
+      clearInterval(this.data.clearTimeThread)
+      this.setData({
+        second: 0
+      })
+    } else {
+      wx.makePhoneCall({
+        phoneNumber: this.data.phone
+      })
+    }
   },
 
   golist () {
+    // 事故中心
     wx.switchTab({
       url: '/pages/mine/mine'
     })
   },
 
   gohome () {
+    // 首页
     wx.switchTab({
       url: '/pages/index/index'
     })

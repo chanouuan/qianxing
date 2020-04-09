@@ -65,17 +65,14 @@
   line-height: 20px;
 }
 
-.btn {
-  font-size: 14px;
-  width: 288rpx !important;
-  height: 88rpx;
-  line-height: 88rpx;
-  text-align: center;
-  color: #fff;
-  background: linear-gradient(45deg, rgba(91, 222, 130, 1), rgba(31, 211, 144, 1));
-  border-radius: 10rpx;
-  font-weight: 500;
-  margin-top: 25rpx;
-  padding: 0;
-  border: none;
+.btn-panel {
+  margin: 50rpx 0 25rpx 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-panel button {
+  width: 280rpx !important;
 }

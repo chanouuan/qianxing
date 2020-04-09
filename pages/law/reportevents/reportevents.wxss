@@ -21,80 +21,92 @@
 }
 
 .con-main {
-  padding: 40px 0 10px 0;
+  color: #222;
+  font-size: 12px;
+  padding: 40px 10px 10px 10px;
   opacity: 0;
 }
 
 .con-item {
-  padding: 40rpx;
-  font-size: 14px;
-  color: #222;
+  padding: 20rpx;
   margin-top: 10px;
   background-color: #fff;
-  box-shadow: 0px 6px 10px 0px rgba(221, 243, 255, 0.2);
+  border-radius: 5px;
+  box-shadow: 0px 6px 6px 0px rgba(201, 205, 207, 0.5);
 }
 
 .con-header {
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
-  padding-bottom: 20rpx;
-}
-
-.con-header-c {
-  display: flex;
-  justify-content: space-between;
-  height: 30px;
-  line-height: 30px;
-}
-
-.con-header-addr icon {
-  font-size: 20px;
-}
-
-.con-header-status {
-  color: red;
-}
-
-.con-body {
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
-  padding: 20rpx 0;
-}
-
-.con-body-tel {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 100rpx;
+  line-height: 100rpx;
+  width: 100%;
+  overflow: hidden;
+}
+
+.con-header-addr {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.con-header-addr icon {
+  font-size: 16px;
+  color: #316FE6;
+  margin-right: 10rpx;
+}
+
+.con-body {
+  padding: 0 20rpx;
+  color: #999;
+}
+
+.con-body-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 70rpx;
+}
+
+.con-body-item view {
+  width: 33%;
+}
+
+.con-body-tel-icon {
+  text-align: right;
 }
 
 .con-body-tel-icon icon{
-  font-size: 22px;
-  background: #3253E3;
+  font-size: 54rpx;
+  background: linear-gradient(180deg, rgba(132, 163, 233, .8), rgb(22, 91, 220));
   color: #fff;
-  padding: 0 2px;
-  border-radius: 5px;
+  width: 66rpx;
+  height: 66rpx;
+  line-height: 66rpx;
+  border-radius: 50%;
+  text-align: center;
 }
 
 .con-footer {
-  padding-top: 40rpx;
+  padding: 20rpx 0 ;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
-.btn {
-  font-size: 14px;
+.con-footer view {
+  margin-left: 20rpx;
   width: 200rpx;
-  height: 80rpx;
-  line-height: 80rpx;
-  text-align: center;
-  color: #fff;
-  background: linear-gradient(45deg, rgba(91, 222, 130, 1), rgba(31, 211, 144, 1));
-  border-radius: 80rpx;
-  margin: 0;
-  padding: 0;
-  border: none;
+  min-width: 200rpx;
+  background: #fff;
+  color: #3176F7;
+  border: 0.5px solid #3176F7;
 }
 
-.btn-default {
-  background: #ccc;
+.con-footer .default {
+  background: #fff;
+  color: #222;
+  border: 0.5px solid #D8D8D8;
 }
 
 .con-loading {

@@ -1,22 +1,27 @@
 <!--pages/user/tips/tips.wxml-->
-<view class="pure-top container">
+<view class="container">
   <view class="con-main">
-    <view><icon class="con-top" type="success" size="80"/></view>
-    <view class="introduce">完成报案</view>
-    <view class="introduce">
-      <view>请等待执法人员与你联系</view>
-      <view bindtap="customeCall">或者可以拨打电话：{{phone}}主动联系</view>
+    <view class="con-top"><icon class="iconfont icon-baojing"/></view>
+    <view class="con-light">
+      完成报案
+      <view class="con-tip">请等待执法人员与您联系</view>
     </view>
-    <view class="introduce">温馨提示</view>
+    <view class="con-call">
+      <view class="default-button" bindtap="customeCall">
+        <block wx:if="{{second>0}}">{{second}}秒后自动拨打(点击关闭)</block>
+        <block wx:else>点击拨打电话</block>
+      </view>
+    </view>
+    <view class="con-light">温馨提示</view>
     <view class="con-warn">
-      <view class="con-warn-i"><icon type="warn" color="orange"/> 发生交通事故后，请立即开启危险报警闪烁灯</view>
-      <view class="con-warn-i"><icon type="warn" color="orange"/> 夜间还需开启示轮廓灯</view>
-      <view class="con-warn-i"><icon type="warn" color="orange"/> 请在车后方放置警示牌</view>
-      <view class="con-warn-i"><icon type="warn" color="orange"/> 人员请撤离防护带以外，等待救援   </view>
+      <view>发生交通事故后，请立即开启危险报警闪烁灯</view>
+      <view>夜间还需开启示轮廓灯</view>
+      <view>请在车后方放置警示牌</view>
+      <view>人员请撤离防护带以外，等待救援</view>
     </view>
     <view class="con-btn">
-      <view class="btn" bindtap="golist">事故中心</view>
-      <view class="btn b1" bindtap="gohome">首页</view>
+      <view class="default-button" bindtap="golist">事故中心</view>
+      <view class="default-button" bindtap="gohome">首页</view>
     </view>
   </view>
 </view>

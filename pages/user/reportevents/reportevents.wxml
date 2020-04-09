@@ -2,41 +2,41 @@
 
 <view class="container">
   <tab tabList="{{[{name: '全部案件'},{name: '已完成'}]}}" currentTab="{{tabIndex}}" catch:clickTab="onClickTab" />
-  <view class="con-main">
-    <view class="con-item" wx:for="{{datalist}}" wx:key="index">
+  <view class="empty" wx:if="{{isEmpty}}">暂无记录</view>
+  <view class="con-main {{datalist.length?'con-show':''}}">
+    <view class="con-item" wx:for="{{datalist}}" wx:key="id">
       <view class="con-header">
-        <view class="con-header-c">
-          <view class="con-header-addr">{{item.address}}</view>
-          <view class="con-header-date">{{item.create_time}}</view>
+        <view class="con-header-addr">
+          <icon class="iconfont icon-dingwei"></icon>
+          <view>{{item.stake_number}}</view>
         </view>
-        <view class="con-header-status">{{item.status_str}}</view>
+        <view class="status-{{item.status}}">{{item.status_str}}</view>
       </view>
       <view class="con-body">
         <view class="con-body-l">
+          <text class="con-body-mark">事件时间：</text>
+          <text>{{item.event_time}}</text>
+        </view>
+        <view class="con-body-l">
           <text class="con-body-mark">事件经过：</text>
-          <text>2020年3月25日上午10时20份，王小军驾 驶机动车贵CLL565发生交通事故，造成高 速公路路产损坏。</text>
+          <text>{{item.event_date}}，{{item.full_name}}驾驶机动车{{item.plate_num}}发生交通事故，造成高速公路路产损坏。</text>
         </view>
         <view class="con-body-l">
           <text class="con-body-mark">处理机关：</text>
-          <text>贵州省遵义高速公路管理处龙坪路政执法大队</text>
+          <text>{{item.group_name}}</text>
         </view>
         <view class="con-body-l">
           <text class="con-body-mark">赔偿金额：</text>
-          <text>1000元</text>
+          <text>{{item.pay}}元</text>
         </view>
       </view>
       <view class="con-footer">
-        <view class="btn btn-default">撤销</view>
-        <view bindtap="handleStep1" class="btn btn-default">查看文书</view>
+        <view wx:if="{{item.status>1}}" class="default-button default" data-id="{{item.id}}" bindtap="openDocument">查看文书</view>
+        <view wx:if="{{item.status==2}}" class="default-button" data-id="{{item.id}}" bindtap="handleStep1">交纳赔偿金</view>
       </view>
     </view>
-    <view class="con-loading" wx:if="{{loading}}">
-      <view class="loading-wrap">
-        <icon class="icon-loading"></icon>
-      </view>
-    </view>
-    <view class="con-loading" wx:if="{{isEmpty}}">
-      没有更多了
+    <view class="con-loading">
+      <view wx:if="{{isEnd}}">没有更多了</view>
     </view>
   </view>
 </view>

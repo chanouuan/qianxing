@@ -69,7 +69,6 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  height: 400rpx;
 }
 
 .panel1-item {
@@ -96,6 +95,12 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 .panel1-item image {
   width: 100%;
   height: 100%;
+}
+
+.panel1-item-t {
+  font-size: 12px;
+  padding: 10rpx 0;
+  text-align: center;
 }
 
 .panel2 {
@@ -270,4 +275,14 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   background: #E8EDF2;
   color: rgb(22, 91, 220);
   font-size: 12px;
+}
+
+.sub-btn {
+  padding: 60rpx;
+}
+
+.sub-btn button {
+  width: 100% !important;
+  height: 100rpx;
+  line-height: 100rpx;
 }

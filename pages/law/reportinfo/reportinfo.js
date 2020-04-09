@@ -32,9 +32,10 @@ Page({
     colleagueItems: [{ id: 0, name: '请选择' }],
     colleagueIndex: 0,
     datainfo: {
-      event_time: util.formatTime(new Date()),
+      event_time: null,
       weather: 0,
       car_type: 0,
+      address: '',
       stake_number: '',
       event_type: 0,
       driver_state: 0,
@@ -45,7 +46,9 @@ Page({
   },
 
   onLoad: function(options) {
-    this.data.report_id = options.report_id // 案件ID
+    this.setData({
+      report_id: options.report_id // 案件ID
+    })
     // 获取案件信息
     wx.showLoading({
       title: '加载中...'
@@ -57,7 +60,7 @@ Page({
       wx.hideLoading()
       this.data.datainfo = Object.assign(this.data.datainfo, res)
       this.setData({
-        'datainfo.event_time': this.data.datainfo.event_time,
+        'datainfo.event_time': this.data.datainfo.event_time || util.formatTime(new Date()),
         'datainfo.stake_number': this.data.datainfo.stake_number,
         'datainfo.address': this.data.datainfo.address,
         weatherIndex: findIndex(this.data.weatherItems, this.data.datainfo.weather),
@@ -104,13 +107,57 @@ Page({
         })
       },
       fail: (err) => {
-        wx.showToast({
-          title: '获取地理位置失败' + err,
-          icon: 'none'
+        wx.getSetting({
+          success: function (res) {
+            if (!res.authSetting['scope.userLocation']) {
+              wx.showModal({
+                title: '温馨提示',
+                content: ' 获取定位失败，请前往设置打开定位权限',
+                cancelText: '取消',
+                confirmText: '设置',
+                success: function (res) {
+                  if (res.confirm) {
+                    wx.openSetting()
+                  } else {
+                    wx.navigateBack()
+                  }
+                }
+              })
+            } else {
+              wx.showModal({
+                title: '温馨提示',
+                content: '请在系统设置中打开定位服务',
+                cancelText: '取消',
+                confirmText: '确定',
+                success: function (res) {
+                  wx.navigateBack()
+                }
+              })
+            }
+          }
         })
       },
       complete: (res) => {
         wx.hideLoading()
+      }
+    })
+  },
+
+  cancelreport() {
+    // 撤销案件
+    wx.showModal({
+      title: '',
+      content: '是否确认撤销案件？',
+      confirmText: '确认',
+      cancelText: '取消',
+      success: (res) => {
+        if (res.confirm) {
+          api.cancelReport({
+            report_id: this.data.report_id,
+          }).then(res => {
+            wx.navigateBack()
+          }).catch(err => {})
+        }
       }
     })
   },

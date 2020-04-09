@@ -69,11 +69,6 @@ Page({
    * 进入管理
    */
   changeLaw () {
-    wx.showToast({
-      icon: 'loading',
-      duration: 2000,
-      title: '正在进入'
-    })
     if (this.data.templateId === 'law') {
       // 进入用户端
       this.getTabBar().switchMenu('user')

@@ -73,7 +73,7 @@ Page({
   },
 
   onClickTab(e) {
-    if (e.detail.current === 0) {
+    if (e.detail.current == 0) {
       // 用户未受理案件
       this.data.form.status = 0
     } else {
@@ -144,6 +144,26 @@ Page({
     let id = ~~e.currentTarget.dataset.id
     wx.navigateTo({
       url: '/pages/law/reportinfo/reportinfo?report_id=' + id
+    })
+  },
+
+  deletereport(e) {
+    // 删除报案
+    let id = ~~e.currentTarget.dataset.id
+    wx.showModal({
+      title: '',
+      content: '是否确认删除该报案？',
+      confirmText: '确认',
+      cancelText: '取消',
+      success: (res) => {
+        if (res.confirm) {
+          api.deleteReport({
+            report_id: id,
+          }).then(res => {
+            this.onPullDownRefresh()
+          }).catch(err => { })
+        }
+      }
     })
   }
 

@@ -9,19 +9,30 @@
       <cover-image class='location' src='../../../images/map/getLocation.png' bindtap='getNowLocation'></cover-image>
       <cover-image id="center-location" class="center-location {{animation ? 'locationpicker-animation' : ''}}" src='../../../images/map/Marker.png' bindanimationend="onMarkerAnimationend"></cover-image>
     </map>
-    <view class="form-wrap">
-      <view class="form-item">
-        <text class="form-label">地址</text>
-        <view class="form-txt">
-          <view class="form-txt-t">{{address}}</view>
+    <view class="mark-con">
+      <view class="mark-tip">请选择报警类型</view>
+      <view class="mark-type">
+        <view bindtap="changeReportType" data-type="1" class="{{report_type==1?'active':''}}">交通事故</view>
+        <view bindtap="changeReportType" data-type="2" class="{{report_type==2?'active':''}}">车辆事故</view>
+      </view>
+      <view class="mark-addr">
+        <view class="mark-addr-icon">
+          <icon class="iconfont icon-dingwei"></icon>
+        </view>
+        <view class="mark-addr-panel">
+          <view class="mark-addr-1">{{address}}</view>
+          <view class="mark-addr-2">{{addr_des}}</view>
         </view>
       </view>
-      <view class="form-item">
-        <text class="form-label">联系电话</text>
-        <view class="form-txt">{{userInfo.telephone}}</view>
+      <view class="mark-group">
+        <picker bindchange="groupChange" range-key="name" value="{{groupIndex}}" range="{{groupList}}">
+          <view class="mark-group-picker">
+            {{groupList[groupIndex].name}}
+          </view>
+        </picker>
       </view>
-      <view class="form-item" style="border-bottom:none">
-        <button class="cx-btn" loading="{{submit}}" bindtap="report">提交报案</button>
+      <view class="mark-btn">
+        <button class="default-button" loading="{{submit}}" bindtap="report">确定</button>
       </view>
     </view>
   </view>
