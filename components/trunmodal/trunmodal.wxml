@@ -1,0 +1,15 @@
+<view class="modal-warp">
+	<view class='modal-box'>
+		<view class='close-modal' bindtap='closeModal'>
+			<icon class='iconfont icon-guanbi1'></icon>
+		</view>
+		<view class='box-head'>
+			<picker range-key="name" mode="multiSelector" bindchange="onChange" bindcolumnchange="onColumnChange" value="{{index}}" range="{{list}}">
+				选择移交到：{{list[0].length?list[0][index[0]].name:''}} {{list[1].length?list[1][index[1]].name:''}} {{list[2].length?list[2][index[2]].name:''}}
+			</picker>
+		</view>
+		<view class="modal-footer">
+			<view class="default-button" catchtap="onSubmit">提交</view>
+		</view>
+	</view>
+</view>

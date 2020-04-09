@@ -11,8 +11,9 @@ Page({
     form: {
       islaw: 1
     },
+    trunFlag: false,
+    trunParam: {},
     tabIndex: 0,
-    loading: false,
     isEnd: false,
     isEmpty: false,
     datalist: []
@@ -23,14 +24,11 @@ Page({
   },
 
   onShow() {
-    this.onPullDownRefresh()
+    this.reloadList()
   },
 
   loadList() {
     wx.showNavigationBarLoading()
-    this.setData({
-      loading: true
-    })
     let promise = null
     if (this.data.tabIndex === 0) {
       promise = api.getUserReportEvents(this.data.form)
@@ -42,7 +40,6 @@ Page({
       wx.stopPullDownRefresh()
       if (res.list.length) {
         this.setData({
-          loading: false,
           isEnd: false,
           isEmpty: false,
           datalist: this.data.datalist.concat(res.list)
@@ -50,9 +47,9 @@ Page({
         this.data.form.lastpage = res.lastpage
       } else {
         this.setData({
-          loading: false,
           isEnd: this.data.datalist.length > 0,
-          isEmpty: this.data.datalist.length === 0
+          isEmpty: this.data.datalist.length === 0,
+          datalist: this.data.datalist
         })
       }
     }).catch(err => {
@@ -60,12 +57,14 @@ Page({
     })
   },
 
-  onPullDownRefresh() {
+  reloadList() {
     this.data.form.lastpage = ''
-    this.setData({
-      datalist: []
-    })
+    this.data.datalist = []
     this.loadList()
+  },
+
+  onPullDownRefresh() {
+    this.reloadList()
   },
 
   onReachBottom() {
@@ -73,19 +72,14 @@ Page({
   },
 
   onClickTab(e) {
-    if (e.detail.current == 0) {
-      // 用户未受理案件
-      this.data.form.status = 0
-    } else {
-      this.data.form.status = e.detail.current
-    }
+    this.data.form.status = e.detail.current
     this.setData({
       tabIndex: e.detail.current
     })
     wx.pageScrollTo({
       scrollTop: 0
     })
-    this.onPullDownRefresh()
+    this.reloadList()
   },
 
   position(e) {
@@ -108,6 +102,48 @@ Page({
         phoneNumber: tel
       })
     }
+  },
+
+  turnReport(e) {
+    // 移交案件
+    let id = ~~e.currentTarget.dataset.id
+    let level = ~~e.currentTarget.dataset.level
+    this.setData({
+      trunFlag: true,
+      trunParam: { id, level }
+    })
+  },
+
+  closeTrunModal(e) {
+    // 关闭移交弹框
+    this.setData({
+      trunFlag: false
+    })
+  },
+
+  trunOk(e) {
+    // 移交成功
+    this.setData({
+      trunFlag: false
+    })
+    if (!e.detail.value) {
+      wx.showToast({
+        icon: 'none',
+        title: '未选择移交方'
+      })
+      return
+    }
+    wx.showLoading({
+      title: '移交中...'
+    })
+    api.trunReport({
+      level: e.detail.level,
+      report_id: e.detail.id,
+      target_id: e.detail.value
+    }).then(res => {
+      wx.hideLoading()
+      this.reloadList()
+    }).catch(err => {})
   },
 
   acceptReport(e) {
@@ -160,7 +196,7 @@ Page({
           api.deleteReport({
             report_id: id,
           }).then(res => {
-            this.onPullDownRefresh()
+            this.reloadList()
           }).catch(err => { })
         }
       }

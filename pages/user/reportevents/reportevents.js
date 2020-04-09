@@ -8,7 +8,6 @@ Page({
   data: {
     form: {},
     tabIndex: 0,
-    loading: false,
     isEnd: false,
     isEmpty: false,
     datalist: []
@@ -19,14 +18,11 @@ Page({
   },
 
   onShow() {
-    this.onPullDownRefresh()
+    this.reloadList()
   },
 
   loadList() {
     wx.showNavigationBarLoading()
-    this.setData({
-      loading: true
-    })
     api.getReportEvents(this.data.form).then(res => {
       wx.hideNavigationBarLoading()
       wx.stopPullDownRefresh()
@@ -38,7 +34,6 @@ Page({
           return n
         })
         this.setData({
-          loading: false,
           isEnd: false,
           isEmpty: false,
           datalist: this.data.datalist.concat(res.list)
@@ -46,9 +41,9 @@ Page({
         this.data.form.lastpage = res.lastpage
       } else {
         this.setData({
-          loading: false,
           isEnd: this.data.datalist.length > 0,
-          isEmpty: this.data.datalist.length === 0
+          isEmpty: this.data.datalist.length === 0,
+          datalist: this.data.datalist
         })
       }
     }).catch(err => {
@@ -56,12 +51,14 @@ Page({
     })
   },
 
-  onPullDownRefresh() {
+  reloadList() {
     this.data.form.lastpage = ''
-    this.setData({
-      datalist: []
-    })
+    this.data.datalist = []
     this.loadList()
+  },
+
+  onPullDownRefresh() {
+    this.reloadList()
   },
 
   onReachBottom() {
@@ -76,12 +73,54 @@ Page({
     wx.pageScrollTo({
       scrollTop: 0
     })
-    this.onPullDownRefresh()
+    this.reloadList()
   },
 
   openDocument(e) {
     // 查看文书
     let id = ~~e.currentTarget.dataset.id
+    if (this.data.docfile) {
+      return this.opendocfile()
+    }
+    wx.showLoading({
+      title: '下载中...',
+      mask: true
+    })
+    api.paynote({ report_id: id }).then(res => {
+      wx.downloadFile({
+        url: res.url,
+        success: (res) => {
+          this.data.docfile = res.tempFilePath
+          this.opendocfile()
+        },
+        fail(err) {
+          wx.showToast({
+            icon: 'none',
+            title: '下载失败，请重试。',
+          })
+        },
+        complete(res) {
+          wx.hideLoading()
+        }
+      })
+    }).catch(err => {})
+  },
+
+  opendocfile() {
+    wx.openDocument({
+      showMenu: false,
+      filePath: this.data.docfile,
+      fileType: 'docx',
+      success(res) {
+        
+      },
+      fail(err) {
+        wx.showToast({
+          icon: 'none',
+          title: '文档打开失败，请重试。',
+        })
+      }
+    })
   },
 
   handleStep1(e) {

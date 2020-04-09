@@ -64,17 +64,19 @@
 
 .con-footer view {
   margin-left: 20rpx;
+  height: 70rpx;
+  line-height: 70rpx;
   width: 200rpx;
   min-width: 200rpx;
   background: #fff;
   color: #3176F7;
-  border: 0.5px solid #3176F7;
+  border: 1rpx solid #3176F7;
 }
 
 .con-footer .default {
   background: #fff;
   color: #222;
-  border: 0.5px solid #D8D8D8;
+  border: 1rpx solid #D8D8D8;
 }
 
 .con-loading {

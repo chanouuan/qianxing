@@ -17,11 +17,15 @@ Component({
 	data: {
 		currentTab: 0
 	},
-	created () {
-		this.setData({
-			currentTab: this.properties.currentTab
-		});
+
+	lifetimes: {
+		created() {
+			this.setData({
+				currentTab: this.properties.currentTab
+			})
+		}
 	},
+	
 	/**
    * 组件的方法列表
    */

@@ -188,7 +188,7 @@ Page({
   customeCall () {
     // 拨打客服电话
     wx.makePhoneCall({
-      phoneNumber: app.globalData.phone
+      phoneNumber: '12328'
     })
   },
 

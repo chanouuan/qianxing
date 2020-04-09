@@ -13,6 +13,7 @@
   justify-content: center;
   overflow: hidden;
 }
+
 .nav-back {
   position: absolute;
   left: 24rpx;
@@ -21,9 +22,7 @@
   line-height: 64rpx;
   text-align: center;
 }
-.nav-back icon {
-  font-size: 55rpx;
-}
+
 .nav-title {
   font-size: 36rpx;
   color: #333

@@ -1,7 +1,7 @@
 <!--components/navbar/navbar.wxml-->
 <view class='nav-wrap' style='margin-top:{{height}}px;background-color:{{navbarData.bgColor?navbarData.bgColor:"none"}};box-shadow:{{navbarData.bgColor?"0px 6rpx 10rpx 0px rgba(221, 243, 255, 0.3)":"none"}}'>
   <view class='nav-back' bindtap='navLeftTap'>
-    <icon class='iconfont icon-{{navbarData.leftFont}}' style='color:{{navbarData.leftFontColor}}'></icon>
+    <icon class='iconfont icon-{{navbarData.leftFont}}' style='font-size:55rpx;color:{{navbarData.leftFontColor}}'></icon>
   </view>
   <view class='nav-title' style='color:{{navbarData.titleColor}}' wx:if="navbarData.title">{{navbarData.title}}</view>
 </view>

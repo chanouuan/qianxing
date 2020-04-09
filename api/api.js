@@ -210,3 +210,31 @@ export const payParams = (post) => {
     body: post
   })
 }
+
+// 移交单位人员
+export const getGroupBook = (post) => {
+  post.token = util.getToken()
+  return axios.request({
+    url: '/miniprogramServer/getGroupBook',
+    body: post
+  })
+}
+
+// 移交案件
+export const trunReport = (post) => {
+  post.token = util.getToken()
+  let url = post.level === 1 ? '/miniprogramServer/trunReport' : '/miniprogramServer/trunUserReport'
+  return axios.request({
+    url: url,
+    body: post
+  })
+}
+
+// 查看赔偿通知书
+export const paynote = (post) => {
+  post.token = util.getToken()
+  return axios.request({
+    url: '/word/paynote',
+    body: post
+  })
+}
