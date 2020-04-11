@@ -1,6 +1,7 @@
 //index.js
 
 const app = getApp()
+const api = require('../../api/api.js')
 
 Page({
   data: {
@@ -17,25 +18,31 @@ Page({
       title: '加载中...'
     })
     // 获取用户信息
-    app.login().then(res => {
-      wx.hideLoading()
-      this.setData(res)
-      this.tapLawApp()
+    app.login().then(data => {
+      wx.hideLoading({
+        complete: (res) => {
+          this.loadInit(data)
+        }
+      })
     }).catch(res => {
-      wx.hideLoading()
-      app.login().then(res => {
-        this.setData(res)
-        this.tapLawApp()
+      wx.hideLoading({
+        complete: (res) => {
+          app.login().then(data => {
+            this.loadInit(data)
+          })
+        }
       })
     })
   },
 
   onPullDownRefresh() {
     // 下拉刷新
-    app.login().then(res => {
-      wx.stopPullDownRefresh()
-      this.setData(res)
-      this.tapLawApp()
+    app.login().then(data => {
+      wx.stopPullDownRefresh({
+        complete: (res) => {
+          this.loadInit(data)
+        },
+      })
     }).catch(res => {
       wx.stopPullDownRefresh()
     })
@@ -50,6 +57,20 @@ Page({
         templateId: app.globalData.templateId
       })
     }
+  },
+
+  loadInit(data) {
+    // 初始化加载
+    api.getUserCount().then(res => {
+      data.userInfo.report_count = res.report_count
+      this.setData(data, () => {
+        this.tapLawApp()
+      })
+    }).catch(err => {
+      this.setData(data, () => {
+        this.tapLawApp()
+      })
+    })
   },
 
   tapLawApp() {

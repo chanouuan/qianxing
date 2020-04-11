@@ -82,17 +82,13 @@ App({
     this.globalData.qqmapsdk = new QQMapWX({
       key: config.qqmapKey
     })
-
-    // 客服电话
-    this.globalData.phone = config.phone
   },
   globalData: {
     statusBarHeight: 20,
     screenHeight: 0,
     windowHeight: 0,
     templateId: 'user',
-    userInfo: null,
-    phone: ''
+    userInfo: null
   },
   login() {
     return new Promise((resolve, reject) => {

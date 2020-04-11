@@ -15,66 +15,55 @@
 
 .authmodal .modal-box {
   width: 600rpx;
-  height: 400rpx;
+  height: 360rpx;
   background-color: #fff;
-  box-shadow: 0px 6rpx 10rpx 0px rgba(221, 243, 255, 0.05);
   border-radius: 10rpx;
 }
 
-.modal-box .box-head {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 10rpx;
-  justify-content: center;
-}
-
-.modal-box .head-title {
-  text-align: center;
-  color: #333;
-  font-size: 36rpx;
-}
-
-.modal-box .close-modal {
+.modal-box .close {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 0 10rpx;
+  padding: 0 20rpx;
   height: 66rpx;
   line-height: 66rpx;
+  color: #ccc;
 }
 
 .modal-box .back {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 10rpx;
+  padding: 0 20rpx 0 10rpx;
   height: 66rpx;
   line-height: 66rpx;
+  color: #ccc;
 }
 
-.modal-box icon {
-  color: #ccc;
-  font-size: 42rpx
+.modal-box .box-head {
+  text-align: center;
+  color: #333;
+  font-size: 32rpx;
+  padding-bottom: 30rpx;
 }
 
 .modal-box .wx-type {
   width: 400rpx;
-  height: 88rpx;
-  line-height: 88rpx;
+  height: 80rpx;
+  line-height: 80rpx;
   background: #5bde82;
   text-align: center;
   color: #fff;
   font-size: 32rpx;
-  margin: 38rpx auto 0;
+  margin: 0 auto;
   padding: 0;
 }
 
 .modal-box .tel-type {
   width: 399rpx;
-  height: 87rpx;
   margin: 30rpx auto 0;
-  line-height: 88rpx;
+  height: 80rpx;
+  line-height: 80rpx;
   text-align: center;
   color: #5bde82;
   font-size: 32rpx;
@@ -85,7 +74,7 @@
 
 .modal-box .tel-input {
   width: 540rpx;
-  margin: 60rpx auto 0;
+  margin: 0 auto;
   border-bottom: 1rpx solid #ccc;
   color: #333;
   font-size: 24rpx;
@@ -94,20 +83,22 @@
 
 .modal-box .next {
   width: 400rpx;
-  height: 88rpx;
-  line-height: 88rpx;
+  height: 80rpx;
+  line-height: 80rpx;
   background: #5bde82;
   text-align: center;
   color: #fff;
   font-size: 32rpx;
-  margin: 40rpx auto 0;
+  margin: 40rpx auto 0 auto;
   border-radius: 8rpx;
 }
 
 .modal-box .con {
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
+  height: 200rpx;
 }
 
 .modal-box .tel-num {
@@ -116,12 +107,13 @@
   align-items: center;
   font-size: 28rpx;
   color: #999;
-  margin-top: 50rpx;
 }
-.modal-box .real-code{
-  width:0;
+
+.modal-box .real-code {
+  width: 0;
   height: 0
 }
+
 .modal-box .tel-num .count {
   display: flex;
   justify-content: center;
@@ -149,19 +141,18 @@
 .modal-box .vercode {
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
   align-items: center;
-  margin-top: 60rpx;
+  width: 96%;
 }
 
 .modal-box .vercode .code-num {
   width: 80rpx;
   height: 80rpx;
-  line-height: 80rpx;
   text-align: center;
   color: #333;
   font-weight: 500;
   border: 1rpx solid #ccc;
-  margin: 0 6rpx;
   border-radius: 10rpx;
   display: flex;
   justify-content: center;

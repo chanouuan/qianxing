@@ -66,7 +66,7 @@
 }
 
 .btn-panel {
-  margin: 50rpx 0 25rpx 0;
+  padding: 50rpx 0 25rpx 0;
   width: 100%;
   display: flex;
   justify-content: space-between;

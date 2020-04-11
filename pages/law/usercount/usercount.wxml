@@ -1,0 +1,41 @@
+<!--pages/law/usercount/usercount.wxml-->
+<view class="container">
+  <view class="count-wrap">
+    <view class="count-row">
+      <view class="count-icon">
+        <icon class="iconfont icon-orderlist"></icon>
+      </view>
+      <view class="count-text">
+        <view class="count-num">{{userInfo.case_count||0}}</view>
+        <view class="count-name">事故处理</view>
+      </view>
+    </view>
+    <view class="count-row">
+      <view class="count-icon">
+        <icon class="iconfont icon-orderlist"></icon>
+      </view>
+      <view class="count-text">
+        <view class="count-num">{{userInfo.patrol_km||0}}</view>
+        <view class="count-name">巡查公里</view>
+      </view>
+    </view>
+    <view class="count-row">
+      <view class="count-icon">
+        <icon class="iconfont icon-orderlist"></icon>
+      </view>
+      <view class="count-text">
+        <view class="count-num">{{userInfo.illegal_count||0}}</view>
+        <view class="count-name">违法处理</view>
+      </view>
+    </view>
+    <view class="count-row">
+      <view class="count-icon">
+        <icon class="iconfont icon-orderlist"></icon>
+      </view>
+      <view class="count-text">
+        <view class="count-num">{{userInfo.latent_count||0}}</view>
+        <view class="count-name">隐患上报</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -84,7 +84,7 @@
   
   <view class="form-con">
     <view class="form-item">
-      <text class="form-label">执法人员</text>
+      <text class="form-label">协同人员</text>
       <view class="form-text">
         <picker bindchange="colleagueChange" range-key="name" value="{{colleagueIndex}}" range="{{colleagueItems}}">
           {{colleagueItems[colleagueIndex].name}}

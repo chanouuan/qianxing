@@ -61,7 +61,7 @@
             <icon class="iconfont icon-zhaoxiang" wx:else></icon>
             <view class="progress" style="width:{{driver_license_behind_progress}}%" wx:if="{{driver_license_behind_progress}}"></view>
           </view>
-          <view class="panel2-item-t">拍照上传驾驶证背面</view>
+          <view class="panel2-item-t">拍照上传驾驶证副页</view>
         </view>
       </view>
       <view class="title">行驶证照</view>
@@ -82,7 +82,7 @@
             <icon class="iconfont icon-zhaoxiang" wx:else></icon>
             <view class="progress" style="width:{{driving_license_behind_progress}}%" wx:if="{{driving_license_behind_progress}}"></view>
           </view>
-          <view class="panel2-item-t">拍照上传行驶证背面</view>
+          <view class="panel2-item-t">拍照上传行驶证副页</view>
         </view>
       </view>
       <view class="title">其他图照</view>

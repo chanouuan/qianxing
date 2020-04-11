@@ -1,0 +1,34 @@
+/* pages/law/usercount/usercount.wxss */
+
+.count-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 12px;
+  background-color: #fff;
+}
+
+.count-row {
+  height: 300rpx;
+  width: 50%;
+  border-bottom: 1rpx solid #f8f8f8;
+  border-right: 1rpx solid #f8f8f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.count-icon icon {
+  font-size: 60rpx;
+  margin-right: 30rpx;
+  color: #5F9EA0;
+}
+
+.count-num {
+ font-size: 30rpx;
+ font-weight: bold;
+}
+
+.count-name {
+  font-size: 12px;
+  color: #aaa;
+}

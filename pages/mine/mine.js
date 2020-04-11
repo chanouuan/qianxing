@@ -2,12 +2,10 @@
 
 //获取应用实例
 const app = getApp()
+const api = require('../../api/api.js')
 
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
     navbarData: {
       leftFont: 'home1'
@@ -18,9 +16,6 @@ Page({
     idCardCheckModalFlag: false
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
     
   },
@@ -29,10 +24,16 @@ Page({
     // tabbar 回显
     this.getTabBar().switchPage(1)
     // 初始化数据
-    this.setData({
-      userInfo: app.globalData.userInfo,
-      templateId: app.globalData.templateId
-    })
+    api.getUserCount().then(data => {
+      this.setData({
+        userInfo: Object.assign(app.globalData.userInfo, {
+          case_count: data.case_count,
+          patrol_km: data.patrol_km,
+          city_rank: data.city_rank
+        }),
+        templateId: app.globalData.templateId
+      })
+    }).catch(err => {})
   },
 
   /**
@@ -42,10 +43,15 @@ Page({
 
   },
 
-  /**
-   * 我的案件
-   */
+  tapWork() {
+    // 我的工作
+    wx.navigateTo({
+      url: '/pages/law/usercount/usercount',
+    })
+  },
+
   tapOrder () {
+    // 我的案件
     if (this.data.templateId === 'law') {
       // 管理端
       wx.navigateTo({
@@ -65,10 +71,8 @@ Page({
     }
   },
 
-  /**
-   * 进入管理
-   */
   changeLaw () {
+    // 进入管理
     if (this.data.templateId === 'law') {
       // 进入用户端
       this.getTabBar().switchMenu('user')
@@ -81,28 +85,22 @@ Page({
     })
   },
 
-  /**
-   * 绑定手机/打开登录弹窗
-   */
   bindPhone (e) {
+    // 绑定手机/打开登录弹窗
     this.setData({
       authModalFlag: true
     })
   },
 
-  /**
-   * 关闭身份证验证框
-   */
   closeIdcardCheckModal () {
+    // 关闭身份证验证框
     this.setData({
       idCardCheckModalFlag: false
     })
   },
 
-  /**
-   * 身份证验证
-   */
   idcardCheckOk(e) {
+    // 身份证验证
     this.setData({
       idCardCheckModalFlag: false
     })
@@ -119,40 +117,32 @@ Page({
     }
   },
 
-  /**
-  * 关闭登录弹窗
-  */
   closeAuthModal () {
+    // 关闭登录弹窗
     this.setData({
       authModalFlag: false
     })
   },
 
-  /**
-   * 绑定成功
-   */
   bindOk () {
+    // 绑定成功
     this.setData({
       authModalFlag: false,
       userInfo: app.globalData.userInfo
     })
   },
 
-  /**
-   * 关于我们
-   */
   handleAbout() {
+    // 关于我们
     wx.navigateTo({
       url: '/pages/about/about',
     })
   },
 
-  /**
-   * 拨打客服电话
-   */
-  customeCall() {
-    wx.makePhoneCall({
-      phoneNumber: app.globalData.phone
+  onSetting() {
+    // 设置
+    wx.navigateTo({
+      url: '/pages/setting/setting'
     })
   }
 

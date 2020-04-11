@@ -1,5 +1,10 @@
 /* pages/law/cardinfo/cardinfo.wxss */
 
+.container {
+  height: auto;
+  padding: 25rpx 0;
+}
+
 .form-con {
   font-size: 14px;
   background-color: #fff;
@@ -9,7 +14,6 @@
   color: #222;
   margin: 0 auto;
   padding: 25rpx;
-  margin-top: 25rpx;
 }
 
 .form-head {
@@ -55,16 +59,10 @@
   font-size: 20px;
 }
 
-.btn {
-  font-size: 14px;
-  height: 88rpx;
-  line-height: 88rpx;
-  text-align: center;
-  color: #fff;
-  background: linear-gradient(45deg, rgba(91, 222, 130, 1), rgba(31, 211, 144, 1));
-  border-radius: 10rpx;
-  font-weight: 500;
-  margin-top: 25rpx;
-  padding: 0;
-  border: none;
+.btn-panel {
+  padding: 40rpx 0 15rpx 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

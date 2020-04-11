@@ -1,12 +1,12 @@
-const HttpRequest = require('../utils/request.js')
-const util = require('../utils/util.js')
-const config = require('../config.js')
+import HttpRequest from '../utils/request.js'
+import { getToken } from '../utils/util.js'
+import { baseURL } from '../config.js'
 
-const axios = new HttpRequest(config.baseURL)
+const axios = new HttpRequest(baseURL)
 
 // 上传图片
 export const uploadPhoto = (post) => {
-  post.body.token = util.getToken()
+  post.body.token = getToken()
   return axios.request({
     upfile: true,
     url: '/miniprogramServer/upload',
@@ -34,7 +34,7 @@ export const sendSms = (telephone) => {
 
 // 绑定手机号
 export const changePhone = (post) => {
-  post.token = util.getToken()
+  post.token = getToken()
   return axios.request({
     url: '/miniprogramServer/changePhone',
     body: post
@@ -43,7 +43,7 @@ export const changePhone = (post) => {
 
 // 获取区域执法单位
 export const getDistrictGroup = (post) => {
-  post.token = util.getToken()
+  post.token = getToken()
   return axios.request({
     url: '/miniprogramServer/getDistrictGroup',
     body: post
@@ -52,7 +52,7 @@ export const getDistrictGroup = (post) => {
 
 // 用户报警
 export const reportEvent = (post) => {
-  post.token = util.getToken()
+  post.token = getToken()
   return axios.request({
     url: '/miniprogramServer/reportEvent',
     body: post
@@ -61,7 +61,7 @@ export const reportEvent = (post) => {
 
 // 获取用户报案记录
 export const getUserReportEvents = (post) => {
-  post.token = util.getToken()
+  post.token = getToken()
   return axios.request({
     url: '/miniprogramServer/getUserReportEvents',
     body: post
@@ -70,7 +70,7 @@ export const getUserReportEvents = (post) => {
 
 // 获取案件记录
 export const getReportEvents = (post) => {
-  post.token = util.getToken()
+  post.token = getToken()
   return axios.request({
     url: '/miniprogramServer/getReportEvents',
     body: post
@@ -79,7 +79,7 @@ export const getReportEvents = (post) => {
 
 // 获取案件信息(管理端)
 export const getReportDetail = (post) => {
-  post.token = util.getToken()
+  post.token = getToken()
   return axios.request({
     url: '/miniprogramServer/getReportDetail',
     body: post
@@ -88,7 +88,7 @@ export const getReportDetail = (post) => {
 
 // 审理案件
 export const acceptReport = (post) => {
-  post.token = util.getToken()
+  post.token = getToken()
   return axios.request({
     url: '/miniprogramServer/acceptReport',
     body: post
@@ -97,18 +97,9 @@ export const acceptReport = (post) => {
 
 // 填写报送信息
 export const reportInfo = (post) => {
-  post.token = util.getToken()
+  post.token = getToken()
   return axios.request({
     url: '/miniprogramServer/reportInfo',
-    body: post
-  })
-}
-
-// 案件处置
-export const reloadReport = (post) => {
-  post.token = util.getToken()
-  return axios.request({
-    url: '/miniprogramServer/reloadReport',
     body: post
   })
 }
@@ -117,13 +108,13 @@ export const reloadReport = (post) => {
 export const getColleague = () => {
   return axios.request({
     url: '/miniprogramServer/getColleague',
-    body: { token: util.getToken() }
+    body: { token: getToken() }
   })
 }
 
 // 保存当事人信息
 export const cardInfo = (post) => {
-  post.token = util.getToken()
+  post.token = getToken()
   return axios.request({
     url: '/miniprogramServer/cardInfo',
     body: post
@@ -132,7 +123,7 @@ export const cardInfo = (post) => {
 
 // 搜索路产赔损项目
 export const searchPropertyItems = (post) => {
-  post.token = util.getToken()
+  post.token = getToken()
   return axios.request({
     url: '/miniprogramServer/searchPropertyItems',
     body: post
@@ -141,7 +132,7 @@ export const searchPropertyItems = (post) => {
 
 // 保存勘验笔录
 export const reportItem = (post) => {
-  post.token = util.getToken()
+  post.token = getToken()
   return axios.request({
     url: '/miniprogramServer/reportItem',
     body: post
@@ -150,7 +141,7 @@ export const reportItem = (post) => {
 
 // 下发赔偿通知书
 export const reportFile = (post) => {
-  post.token = util.getToken()
+  post.token = getToken()
   return axios.request({
     url: '/miniprogramServer/reportFile',
     body: post
@@ -159,7 +150,7 @@ export const reportFile = (post) => {
 
 // 删除报案
 export const deleteReport = (post) => {
-  post.token = util.getToken()
+  post.token = getToken()
   return axios.request({
     url: '/miniprogramServer/deleteReport',
     body: post
@@ -168,7 +159,7 @@ export const deleteReport = (post) => {
 
 // 撤销案件
 export const cancelReport = (post) => {
-  post.token = util.getToken()
+  post.token = getToken()
   return axios.request({
     url: '/miniprogramServer/cancelReport',
     body: post
@@ -177,7 +168,7 @@ export const cancelReport = (post) => {
 
 // 获取赔偿清单
 export const getPropertyPayItems = (post) => {
-  post.token = util.getToken()
+  post.token = getToken()
   return axios.request({
     url: '/miniprogramServer/getPropertyPayItems',
     body: post
@@ -186,7 +177,7 @@ export const getPropertyPayItems = (post) => {
 
 // 生成交易单
 export const createPay = (post) => {
-  post.token = util.getToken()
+  post.token = getToken()
   return axios.request({
     url: '/miniprogramServer/createPay',
     body: post
@@ -195,7 +186,7 @@ export const createPay = (post) => {
 
 // 查询支付
 export const payQuery = (post) => {
-  post.token = util.getToken()
+  post.token = getToken()
   return axios.request({
     url: '/miniprogramServer/payQuery',
     body: post
@@ -204,7 +195,7 @@ export const payQuery = (post) => {
 
 // 支付参数
 export const payParams = (post) => {
-  post.token = util.getToken()
+  post.token = getToken()
   return axios.request({
     url: '/' + post.payway + '/api',
     body: post
@@ -213,7 +204,7 @@ export const payParams = (post) => {
 
 // 移交单位人员
 export const getGroupBook = (post) => {
-  post.token = util.getToken()
+  post.token = getToken()
   return axios.request({
     url: '/miniprogramServer/getGroupBook',
     body: post
@@ -222,7 +213,7 @@ export const getGroupBook = (post) => {
 
 // 移交案件
 export const trunReport = (post) => {
-  post.token = util.getToken()
+  post.token = getToken()
   let url = post.level === 1 ? '/miniprogramServer/trunReport' : '/miniprogramServer/trunUserReport'
   return axios.request({
     url: url,
@@ -232,9 +223,26 @@ export const trunReport = (post) => {
 
 // 查看赔偿通知书
 export const paynote = (post) => {
-  post.token = util.getToken()
+  post.token = getToken()
   return axios.request({
     url: '/word/paynote',
+    body: post
+  })
+}
+
+// 获取用户信息数
+export const getUserCount = () => {
+  return axios.request({
+    url: '/miniprogramServer/getUserCount',
+    body: { token: getToken() }
+  })
+}
+
+// 修改用户信息
+export const saveUserInfo = (post) => {
+  post.token = getToken()
+  return axios.request({
+    url: '/miniprogramServer/saveUserInfo',
     body: post
   })
 }

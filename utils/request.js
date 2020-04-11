@@ -1,4 +1,4 @@
-const util = require('../utils/util.js')
+import { setToken } from '../utils/util.js'
 
 class HttpRequest {
   constructor(baseUrl = baseURL) {
@@ -63,7 +63,7 @@ class HttpRequest {
         }
         // 用户未登录
         if (data.errorcode === 3010) {
-          util.setToken('')
+          setToken('')
         }
         wx.showToast({
           title: data.message,
@@ -129,4 +129,4 @@ class HttpRequest {
   }
 }
 
-module.exports = HttpRequest
+export default HttpRequest

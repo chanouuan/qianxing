@@ -24,8 +24,12 @@
             <icon class="iconfont icon-call"></icon>
           </view>
         </view>
+        <view wx:if="{{item.report_type}}" class="con-body-item">
+          <view>报警类型</view>
+          <view>{{item.report_type}}</view>
+        </view>
         <view class="con-body-item">
-          <view>报警时间</view>
+          <view>{{item.status==0?'报警时间':'受理时间'}}</view>
           <view style="width:66%">{{item.create_time}}</view>
         </view>
       </view>

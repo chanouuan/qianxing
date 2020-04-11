@@ -1,0 +1,25 @@
+<!--pages/setting/setting.wxml-->
+<!-- 验证手机弹窗 -->
+<auth-modal wx:if="{{authModalFlag}}" bind:closemodal="closeAuthModal" bind:bindok="bindAuthOk"></auth-modal>
+
+<view class="form-wrap">
+  <view class="form-item" wx:if="{{userInfo.group_id>0}}">
+		<text class="form-label">接收通知推送</text>
+		<view class="form-text">
+			<switch checked="{{!!userInfo.allow_notice}}" data-name="allow_notice" bindchange="saveUserInfo" />
+		</view>
+	</view>
+	<view class="form-item">
+		<text class="form-label">姓名</text>
+		<view class="form-text">
+			<input value="{{userInfo.full_name}}" data-name="full_name" bindblur="saveUserInfo" name="full_name" maxlength="20" placeholder-class="form-placeholder" placeholder="请输入姓名"></input>
+		</view>
+	</view>
+	<view class="form-item">
+		<text class="form-label">手机号</text>
+		<view class="form-text" bindtap="changePhone">
+			{{userInfo.telephone}}
+			<icon class="iconfont icon-right"></icon>
+		</view>
+	</view>
+</view>

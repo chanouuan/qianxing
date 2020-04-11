@@ -44,6 +44,9 @@ icon {
 }
 
 .default-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 14px;
   font-weight: normal;
   min-width: 288rpx;

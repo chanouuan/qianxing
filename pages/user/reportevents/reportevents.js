@@ -24,8 +24,6 @@ Page({
   loadList() {
     wx.showNavigationBarLoading()
     api.getReportEvents(this.data.form).then(res => {
-      wx.hideNavigationBarLoading()
-      wx.stopPullDownRefresh()
       if (res.list.length) {
         res.list.map(n => {
           let date = util.splitTime(new Date(n.event_time))
@@ -37,6 +35,9 @@ Page({
           isEnd: false,
           isEmpty: false,
           datalist: this.data.datalist.concat(res.list)
+        }, () => {
+          wx.hideNavigationBarLoading()
+          wx.stopPullDownRefresh()
         })
         this.data.form.lastpage = res.lastpage
       } else {
@@ -44,6 +45,9 @@ Page({
           isEnd: this.data.datalist.length > 0,
           isEmpty: this.data.datalist.length === 0,
           datalist: this.data.datalist
+        }, () => {
+          wx.hideNavigationBarLoading()
+          wx.stopPullDownRefresh()
         })
       }
     }).catch(err => {

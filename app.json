@@ -5,6 +5,7 @@
     "pages/user/tips/tips",
     "pages/user/report/report",
     "pages/user/propertypay/propertypay",
+    "pages/law/usercount/usercount",
     "pages/law/reportinfo/reportinfo",
     "pages/law/reportevents/reportevents",
     "pages/law/cardinfo/cardinfo",
@@ -12,7 +13,8 @@
     "pages/law/signature/signature",
     "pages/law/paper/paper",
     "pages/mine/mine",
-    "pages/about/about"
+    "pages/about/about",
+    "pages/setting/setting"
   ],
   "plugins": {
     "ocr-plugin": {

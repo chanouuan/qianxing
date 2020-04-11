@@ -1,66 +1,33 @@
 // components/authmodal/authmodal.js
 
 const api = require('../../api/api.js')
-
-//获取应用实例
 const app = getApp()
 
 Component({
-  /**
-   * 组件的属性列表
-   */
-  properties: {
-    hideTabBar: {
-      type: Boolean,
-      value: false
-    }
-  },
 
-  /**
-   * 组件的初始数据
-   */
   data: {
     authFlag: true,
     authSecondFlag: false,
     authLastFlag: false,
     count: 60,
     codeLength: 6,
-    mobile: ''
+    mobile: '',
+    timer: null
   },
 
   lifetimes: {
-    created () {
-      //
-    },
-    attached () {
-      // 隐藏TabBar
-      if (this.properties.hideTabBar) {
-        wx.hideTabBar()
-      }
-    },
-    detached () {
-      // 显示TabBar
+    detached() {
       this.resetCountDown()
-      if (this.properties.hideTabBar) {
-        wx.showTabBar()
-      }
     }
   },
 
-  /**
-   * 组件的方法列表
-   */
   methods: {
 
-    //点击微信授权
     handleWxAuth(e) {
+      // 点击微信授权
       let encryptedData = e.detail.encryptedData;
       let iv = e.detail.iv;
       if (!encryptedData || !iv) {
-        wx.showToast({
-          title: '取消授权',
-          icon: 'none'
-        })
         return
       }
       wx.login({
@@ -74,15 +41,15 @@ Component({
               title: '授权成功',
               icon: 'none'
             })
-            app.globalData.userInfo = Object.assign(app.globalData.userInfo, res) 
+            app.globalData.userInfo = Object.assign(app.globalData.userInfo, res)
             this.triggerEvent('bindok')
           })
         }
       })
     },
 
-    //点击短信验证
-    handleTelAuth () {
+    handleTelAuth() {
+      // 点击短信验证
       this.setData({
         authFlag: false,
         authSecondFlag: true,
@@ -90,15 +57,15 @@ Component({
       })
     },
 
-    //输入手机号
-    handleEnterTel (e) {
+    handleEnterTel(e) {
+      // 输入手机号
       this.setData({
         mobile: e.detail.value
       })
     },
 
-    //获取验证码
-    handleGetCode () {
+    handleGetCode() {
+      // 获取验证码
       let mobile = this.data.mobile
       if (!/^1[0-9]{10}$/.test(mobile)) {
         wx.showToast({
@@ -108,23 +75,23 @@ Component({
         return
       }
       api.sendSms(mobile)
-      .then(res => {
-        this.setData({
-          authFlag: false,
-          authSecondFlag: false,
-          authLastFlag: true,
-        }, () => {
-          wx.showToast({
-            title: '验证码已发送',
-            icon: 'none'
+        .then(res => {
+          this.setData({
+            authFlag: false,
+            authSecondFlag: false,
+            authLastFlag: true,
+          }, () => {
+            wx.showToast({
+              title: '验证码已发送',
+              icon: 'none'
+            })
+            this.countDown()
           })
-          this.countDown()
-        })
-      }).catch(err => {})
+        }).catch(err => {})
     },
 
-    //验证码输入验证
     inputCode(e) {
+      // 验证码输入验证
       let mobile = this.data.mobile
       let vercode = e.detail.value
       this.setData({
@@ -147,37 +114,35 @@ Component({
       })
     },
 
-    // 验证码输入框获取焦点
     focusBox() {
+      // 验证码输入框获取焦点
       this.setData({
         isFocus: true
       })
     },
 
-    //关闭弹窗
-    handleCloseModal (e) {
-      let flag = e ? true : false
+    handleCloseModal(e) {
+      // 关闭弹窗
+      this.setData({
+        authFlag: true,
+        authSecondFlag: false,
+        authLastFlag: false
+      }, () => {
+        this.triggerEvent('closemodal')
+      })
+    },
+
+    handleBackFirst() {
+      // 返回第一个弹窗
       this.setData({
         authFlag: true,
         authSecondFlag: false,
         authLastFlag: false
       })
-      this.triggerEvent('closemodal', {
-        flag: flag,
-      })
     },
 
-    //返回第一个弹窗
-    handleBackFirst () {
-      this.setData({
-        authFlag: true,
-        authSecondFlag: false,
-        authLastFlag: false
-      })
-    },
-
-    //返回第二个弹窗
-    handleBackSecond () {
+    handleBackSecond() {
+      // 返回第二个弹窗
       this.resetCountDown()
       this.setData({
         authFlag: false,
@@ -186,25 +151,26 @@ Component({
       })
     },
 
-    //倒计时
-    countDown () {
-      let countDownNum = this.data.count;
+    countDown() {
+      // 倒计时
+      this.resetCountDown()
       this.setData({
-        timer: setInterval(() => {
-          countDownNum--;
-          this.setData({
-            count: countDownNum
-          })
-          if (countDownNum <= 0) {
-            this.resetCountDown()
-          }
-        }, 1000),
         countFlag: true
       })
+      this.data.timer = setInterval(() => {
+        this.setData({
+          count: this.data.count - 1
+        }, () => {
+          if (this.data.count <= 0) {
+            this.resetCountDown()
+          }
+        })
+      }, 1000)
     },
 
-    // 倒计时重置
-    resetCountDown () {
+
+    resetCountDown() {
+      // 倒计时重置
       clearInterval(this.data.timer)
       this.setData({
         count: 60,

@@ -34,7 +34,7 @@ const formatNumber = n => {
 }
 
 const setToken = (token) => {
-  if (token) wx.setStorageSync('token', token)
+  wx.setStorageSync('token', token)
 }
 
 const getToken = () => {

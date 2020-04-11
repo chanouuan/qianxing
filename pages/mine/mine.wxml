@@ -8,76 +8,89 @@
 
 <!-- 内容 -->
 <view class="mine">
-  <view class='top-bg'>
-    <view class='ava-wrap' wx:if="{{userInfo.telephone}}">
-      <image src="{{userInfo.avatar}}" mode="cover"></image>
-    </view>
-    <view class='def-ava' wx:else bindtap="bindPhone">
-      <icon class='iconfont icon-touxiang'></icon>
-    </view>
-     <view class='bind-btn' wx:if="{{userInfo.telephone}}">{{userInfo.nick_name}}<text wx:if="{{templateId=='law'}}">（{{userInfo.group_name}}）</text></view>
-    <view class='bind-btn' wx:else bindtap="bindPhone">点击登录</view>
-  </view>
+	<view class='top-bg'>
+		<view class='ava-wrap' wx:if="{{userInfo.telephone}}">
+			<image src="{{userInfo.avatar}}" mode="cover"></image>
+		</view>
+		<view class='def-ava' wx:else bindtap="bindPhone">
+			<icon class='iconfont icon-touxiang'></icon>
+		</view>
+		<view class='bind-btn' wx:if="{{userInfo.telephone}}">{{userInfo.nick_name}}<text wx:if="{{templateId=='law'}}">（{{userInfo.group_name}}）</text></view>
+		<view class='bind-btn' wx:else bindtap="bindPhone">点击登录</view>
+	</view>
 
-  <view class="list">
-    <view class="item" bindtap='tapOrder'>
-      <view class="item-icon">
-        <icon class="iconfont icon-orders" style="color:#A52A2A"></icon>
-        <text>我的案件</text>
-      </view>
-      <view class="item-desc">
-        <icon class="iconfont icon-right"></icon>
-      </view>
+  <view wx:if="{{templateId=='law'}}" class="rank-panel">
+    <view class="rank-span">
+      <view class="rank-num">{{userInfo.case_count||0}}</view>
+      <view class="rank-name">事故处理</view>
     </view>
-    <view wx:if="{{userInfo.group_id}}" class="item" bindtap='changeLaw'>
-      <view class="item-icon">
-        <icon class="iconfont icon-guanli" style="color:#5F9EA0"></icon>
-        <text>{{templateId=="law"?"进入用户端":"进入管理端"}}</text>
-      </view>
-      <view class="item-desc">
-        <icon class="iconfont icon-right"></icon>
-      </view>
+    <view class="rank-span">
+      <view class="rank-num">{{userInfo.patrol_km||0}}</view>
+      <view class="rank-name">巡查公里</view>
+    </view>
+    <view wx:if="{{userInfo.city_rank}}" class="rank-span">
+      <view class="rank-num">{{userInfo.city_rank}}</view>
+      <view class="rank-name">全市排行</view>
     </view>
   </view>
 
-  <view class="list">
+	<view class="list">
+    <view wx:if="{{templateId=='law'}}" class="item" bindtap='tapWork'>
+			<view class="item-icon">
+				<icon class="iconfont icon-fankui"></icon>
+				<text>我的工作</text>
+			</view>
+			<view class="item-desc">
+				<icon class="iconfont icon-right"></icon>
+			</view>
+		</view>
+		<view class="item" bindtap='tapOrder'>
+			<view class="item-icon">
+				<icon class="iconfont icon-orders"></icon>
+				<text>我的案件</text>
+			</view>
+			<view class="item-desc">
+				<icon class="iconfont icon-right"></icon>
+			</view>
+		</view>
+		<view wx:if="{{userInfo.group_id}}" class="item" bindtap='changeLaw'>
+			<view class="item-icon">
+				<icon class="iconfont icon-guanli"></icon>
+				<text>{{templateId=="law"?"进入用户端":"进入管理端"}}</text>
+			</view>
+			<view class="item-desc">
+				<icon class="iconfont icon-right"></icon>
+			</view>
+		</view>
+	</view>
+
+	<view class="list">
+		<view class="item" bindtap='onSetting'>
+			<view class="item-icon">
+				<icon class="iconfont icon-shezhi"></icon>
+				<text>设置</text>
+			</view>
+			<view class="item-desc">
+				<icon class="iconfont icon-right"></icon>
+			</view>
+		</view>
+		<button class="btn-feedback item" open-type="feedback">
+			<view class="item-icon">
+				<icon class="iconfont icon-kefu"></icon>
+				<text>意见反馈</text>
+			</view>
+			<view class="item-desc">
+				<icon class="iconfont icon-right"></icon>
+			</view>
+		</button>
     <view class="item" bindtap='handleAbout'>
-      <view class="item-icon">
-        <icon class="iconfont icon-gongsi-" style="color:#1FD390"></icon>
-        <text>关于我们</text>
-      </view>
-      <view class="item-desc">
-        <icon class="iconfont icon-right"></icon>
-      </view>
-    </view>
-    <view class="item" bindtap='customeCall'>
-      <view class="item-icon">
-        <icon class="iconfont icon-kefu" style="color:#36B9FD"></icon>
-        <text>联系客服</text>
-      </view>
-      <view class="item-desc">
-        <icon class="iconfont icon-right"></icon>
-      </view>
-    </view>
-    <button class="btn-feedback" open-type="feedback">
-      <view class="item">
-        <view class="item-icon">
-            <icon class="iconfont icon-fankui" style="color:#FF7F50"></icon>
-            <text>意见反馈</text>
-        </view>
-        <view class="item-desc">
-          <icon class="iconfont icon-right"></icon>
-        </view>
-      </view>
-    </button>
-    <view class="item">
-      <view class="item-icon">
-        <icon class="iconfont icon-shezhi" style="color:#ccc"></icon>
-        <text>设置</text>
-      </view>
-      <view class="item-desc">
-        <icon class="iconfont icon-right"></icon>
-      </view>
-    </view>
-  </view>
+			<view class="item-icon">
+				<icon class="iconfont icon-gongsi-"></icon>
+				<text>关于我们</text>
+			</view>
+			<view class="item-desc">
+				<icon class="iconfont icon-right"></icon>
+			</view>
+		</view>
+	</view>
 </view>

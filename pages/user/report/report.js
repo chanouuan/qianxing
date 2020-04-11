@@ -228,9 +228,9 @@ Page({
     }
     wx.showModal({
       title: '',
-      content: '您当前选择的是' + this.data.groupList[this.data.groupIndex].name + '，是否确认继续？',
-      confirmText: '是',
-      cancelText: '否',
+      content: '您当前选择的是' + this.data.groupList[this.data.groupIndex].name + '，是否继续？',
+      confirmText: '确认',
+      cancelText: '取消',
       success: (res) => {
         if (res.confirm) {
           this.setData({

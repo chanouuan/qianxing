@@ -2,7 +2,7 @@
 <!-- 键盘 -->
 <keyboard wx:if='{{keyboardFlag}}' bind:setlicense="handleSetLicense" bind:closeBoard="handleCloseKeyboard" licenseList="{{form.plate_num}}" />
 
-<view class="pure-top container">
+<view class="container">
   <form bindsubmit="tapCardinfo">
     <view class="form-con">
       <view class="form-item">
@@ -56,8 +56,8 @@
           <input value="{{form.idcard}}" type="idcard" name="idcard" maxlength="18" placeholder-class="form-placeholder" placeholder="请输入身份证号"></input>
         </view>
       </view>
-      <view class="form-item">
-        <button class="btn" loading="{{submit}}" form-type="submit">保存并进行下一步</button>
+      <view class="btn-panel">
+        <button class="default-button" loading="{{submit}}" form-type="submit">保存并进行下一步</button>
       </view>
     </view>
   </form>

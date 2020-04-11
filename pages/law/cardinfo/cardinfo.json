@@ -2,7 +2,5 @@
   "usingComponents": {
     "keyboard": "/components/keyboard/keyboard"
   },
-  "navigationBarBackgroundColor": "#1fd39a",
-  "navigationBarTextStyle": "white",
   "navigationBarTitleText": "信息确认"
 }
