@@ -305,7 +305,7 @@ Page({
   },
 
   idcardsuccess(e) {
-    // 身份证识别
+    // 身份证识别正面
     if (this.data.idcard_front_progress) {
       wx.showToast({
         icon: 'none',
@@ -337,6 +337,40 @@ Page({
         // 上传成功
       }).catch(err => {
         this.data.idcard_front_progress = 0
+      })
+    })
+  },
+
+  idcardbehindsuccess(e) {
+    // 身份证识别背面
+    if (this.data.idcard_behind_progress) {
+      wx.showToast({
+        icon: 'none',
+        title: '正在上传图片...'
+      })
+      return
+    }
+    this.setData({
+      idcard_behind: e.detail.image_path
+    }, () => {
+      // 上传图片
+      let options = {
+        filePath: e.detail.image_path,
+        body: {
+          report_id: this.data.report_id,
+          report_field: 'idcard_behind',
+          valid_date: e.detail.valid_date.text // 有效期
+        },
+        progress: (res) => {
+          this.setData({
+            idcard_behind_progress: res.progress === 100 ? 0 : res.progress
+          })
+        }
+      }
+      api.uploadPhoto(options).then(res => {
+        // 上传成功
+      }).catch(err => {
+        this.data.idcard_behind_progress = 0
       })
     })
   },

@@ -35,9 +35,9 @@
 			</view>
 			<view class='vercode'>
 				<view class='code-num' wx:for="{{codeLength}}" wx:key="index">
-					<input catchtap='focusBox' adjust-position='true' value='{{code.length>=1?code[index]:""}}' disabled></input>
+					<input catchtap='focusBox' adjust-position value='{{code.length>=1?code[index]:""}}' disabled></input>
 				</view>
-				<input class='real-code' adjust-position='true' type="number" focus="{{isFocus}}" bindinput="inputCode" maxlength='{{codeLength}}' name="code"></input>
+				<input class='real-code' adjust-position type="number" focus="{{isFocus}}" bindinput="inputCode" maxlength='{{codeLength}}' name="code"></input>
 			</view>
 		</view>
 	</view>

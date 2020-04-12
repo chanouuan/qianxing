@@ -61,20 +61,43 @@ Page({
 
   loadInit(data) {
     // 初始化加载
-    api.getUserCount().then(res => {
-      data.userInfo.report_count = res.report_count
-      this.setData(data, () => {
-        this.tapLawApp()
+    if (data.userInfo.group_id > 0) {
+      // 自动进入管理端
+      if (!this.data.templateId) {
+        this.getTabBar().switchMenu('law')
+        wx.showModal({
+          content: '是否接收报警通知？',
+          success(res) {
+            if (res.confirm) {
+              wx.requestSubscribeMessage({
+                tmplIds: ['Hq43-ga1Zpadg5ab7ECSHUDdWRqNdGPjUf2fE2_QMLM'],
+                success (res) {
+                  console.log(res)
+                },
+                fail:(err) => {
+                  console.log(err)
+                }
+              })
+            }
+          }
+        })
+      }
+    }
+    data.templateId = app.globalData.templateId
+    if (app.globalData.templateId === 'law') {
+      api.getUserCount().then(res => {
+        data.userInfo.report_count = res.report_count
+        this.setData(data)
+      }).catch(err => {
+        this.setData(data)
       })
-    }).catch(err => {
-      this.setData(data, () => {
-        this.tapLawApp()
-      })
-    })
+    } else {
+      this.setData(data)
+    }
   },
 
   tapLawApp() {
-    // 进入管理端
+    // 点击进入管理端
     if (this.data.userInfo.group_id > 0) {
       this.getTabBar().switchMenu('law')
       this.setData({

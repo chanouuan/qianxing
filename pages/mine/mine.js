@@ -24,16 +24,23 @@ Page({
     // tabbar 回显
     this.getTabBar().switchPage(1)
     // 初始化数据
-    api.getUserCount().then(data => {
+    if (app.globalData.templateId === 'law') {
+      api.getUserCount().then(data => {
+        this.setData({
+          userInfo: Object.assign(app.globalData.userInfo, {
+            case_count: data.case_count,
+            patrol_km: data.patrol_km,
+            city_rank: data.city_rank
+          }),
+          templateId: app.globalData.templateId
+        })
+      }).catch(err => {})
+    } else {
       this.setData({
-        userInfo: Object.assign(app.globalData.userInfo, {
-          case_count: data.case_count,
-          patrol_km: data.patrol_km,
-          city_rank: data.city_rank
-        }),
+        userInfo: app.globalData.userInfo,
         templateId: app.globalData.templateId
       })
-    }).catch(err => {})
+    }
   },
 
   /**

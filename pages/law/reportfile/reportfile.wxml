@@ -26,7 +26,7 @@
       </view>
       <view class="title">身份证照</view>
       <view class="panel2">
-        <view class="panel2-item" data-name="idcard_front">
+        <view class="panel2-item">
           <ocr-navigator bind:onSuccess="idcardsuccess" certificateType="idCard" opposite="{{false}}">
             <view class="panel2-item-img">
               <image mode="aspectFill" src="{{idcard_front}}" wx:if="{{idcard_front}}"></image>
@@ -37,31 +37,14 @@
           <view class="panel2-item-t">身份证头像面</view>
         </view>
         <view class="panel2-item">
-          <view class="panel2-item-img" data-name="idcard_behind" bindtap="takePhoto">
-            <image mode="aspectFill" src="{{idcard_behind}}" wx:if="{{idcard_behind}}"></image>
-            <icon class="iconfont icon-zhaoxiang" wx:else></icon>
-            <view class="progress" style="width:{{idcard_behind_progress}}%" wx:if="{{idcard_behind_progress}}"></view>
-          </view>
+          <ocr-navigator bind:onSuccess="idcardbehindsuccess" certificateType="idCard">
+            <view class="panel2-item-img">
+              <image mode="aspectFill" src="{{idcard_behind}}" wx:if="{{idcard_behind}}"></image>
+              <icon class="iconfont icon-zhaoxiang" wx:else></icon>
+              <view class="progress" style="width:{{idcard_behind_progress}}%" wx:if="{{idcard_behind_progress}}"></view>
+            </view>
+          </ocr-navigator>
           <view class="panel2-item-t">身份证国徽面</view>
-        </view>
-      </view>
-      <view class="title">驾驶证照</view>
-      <view class="panel2">
-        <view class="panel2-item">
-          <view class="panel2-item-img" data-name="driver_license_front" bindtap="takePhoto">
-            <image mode="aspectFill" src="{{driver_license_front}}" wx:if="{{driver_license_front}}"></image>
-            <icon class="iconfont icon-zhaoxiang" wx:else></icon>
-            <view class="progress" style="width:{{driver_license_front_progress}}%" wx:if="{{driver_license_front_progress}}"></view>
-          </view>
-          <view class="panel2-item-t">拍照上传驾驶证正面</view>
-        </view>
-        <view class="panel2-item">
-          <view class="panel2-item-img" data-name="driver_license_behind" bindtap="takePhoto">
-            <image mode="aspectFill" src="{{driver_license_behind}}" wx:if="{{driver_license_behind}}"></image>
-            <icon class="iconfont icon-zhaoxiang" wx:else></icon>
-            <view class="progress" style="width:{{driver_license_behind_progress}}%" wx:if="{{driver_license_behind_progress}}"></view>
-          </view>
-          <view class="panel2-item-t">拍照上传驾驶证副页</view>
         </view>
       </view>
       <view class="title">行驶证照</view>
@@ -85,9 +68,24 @@
           <view class="panel2-item-t">拍照上传行驶证副页</view>
         </view>
       </view>
-      <view class="title">其他图照</view>
-      <view class="panel-add">
-        <view class="default-button">更多照片</view>
+       <view class="title">驾驶证照</view>
+      <view class="panel2">
+        <view class="panel2-item">
+          <view class="panel2-item-img" data-name="driver_license_front" bindtap="takePhoto">
+            <image mode="aspectFill" src="{{driver_license_front}}" wx:if="{{driver_license_front}}"></image>
+            <icon class="iconfont icon-zhaoxiang" wx:else></icon>
+            <view class="progress" style="width:{{driver_license_front_progress}}%" wx:if="{{driver_license_front_progress}}"></view>
+          </view>
+          <view class="panel2-item-t">拍照上传驾驶证正面</view>
+        </view>
+        <view class="panel2-item">
+          <view class="panel2-item-img" data-name="driver_license_behind" bindtap="takePhoto">
+            <image mode="aspectFill" src="{{driver_license_behind}}" wx:if="{{driver_license_behind}}"></image>
+            <icon class="iconfont icon-zhaoxiang" wx:else></icon>
+            <view class="progress" style="width:{{driver_license_behind_progress}}%" wx:if="{{driver_license_behind_progress}}"></view>
+          </view>
+          <view class="panel2-item-t">拍照上传驾驶证副页</view>
+        </view>
       </view>
       <view class="panel-bottom">
         <button class="default-button" bindtap="cardinfo">保存并进行下一步</button>

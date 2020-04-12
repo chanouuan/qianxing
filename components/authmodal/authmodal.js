@@ -12,6 +12,8 @@ Component({
     count: 60,
     codeLength: 6,
     mobile: '',
+    isFocus: false,
+    code: [],
     timer: null
   },
 
@@ -77,6 +79,7 @@ Component({
       api.sendSms(mobile)
         .then(res => {
           this.setData({
+            code: [],
             authFlag: false,
             authSecondFlag: false,
             authLastFlag: true,
@@ -92,25 +95,23 @@ Component({
 
     inputCode(e) {
       // 验证码输入验证
-      let mobile = this.data.mobile
-      let vercode = e.detail.value
+      let vercode = e.detail.value.split('')
       this.setData({
         code: vercode
       }, () => {
-        if (vercode.length < this.data.codeLength) {
-          return
+        if (vercode.length == this.data.codeLength) {
+          api.changePhone({
+            telephone: this.data.mobile,
+            msgcode: vercode,
+          }).then(res => {
+            wx.showToast({
+              title: '绑定成功',
+              icon: 'none'
+            })
+            app.globalData.userInfo = Object.assign(app.globalData.userInfo, res)
+            this.triggerEvent('bindok')
+          }).catch(err => {})
         }
-        api.changePhone({
-          telephone: mobile,
-          msgcode: vercode,
-        }).then(res => {
-          wx.showToast({
-            title: '绑定成功',
-            icon: 'none'
-          })
-          app.globalData.userInfo = Object.assign(app.globalData.userInfo, res)
-          this.triggerEvent('bindok')
-        }).catch(err => {})
       })
     },
 
@@ -123,18 +124,14 @@ Component({
 
     handleCloseModal(e) {
       // 关闭弹窗
-      this.setData({
-        authFlag: true,
-        authSecondFlag: false,
-        authLastFlag: false
-      }, () => {
-        this.triggerEvent('closemodal')
-      })
+      this.triggerEvent('closemodal')
     },
 
     handleBackFirst() {
       // 返回第一个弹窗
       this.setData({
+        mobile: '',
+        code: [],
         authFlag: true,
         authSecondFlag: false,
         authLastFlag: false
@@ -145,6 +142,8 @@ Component({
       // 返回第二个弹窗
       this.resetCountDown()
       this.setData({
+        mobile: '',
+        code: [],
         authFlag: false,
         authSecondFlag: true,
         authLastFlag: false

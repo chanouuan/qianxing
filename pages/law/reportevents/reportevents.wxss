@@ -60,7 +60,7 @@
 .con-body {
   padding: 20rpx 40rpx;
   color: #999;
-  background-color: #f8f8f8;
+  background-color: #fafafa;
   border-radius: 20rpx;
 }
 

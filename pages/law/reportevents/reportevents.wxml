@@ -12,7 +12,7 @@
       <view class="con-header">
         <view class="con-header-addr" data-index="{{index}}" bindtap="position">
           <icon class="iconfont icon-dingwei"></icon>
-          <view>{{item.status==0?item.address:item.stake_number}}</view>
+          <view>{{item.stake_number==0?item.stake_number:item.address}}</view>
         </view>
         <view class="status-{{item.status}}">{{item.status_str}}</view>
       </view>
