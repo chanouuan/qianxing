@@ -206,7 +206,7 @@
         <view class="default-button" data-index="0" bindtap="goTab">现场勘验图照</view>
       </view>
       <view class="sub-btn">
-        <button class="default-button" loading="{{submit}}" bindtap="reportfile">保存并下发赔偿通知书</button>
+        <button class="default-button" loading="{{submit}}" bindtap="reportfile">保存并转发赔偿通知书</button>
       </view>
     </view>
   </view>

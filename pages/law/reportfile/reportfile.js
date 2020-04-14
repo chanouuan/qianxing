@@ -448,7 +448,7 @@ Page({
     }
     wx.showModal({
       title: '',
-      content: '是否确认下发赔偿通知书？',
+      content: '是否确认转发赔偿通知书给当事人？',
       confirmText: '确认',
       cancelText: '取消',
       success: (res) => {
