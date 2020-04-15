@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "auth-modal": "/components/authmodal/authmodal"
-  },
-  "navigationBarTitleText": "事故报案"
-}

@@ -1,18 +1,11 @@
 /* pages/law/reportfile/reportfile.wxss */
 
-/*checkbox 整体大小  */
-checkbox {
- 
-}
 /*checkbox 选项框大小  */
 checkbox .wx-checkbox-input {
   width: 14px;
   height: 14px;
 }
-/*checkbox选中后样式  */
-checkbox .wx-checkbox-input.wx-checkbox-input-checked {
-  
-}
+
 /*checkbox选中后图标样式  */
 checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   width: 28rpx;
@@ -32,6 +25,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   height: 100%;
   opacity: 0;
   font-size: 14px;
+  overflow: auto;
 }
 
 .content-show {
@@ -42,10 +36,11 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 
 .content-wrap {
   padding: 50px 0 120rpx 0;
+  height: auto;
 }
 
 .content-inner {
-  padding: 20rpx;
+  padding: 20rpx 20rpx 40rpx 20rpx;
   background: #fff;
 }
 

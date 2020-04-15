@@ -92,7 +92,7 @@ Page({
     })
     api.paynote({ report_id: id }).then(res => {
       wx.downloadFile({
-        url: res.url,
+        url: res.doc_url,
         success: (res) => {
           this.data.docfile = res.tempFilePath
           this.opendocfile()

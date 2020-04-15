@@ -41,6 +41,14 @@ export const changePhone = (post) => {
   })
 }
 
+// 首页加载
+export const loadData = () => {
+  return axios.request({
+    url: '/miniprogramServer/loadData',
+    body: { token: getToken() }
+  })
+}
+
 // 获取区域执法单位
 export const getDistrictGroup = (post) => {
   post.token = getToken()

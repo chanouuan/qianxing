@@ -3,7 +3,7 @@
 <!--菜单-->
 <tab tabList="{{[{name:'证件采集'},{name:'勘验笔录'},{name:'签字确认'}]}}" currentTab="{{tabIndex}}" catch:clickTab="onClickTab" />
 
-<scroll-view catchtap="nodata" scroll-y class="content-view {{tabIndex == 0 ? 'content-show' : '' }}">
+<view catchtap="nodata" scroll-y class="content-view {{tabIndex == 0 ? 'content-show' : '' }}">
   <!--证件采集-->
   <view class="content-wrap">
     <view class="content-inner">
@@ -92,9 +92,9 @@
       </view>
     </view>
   </view>
-</scroll-view>
+</view>
 
-<scroll-view catchtap="nodata" scroll-y class="content-view {{tabIndex == 1 ? 'content-show' : '' }}">
+<view catchtap="nodata" scroll-y class="content-view {{tabIndex == 1 ? 'content-show' : '' }}">
   <!--勘验笔录-->
   <view class="content-wrap">
     <view class="content-inner">
@@ -190,9 +190,9 @@
       </view>
     </view>
   </view>
-</scroll-view>
+</view>
 
-<scroll-view catchtap="nodata" scroll-y class="content-view {{tabIndex == 2 ? 'content-show' : '' }}">
+<view catchtap="nodata" scroll-y class="content-view {{tabIndex == 2 ? 'content-show' : '' }}">
   <!--签字确认-->
   <view class="content-wrap">
     <view class="content-inner">
@@ -210,4 +210,4 @@
       </view>
     </view>
   </view>
-</scroll-view>
+</view>

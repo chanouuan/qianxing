@@ -9,7 +9,9 @@ Page({
     pageFlag: false,
     report_id: 0,
     items: [],
-    pay: 0
+    total_money: 0,
+    pay: 0,
+    cash: 0
   },
 
   onLoad: function(options) {
@@ -21,13 +23,11 @@ Page({
       report_id: this.data.report_id
     }).then(res => {
       wx.hideLoading()
-      res = res || []
-      res.forEach(n => {
-        this.data.pay += n.total_money
-      })
       this.setData({
-        items: res,
-        pay: this.data.pay,
+        items: res.items,
+        total_money: res.total_money,
+        pay: res.pay,
+        cash: res.cash,
         pageFlag: true
       })
     }).catch(err => {

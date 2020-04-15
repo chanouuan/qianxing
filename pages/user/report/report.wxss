@@ -61,7 +61,7 @@ map {
   justify-content: space-between;
   background: #fff;
   font-size: 12px;
-  color: #222;
+  color: #333;
   padding: 40rpx;
 }
 
@@ -117,7 +117,7 @@ map {
 .mark-addr-1 {
   font-size: 14px;
   font-weight: bold;
-  color: #222;
+  color: #333;
   margin-bottom: 10rpx;
 }
 

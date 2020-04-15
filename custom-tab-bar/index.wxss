@@ -4,14 +4,13 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 48px;
+  height: 98rpx;
   background: rgb(255, 255, 255);
   display: flex;
   padding-bottom: env(safe-area-inset-bottom);
   overflow: hidden;
   box-sizing: border-box;
-  padding-top: 4px;
-  box-shadow: 0px 0px 10px 0px rgba(216, 211, 211, 0.6);
+  box-shadow: 0px 0px 35px 0px rgba(222, 222, 222, 0.29);
 }
 
 .tab-bar-item {
@@ -24,13 +23,12 @@
 }
 
 .tab-bar-image {
-  width: 24px;
-  height: 24px;
-  vertical-align: middle;
+  width: 50rpx;
+  height: 50rpx;
+  display: block;
 }
 
 .tab-bar-text {
-  font-size: 10px;
-  height: 20px;
-  line-height: 20px;
+  font-size: 22rpx;
+  font-weight: 500;
 }

@@ -7,7 +7,8 @@ const api = require('./api/api.js')
 App({
   onLaunch: function() {
     // 清空缓存
-    wx.clearStorage()
+    util.setToken('')
+    // wx.clearStorage()
 
     // 云开发
     // if (wx.cloud) {
