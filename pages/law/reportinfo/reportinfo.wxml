@@ -80,6 +80,14 @@
         </picker>
       </view>
     </view>
+    <view class="form-item">
+      <text class="form-label">预计通行时间</text>
+      <view class="form-text">
+        <picker bindchange="passTimeChange" range-key="name" value="{{passTimeIndex}}" range="{{passTimeItems}}">
+          {{passTimeItems[passTimeIndex].name}}
+        </picker>
+      </view>
+    </view>
   </view>
   
   <view class="form-con">

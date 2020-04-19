@@ -12,6 +12,14 @@ const findIndex = (arr, id) => {
   return 0
 }
 
+const getPassTime = () => {
+  let arr = [{ id: 0, name: '请选择' }]
+  for (let i = 10; i <= 180; i += 10) {
+    arr.push({ id: i, name: i + '分钟' })
+  }
+  return arr
+}
+
 Page({
 
   data: {
@@ -29,6 +37,8 @@ Page({
     carStateIndex: 0,
     trafficStateItems: [{ id: 0, name: '请选择' }], // 交通情况
     trafficStateIndex: 0,
+    passTimeItems: getPassTime(),
+    passTimeIndex: 0,
     colleagueItems: [{ id: 0, name: '请选择' }],
     colleagueIndex: 0,
     datainfo: {
@@ -41,6 +51,7 @@ Page({
       driver_state: 0,
       car_state: 0,
       traffic_state: 0,
+      pass_time: 0,
       colleague_id: 0
     }
   },
@@ -60,15 +71,16 @@ Page({
       wx.hideLoading()
       this.data.datainfo = {
         location: res.location,
-        event_time: res.event_time,
+        event_time: res.event_time || util.formatTime(new Date()),
+        address: res.address || '',
+        stake_number: res.stake_number || '',
         weather: res.weather,
         car_type: res.car_type,
-        address: res.address,
-        stake_number: res.stake_number,
         event_type: res.event_type,
         driver_state: res.driver_state,
         car_state: res.car_state,
         traffic_state: res.traffic_state,
+        pass_time: res.pass_time,
         colleague_id: res.colleague_id
       }
       this.data.weatherItems = this.data.weatherItems.concat(res.weather_list)
@@ -79,7 +91,7 @@ Page({
       this.data.trafficStateItems = this.data.trafficStateItems.concat(res.traffic_state_list)
       this.data.colleagueItems = this.data.colleagueItems.concat(res.colleague_list)
       this.setData({
-        'datainfo.event_time': this.data.datainfo.event_time || util.formatTime(new Date()),
+        'datainfo.event_time': this.data.datainfo.event_time,
         'datainfo.stake_number': this.data.datainfo.stake_number,
         'datainfo.address': this.data.datainfo.address,
         weatherItems: this.data.weatherItems,
@@ -95,6 +107,7 @@ Page({
         driverStateIndex: findIndex(this.data.driverStateItems, this.data.datainfo.driver_state),
         carStateIndex: findIndex(this.data.carStateItems, this.data.datainfo.car_state),
         trafficStateIndex: findIndex(this.data.trafficStateItems, this.data.datainfo.traffic_state),
+        passTimeIndex: findIndex(this.data.passTimeItems, this.data.datainfo.pass_time),
         colleagueIndex: findIndex(this.data.colleagueItems, this.data.datainfo.colleague_id)
       }, () => {
         if (!this.data.datainfo.location) {
@@ -205,6 +218,13 @@ Page({
   eventTimeChange(e) {
     this.setData({
       'datainfo.event_time': e.detail.dateString
+    })
+  },
+
+  passTimeChange(e) {
+    this.data.datainfo.pass_time = this.data.passTimeItems[e.detail.value].id
+    this.setData({
+      passTimeIndex: e.detail.value
     })
   },
 

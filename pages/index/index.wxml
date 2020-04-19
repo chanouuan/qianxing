@@ -4,7 +4,7 @@
     <block wx:for="{{banner}}" wx:key="index">
       <swiper-item>
         <view class="swiper-img" style="background-image:url({{item.img}})">
-          <text class="swiper-txt">{{item.title}}</text>
+          <text wx:if="{{item.title}}" class="swiper-txt">{{item.title}}</text>
         </view>
       </swiper-item>
     </block>

@@ -77,7 +77,7 @@ Page({
         involved_build_project: res.involved_build_project,
         involved_action_type: res.involved_action_type || {},
         items: res.items,
-        totalMoney: res.pay
+        totalMoney: res.total_money
       }
       if (res.site_photos && res.site_photos.length) {
         data.site_photos = res.site_photos.map(n => {

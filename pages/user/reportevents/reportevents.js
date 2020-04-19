@@ -112,9 +112,7 @@ Page({
 
   opendocfile() {
     wx.openDocument({
-      showMenu: false,
       filePath: this.data.docfile,
-      fileType: 'docx',
       success(res) {
         
       },
