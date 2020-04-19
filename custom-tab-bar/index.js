@@ -46,10 +46,8 @@ Component({
     }
   },
   lifetimes: {
-    attached() {
-      this.setData({
-        templateId: app.globalData.templateId || this.data.templateId
-      })
+    created() {
+      this.data.templateId = app.globalData.templateId
     }
   },
   methods: {

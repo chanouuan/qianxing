@@ -26,7 +26,7 @@ Page({
     api.getReportEvents(this.data.form).then(res => {
       if (res.list.length) {
         res.list.map(n => {
-          let date = util.splitTime(new Date(n.event_time))
+          let date = util.splitTime(n.event_time)
           n.event_time = [date.year, date.month, date.day].join('.')
           n.event_date = [date.year, '年', date.month, '月', date.day, '日', date.hour > 12 ? '下午' : '上午', date.hour, '时', date.minute, '分'].join('')
           return n
@@ -92,7 +92,7 @@ Page({
     })
     api.paynote({ report_id: id }).then(res => {
       wx.downloadFile({
-        url: res.doc_url,
+        url: res.url,
         success: (res) => {
           this.data.docfile = res.tempFilePath
           this.opendocfile()

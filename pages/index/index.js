@@ -21,7 +21,7 @@ Page({
           this.loadInit(data)
         }
       })
-    }).catch(res => {
+    }).catch(err => {
       wx.hideLoading({
         complete: (res) => {
           app.login().then(data => {

@@ -9,7 +9,7 @@
 <!-- 内容 -->
 <view class="mine">
 	<view class='top-bg'>
-		<view class='ava-wrap' wx:if="{{userInfo.telephone}}">
+		<view class='ava-wrap' wx:if="{{userInfo.avatar}}" bindtap="bindPhone">
 			<image src="{{userInfo.avatar}}" mode="cover"></image>
 		</view>
 		<view class='def-ava' wx:else bindtap="bindPhone">

@@ -205,6 +205,53 @@ Page({
         }
       }
     })
+  },
+
+  openAllnote(e) {
+    // 查看卷宗
+    let id = ~~e.currentTarget.dataset.id
+    if (this.data.docfile) {
+      return this.opendocfile()
+    }
+    wx.showLoading({
+      title: '下载中...',
+      mask: true
+    })
+    api.allnote({ report_id: id }).then(res => {
+      wx.downloadFile({
+        url: res.url,
+        success: (res) => {
+          this.data.docfile = res.tempFilePath
+          this.opendocfile()
+        },
+        fail(err) {
+          wx.showToast({
+            icon: 'none',
+            title: '下载失败，请重试。',
+          })
+        },
+        complete(res) {
+          wx.hideLoading()
+        }
+      })
+    }).catch(err => {})
+  },
+
+  opendocfile() {
+    wx.openDocument({
+      showMenu: false,
+      filePath: this.data.docfile,
+      fileType: 'docx',
+      success(res) {
+        
+      },
+      fail(err) {
+        wx.showToast({
+          icon: 'none',
+          title: '文档打开失败，请重试。',
+        })
+      }
+    })
   }
 
 })

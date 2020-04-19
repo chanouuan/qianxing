@@ -2,12 +2,23 @@
 
 const api = require('../../../api/api.js')
 
+const findIndex = (arr, id) => {
+  for (let i = 0, j = arr.length; i < j; i++) {
+    if (arr[i].id == id) {
+      return i
+    }
+  }
+  return 0
+}
+
 Page({
 
   data: {
     keyboardFlag: false,
     report_id: 0,
     submit: false,
+    carTypeItems: [{ id: 0, name: '请选择' }],
+    carTypeIndex: 0,
     form: {}
   },
 
@@ -22,16 +33,21 @@ Page({
       data_type: 'card'
     }).then(res => {
       wx.hideLoading()
+      this.data.form = {
+        addr: res.addr,
+        full_name: res.full_name,
+        idcard: res.idcard,
+        gender: res.gender,
+        birthday: res.birthday || '',
+        plate_num: res.plate_num,
+        telephone: res.user_mobile,
+        car_type: res.car_type
+      }
+      this.data.carTypeItems = this.data.carTypeItems.concat(res.car_type_list)
       this.setData({
-        form: {
-          addr: res.addr,
-          full_name: res.full_name,
-          idcard: res.idcard,
-          gender: res.gender,
-          birthday: res.birthday || '',
-          plate_num: res.plate_num,
-          telephone: res.user_mobile
-        }
+        carTypeItems: this.data.carTypeItems,
+        carTypeIndex: findIndex(this.data.carTypeItems, this.data.form.car_type),
+        form: this.data.form
       })
     }).catch(err => {
       // 获取失败
@@ -66,9 +82,23 @@ Page({
     })
   },
 
+  carTypeChange(e) {
+    this.data.form.car_type = this.data.carTypeItems[e.detail.value].id
+    this.setData({
+      carTypeIndex: e.detail.value
+    })
+  },
+
   tapCardinfo(e) {
     // 信息提交
     if (this.data.submit) {
+      return
+    }
+    if (!e.detail.value.full_name) {
+      wx.showToast({
+        title: '请输入当事人姓名',
+        icon: 'none'
+      })
       return
     }
     if (!/^1[0-9]{10}$/.test(e.detail.value.telephone)) {

@@ -1,4 +1,9 @@
 const formatTime = date => {
+  if (typeof date === 'string') {
+    date = new Date(date.replace(/-/g,'/'))
+  } else if (typeof date === 'undefined') {
+    date = new Date()
+  }
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()
@@ -10,6 +15,11 @@ const formatTime = date => {
 }
 
 const formatDate = date => {
+  if (typeof date === 'string') {
+    date = new Date(date.replace(/-/g,'/'))
+  } else if (typeof date === 'undefined') {
+    date = new Date()
+  }
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()
@@ -18,6 +28,11 @@ const formatDate = date => {
 }
 
 const splitTime = date => {
+  if (typeof date === 'string') {
+    date = new Date(date.replace(/-/g,'/'))
+  } else if (typeof date === 'undefined') {
+    date = new Date()
+  }
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()

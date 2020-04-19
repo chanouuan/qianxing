@@ -39,6 +39,14 @@
         </view>
       </view>
       <view class="form-item">
+        <text class="form-label">车辆类型</text>
+        <view class="form-text">
+          <picker name="car_type" bindchange="carTypeChange" range-key="name" value="{{carTypeIndex}}" range="{{carTypeItems}}">
+            {{carTypeItems[carTypeIndex].name}}
+          </picker>
+        </view>
+      </view>
+      <view class="form-item">
         <text class="form-label">住址</text>
         <view class="form-text">
           <input value="{{form.addr}}" name="addr" maxlength="50"  placeholder-class="form-placeholder" placeholder="请输入住址"></input>

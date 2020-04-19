@@ -19,9 +19,9 @@ Page({
       data_type: 'paper'
     }).then(res => {
       wx.hideLoading()
-      res.check_start_time = util.splitTime(new Date(res.check_start_time))
-      res.check_end_time = util.splitTime(new Date(res.check_end_time))
-      res.event_time = util.splitTime(new Date(res.event_time))
+      res.check_start_time = util.splitTime(res.check_start_time)
+      res.check_end_time = util.splitTime(res.check_end_time)
+      res.event_time = util.splitTime(res.event_time)
       res.involved_action = res.involved_action || {}
       res.involved_action_type = res.involved_action_type || {}
       res.items = res.items.map((n,i) => (i+1) + '. ' + n.name + n.amount + n.unit).join('；')

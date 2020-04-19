@@ -288,7 +288,8 @@ Page({
         body: {
           report_id: this.data.report_id,
           report_field: 'driving_license_front',
-          plate_num: e.detail.plate_num.text
+          plate_num: e.detail.plate_num.text,
+          car_type: e.detail.vehicle_type.text
         },
         progress: (res) => {
           this.setData({

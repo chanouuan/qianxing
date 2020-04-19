@@ -1,13 +1,20 @@
 //app.js
-const QQMapWX = require('./utils/qqmap-wx-jssdk.min.js')
-const config = require('./config.js')
-const util = require('./utils/util.js')
-const api = require('./api/api.js')
+import QQMapWX from './utils/qqmap-wx-jssdk.min.js'
+import {
+  qqmapKey
+} from './config.js'
+import {
+  setToken,
+  getToken
+} from './utils/util.js'
+import {
+  mplogin
+} from './api/api.js'
 
 App({
-  onLaunch: function() {
+  onLaunch: function () {
     // 清空缓存
-    util.setToken('')
+    setToken('')
     // wx.clearStorage()
 
     // 云开发
@@ -29,7 +36,7 @@ App({
 
     // 管理更新
     const updateManager = wx.getUpdateManager()
-    updateManager.onCheckForUpdate(function(res) {
+    updateManager.onCheckForUpdate(function (res) {
       // 请求完新版本信息的回调
       if (res.hasUpdate) {
         wx.showToast({
@@ -38,11 +45,11 @@ App({
         })
       }
     })
-    updateManager.onUpdateReady(function() {
+    updateManager.onUpdateReady(function () {
       wx.showModal({
         title: '更新提示',
         content: '新版本已经准备好，是否重启应用？',
-        success: function(res) {
+        success: function (res) {
           if (res.confirm) {
             // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
             updateManager.applyUpdate()
@@ -50,7 +57,7 @@ App({
         }
       })
     })
-    updateManager.onUpdateFailed(function(res) {
+    updateManager.onUpdateFailed(function (res) {
       // 新版本下载失败
       console.log(res)
       wx.showToast({
@@ -59,29 +66,9 @@ App({
       })
     })
 
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              // 可以将 res 发送给后台解码出 unionId
-              this.globalData.userInfo = Object.assign(this.globalData.userInfo || {}, res.userInfo)
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(res)
-              }
-            }
-          })
-        }
-      }
-    })
-
     // QQ地图API
     this.globalData.qqmapsdk = new QQMapWX({
-      key: config.qqmapKey
+      key: qqmapKey
     })
   },
   globalData: {
@@ -89,61 +76,28 @@ App({
     screenHeight: 0,
     windowHeight: 0,
     templateId: 'user',
-    userInfo: null
+    userInfo: {}
   },
   login() {
     return new Promise((resolve, reject) => {
-      if (util.getToken()) {
+      if (getToken()) {
         resolve({
           userInfo: this.globalData.userInfo
         })
-        return
-      }
-      this.getUserInfo().then(userInfo => {
-        // 登录
+      } else {
         wx.login({
           success: res => {
-            userInfo.code = res.code
-            api.login(userInfo).then(res => {
+            mplogin({
+              code: res.code
+            }).then(res => {
               this.globalData.userInfo = res
-              util.setToken(res.token)
+              setToken(res.token)
               resolve({
                 userInfo: this.globalData.userInfo
               })
-            }).catch(res => {
-              reject(res)
+            }).catch(err => {
+              reject(err)
             })
-          }
-        })
-      }).catch(res => {
-        wx.showToast({
-          title: '获取用户信息失败',
-          icon: 'none'
-        })
-        reject(res)
-      })
-    })
-  },
-  getUserInfo() {
-    return new Promise((resolve, reject) => {
-      if (this.globalData.userInfo) {
-        resolve(this.globalData.userInfo)
-      } else if (wx.canIUse('button.open-type.getUserInfo')) {
-        // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-        // 所以此处加入 callback 以防止这种情况
-        this.userInfoReadyCallback = res => {
-          this.globalData.userInfo = Object.assign(this.globalData.userInfo || {}, res.userInfo)
-          resolve(this.globalData.userInfo)
-        }
-      } else {
-        // 在没有 open-type=getUserInfo 版本的兼容处理
-        wx.getUserInfo({
-          success: res => {
-            this.globalData.userInfo = Object.assign(this.globalData.userInfo || {}, res.userInfo)
-            resolve(this.globalData.userInfo)
-          },
-          fail: res => {
-            reject(res)
           }
         })
       }

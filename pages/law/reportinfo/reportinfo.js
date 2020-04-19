@@ -17,17 +17,17 @@ Page({
   data: {
     report_id: 0,
     submit: false,
-    weatherItems: [{ id: 0, name: '请选择' }, { id: 1, name: '晴' }, { id: 2, name: '阴' }, { id: 3, name: '雨' }, { id: 4, name: '雪' }, { id: 5, name: '雾'}],
+    weatherItems: [{ id: 0, name: '请选择' }],
     weatherIndex: 0,
-    carTypeItems: [{ id: 0, name: '请选择' }, { id: 1, name: '小型车' }, { id: 2, name: '中型车' }, { id: 3, name: '大型车'}],
+    carTypeItems: [{ id: 0, name: '请选择' }],
     carTypeIndex: 0,
-    eventTypeItems: [{ id: 0, name: '请选择' }, { id: 1, name: '公路突发事件' }, { id: 2, name: '自然灾害' }, { id: 3, name: '交通建设工程安全事故' }, { id: 4, name: '社会安全事件'}], // 事件类型
+    eventTypeItems: [{ id: 0, name: '请选择' }], // 事件类型
     eventTypeIndex: 0,
-    driverStateItems: [{ id: 0, name: '请选择' }, { id: 1, name: '待核实'}], // 受伤情况
+    driverStateItems: [{ id: 0, name: '请选择' }], // 受伤情况
     driverStateIndex: 0,
-    carStateItems: [{ id: 0, name: '请选择' }, { id: 1, name: '待核实'}], // 车辆情况
+    carStateItems: [{ id: 0, name: '请选择' }], // 车辆情况
     carStateIndex: 0,
-    trafficStateItems: [{ id: 0, name: '请选择' }, { id: 1, name: '待核实'}], // 交通情况
+    trafficStateItems: [{ id: 0, name: '请选择' }], // 交通情况
     trafficStateIndex: 0,
     colleagueItems: [{ id: 0, name: '请选择' }],
     colleagueIndex: 0,
@@ -58,31 +58,50 @@ Page({
       data_type: 'info'
     }).then(res => {
       wx.hideLoading()
-      this.data.datainfo = Object.assign(this.data.datainfo, res)
+      this.data.datainfo = {
+        location: res.location,
+        event_time: res.event_time,
+        weather: res.weather,
+        car_type: res.car_type,
+        address: res.address,
+        stake_number: res.stake_number,
+        event_type: res.event_type,
+        driver_state: res.driver_state,
+        car_state: res.car_state,
+        traffic_state: res.traffic_state,
+        colleague_id: res.colleague_id
+      }
+      this.data.weatherItems = this.data.weatherItems.concat(res.weather_list)
+      this.data.carTypeItems = this.data.carTypeItems.concat(res.car_type_list)
+      this.data.eventTypeItems = this.data.eventTypeItems.concat(res.event_type_list)
+      this.data.driverStateItems = this.data.driverStateItems.concat(res.driver_state_list)
+      this.data.carStateItems = this.data.carStateItems.concat(res.car_state_list)
+      this.data.trafficStateItems = this.data.trafficStateItems.concat(res.traffic_state_list)
+      this.data.colleagueItems = this.data.colleagueItems.concat(res.colleague_list)
       this.setData({
         'datainfo.event_time': this.data.datainfo.event_time || util.formatTime(new Date()),
         'datainfo.stake_number': this.data.datainfo.stake_number,
         'datainfo.address': this.data.datainfo.address,
+        weatherItems: this.data.weatherItems,
+        carTypeItems: this.data.carTypeItems,
+        eventTypeItems: this.data.eventTypeItems,
+        driverStateItems: this.data.driverStateItems,
+        carStateItems: this.data.carStateItems,
+        trafficStateItems: this.data.trafficStateItems,
+        colleagueItems: this.data.colleagueItems,
         weatherIndex: findIndex(this.data.weatherItems, this.data.datainfo.weather),
         carTypeIndex: findIndex(this.data.carTypeItems, this.data.datainfo.car_type),
         eventTypeIndex: findIndex(this.data.eventTypeItems, this.data.datainfo.event_type),
         driverStateIndex: findIndex(this.data.driverStateItems, this.data.datainfo.driver_state),
         carStateIndex: findIndex(this.data.carStateItems, this.data.datainfo.car_state),
-        trafficStateIndex: findIndex(this.data.trafficStateItems, this.data.datainfo.traffic_state)
+        trafficStateIndex: findIndex(this.data.trafficStateItems, this.data.datainfo.traffic_state),
+        colleagueIndex: findIndex(this.data.colleagueItems, this.data.datainfo.colleague_id)
       }, () => {
         if (!this.data.datainfo.location) {
           // 定位
           this.mapPostion()
         }
       })
-      // 获取同事
-      api.getColleague().then(res => {
-        this.data.colleagueItems = this.data.colleagueItems.concat(res)
-        this.setData({
-          colleagueItems: this.data.colleagueItems,
-          colleagueIndex: findIndex(this.data.colleagueItems, this.data.datainfo.colleague_id)
-        })
-      }).catch(err => {})
     }).catch(err => {
       // 获取失败
       wx.navigateBack()

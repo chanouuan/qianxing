@@ -17,7 +17,7 @@ Page({
   },
 
   onLoad: function (options) {
-    
+    //
   },
 
   onShow () {
@@ -94,9 +94,11 @@ Page({
 
   bindPhone (e) {
     // 绑定手机/打开登录弹窗
-    this.setData({
-      authModalFlag: true
-    })
+    if (!this.data.userInfo.telephone) {
+      this.setData({
+        authModalFlag: true
+      })
+    }
   },
 
   closeIdcardCheckModal () {

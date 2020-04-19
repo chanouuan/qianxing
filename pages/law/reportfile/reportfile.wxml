@@ -50,7 +50,7 @@
       <view class="title">行驶证照</view>
       <view class="panel2">
         <view class="panel2-item" data-name="driving_license_front">
-          <ocr-navigator bind:onSuccess="driversuccess" certificateType="drivingLicense" selectedOptions="{{['plateNum']}}">
+          <ocr-navigator bind:onSuccess="driversuccess" certificateType="drivingLicense" selectedOptions="{{['plateNum','vehicleType']}}">
             <view class="panel2-item-img">
               <image mode="aspectFill" src="{{driving_license_front}}" wx:if="{{driving_license_front}}"></image>
               <icon class="iconfont icon-zhaoxiang" wx:else></icon>

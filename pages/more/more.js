@@ -17,9 +17,6 @@ Page({
    */
   onLoad: function (options) {
     // 获取用户信息
-    app.getUserInfo().then(res => {
-      this.setData(res)
-    })
   },
 
   /**

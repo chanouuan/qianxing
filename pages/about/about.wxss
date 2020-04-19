@@ -1,8 +1,13 @@
 /* pages/about/about.wxss */
 
+.about {
+  width: 100%;
+  height: 100%;
+  padding-top: 30rpx;
+}
+
 .card-wrap {
-  padding: 0 24rpx;
-  margin-top: 20rpx;
+  padding: 0 30rpx;
 }
 
 .card {
@@ -13,8 +18,8 @@
 }
 
 .logo {
-  width: 150rpx;
-  height: 150rpx;
+  width: 300rpx;
+  height: 80rpx;
   margin: 90rpx auto 0 auto;
 }
 .logo image{

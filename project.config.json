@@ -24,8 +24,8 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.10.2",
-	"appid": "wxd5a2307e01de26f9",
+	"libVersion": "2.10.4",
+	"appid": "wx47d69a470b087162",
 	"projectname": "%E9%BB%94%E8%A1%8C",
 	"cloudfunctionRoot": "cloudfunctions/",
 	"cloudfunctionTemplateRoot": "",

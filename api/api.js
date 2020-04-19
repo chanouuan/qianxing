@@ -1,6 +1,10 @@
 import HttpRequest from '../utils/request.js'
-import { getToken } from '../utils/util.js'
-import { baseURL } from '../config.js'
+import {
+  getToken
+} from '../utils/util.js'
+import {
+  baseURL
+} from '../config.js'
 
 const axios = new HttpRequest(baseURL)
 
@@ -17,7 +21,7 @@ export const uploadPhoto = (post) => {
 }
 
 // 登录
-export const login = (post) => {
+export const mplogin = (post) => {
   return axios.request({
     url: '/miniprogramServer/login',
     body: post
@@ -28,7 +32,9 @@ export const login = (post) => {
 export const sendSms = (telephone) => {
   return axios.request({
     url: '/miniprogramServer/sendSms',
-    body: { telephone }
+    body: {
+      telephone
+    }
   })
 }
 
@@ -45,7 +51,9 @@ export const changePhone = (post) => {
 export const loadData = () => {
   return axios.request({
     url: '/miniprogramServer/loadData',
-    body: { token: getToken() }
+    body: {
+      token: getToken()
+    }
   })
 }
 
@@ -109,14 +117,6 @@ export const reportInfo = (post) => {
   return axios.request({
     url: '/miniprogramServer/reportInfo',
     body: post
-  })
-}
-
-// 获取同事
-export const getColleague = () => {
-  return axios.request({
-    url: '/miniprogramServer/getColleague',
-    body: { token: getToken() }
   })
 }
 
@@ -238,11 +238,22 @@ export const paynote = (post) => {
   })
 }
 
+// 查看卷宗
+export const allnote = (post) => {
+  post.token = getToken()
+  return axios.request({
+    url: '/word/allnote',
+    body: post
+  })
+}
+
 // 获取用户信息数
 export const getUserCount = () => {
   return axios.request({
     url: '/miniprogramServer/getUserCount',
-    body: { token: getToken() }
+    body: {
+      token: getToken()
+    }
   })
 }
 
@@ -254,3 +265,50 @@ export const saveUserInfo = (post) => {
     body: post
   })
 }
+
+// 获取报案配置
+// export const loadReportConfig = () => {
+//   return new Promise((resolve, reject) => {
+//     wx.getStorage({
+//       key: 'report_config',
+//       success(res) {
+//         let data = JSON.parse(res.data)
+//         // 检查缓存
+//         if (data.time > ((new Date()).getTime()) / 1000) {
+//           resolve(data)
+//         } else {
+//           axios.request({
+//             url: '/miniprogramServer/loadReportConfig',
+//             body: {}
+//           }).then(res => {
+//             wx.setStorage({
+//               key: 'report_config',
+//               data: JSON.stringify(res),
+//               success: () => {
+//                 resolve(res)
+//               }
+//             })
+//           }).catch(err => {
+//             reject(err)
+//           })
+//         }
+//       },
+//       fail() {
+//         axios.request({
+//           url: '/miniprogramServer/loadReportConfig',
+//           body: {}
+//         }).then(res => {
+//           wx.setStorage({
+//             key: 'report_config',
+//             data: JSON.stringify(res),
+//             success: () => {
+//               resolve(res)
+//             }
+//           })
+//         }).catch(err => {
+//           reject(err)
+//         })
+//       }
+//     })
+//   })
+// }
