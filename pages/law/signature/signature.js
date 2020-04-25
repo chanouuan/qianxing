@@ -34,7 +34,7 @@ Page({
     chirography: [], //笔迹
     currentChirography: {}, //当前笔迹
     linePrack: [], //划线轨迹 , 生成线条的实际点
-    signatureTarget: 'signature_checker',
+    signatureTarget: 'signature_agent',
     report_id: 0
   },
 
@@ -418,8 +418,10 @@ Page({
           canvas: res[0].node,
           x: this.data.cutArea.left - 10,
           y: this.data.cutArea.top - 10,
-          width: this.data.cutArea.right - this.data.cutArea.left + 20,
-          height: this.data.cutArea.bottom - this.data.cutArea.top + 20,
+          width: this.data.cutArea.right - this.data.cutArea.left + 10,
+          height: this.data.cutArea.bottom - this.data.cutArea.top + 10,
+          destWidth: this.data.cutArea.right - this.data.cutArea.left + 10,
+          destHeight: this.data.cutArea.bottom - this.data.cutArea.top + 10,
           fileType: 'png',
           quality: 1,
           success: (res) => {
@@ -439,12 +441,13 @@ Page({
                 signatureTarget: this.data.signatureTarget
               })
               wx.navigateBack()
-            }).catch(err => {
-              
-            })
+            }).catch(err => {})
           },
           fail(err) {
             wx.hideLoading()
+            wx.showModal({
+              content: err.errMsg
+            })
           }
         })
       })

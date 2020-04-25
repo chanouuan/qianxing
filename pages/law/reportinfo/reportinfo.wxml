@@ -6,7 +6,7 @@
       <view class="form-head">车主信息</view>
     </view>
     <view class="form-item">
-      <text class="form-label">时间</text>
+      <text class="form-label">事发时间</text>
       <view class="form-text">
         <block wx:if="{{datainfo.event_time}}">
           <pickerYMDHM placeholder="请输入时间" date="{{datainfo.event_time}}" bind:onPickerChange="eventTimeChange">
@@ -91,6 +91,17 @@
   </view>
   
   <view class="form-con">
+    <view class="form-item">
+      <text class="form-label">勘验时间</text>
+      <view class="form-text">
+        <block wx:if="{{datainfo.check_start_time}}">
+          <pickerYMDHM placeholder="请输入时间" date="{{datainfo.check_start_time}}" bind:onPickerChange="checkTimeChange">
+            {{datainfo.check_start_time}}
+            <icon class="iconfont icon-riqi"></icon>
+          </pickerYMDHM>
+        </block>
+      </view>
+    </view>
     <view class="form-item">
       <text class="form-label">协同人员</text>
       <view class="form-text">

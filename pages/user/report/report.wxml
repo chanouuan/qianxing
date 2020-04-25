@@ -24,7 +24,7 @@
           <view class="mark-addr-2">{{addr_des}}</view>
         </view>
       </view>
-      <view class="mark-group">
+      <view class="mark-group" hidden>
         <picker bindchange="groupChange" range-key="name" value="{{groupIndex}}" range="{{groupList}}">
           <view class="mark-group-picker">
             {{groupList[groupIndex].name}}

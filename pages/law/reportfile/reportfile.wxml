@@ -1,7 +1,7 @@
 <!--pages/law/reportfile/reportfile.wxml-->
 
 <!--菜单-->
-<tab tabList="{{[{name:'证件采集'},{name:'勘验笔录'},{name:'签字确认'}]}}" currentTab="{{tabIndex}}" catch:clickTab="onClickTab" />
+<tab tabList="{{[{name:'证件采集'},{name:'勘验笔录'}]}}" currentTab="{{tabIndex}}" catch:clickTab="onClickTab" />
 
 <view catchtap="nodata" scroll-y class="content-view {{tabIndex == 0 ? 'content-show' : '' }}">
   <!--证件采集-->
@@ -49,7 +49,7 @@
       </view>
       <view class="title">行驶证照</view>
       <view class="panel2">
-        <view class="panel2-item" data-name="driving_license_front">
+        <view class="panel2-item">
           <ocr-navigator bind:onSuccess="driversuccess" certificateType="drivingLicense" selectedOptions="{{['plateNum','vehicleType']}}">
             <view class="panel2-item-img">
               <image mode="aspectFill" src="{{driving_license_front}}" wx:if="{{driving_license_front}}"></image>
@@ -57,15 +57,17 @@
               <view class="progress" style="width:{{driving_license_front_progress}}%" wx:if="{{driving_license_front_progress}}"></view>
             </view>
           </ocr-navigator>
-          <view class="panel2-item-t">拍照上传行驶证正面</view>
+          <view class="panel2-item-t">行驶证正面</view>
         </view>
         <view class="panel2-item">
-          <view class="panel2-item-img" data-name="driving_license_behind" bindtap="takePhoto">
-            <image mode="aspectFill" src="{{driving_license_behind}}" wx:if="{{driving_license_behind}}"></image>
-            <icon class="iconfont icon-zhaoxiang" wx:else></icon>
-            <view class="progress" style="width:{{driving_license_behind_progress}}%" wx:if="{{driving_license_behind_progress}}"></view>
-          </view>
-          <view class="panel2-item-t">拍照上传行驶证副页</view>
+          <ocr-navigator bind:onSuccess="driverbehindsuccess" certificateType="drivingLicense" selectedOptions="{{['plateNum']}}">
+            <view class="panel2-item-img">
+              <image mode="aspectFill" src="{{driving_license_behind}}" wx:if="{{driving_license_behind}}"></image>
+              <icon class="iconfont icon-zhaoxiang" wx:else></icon>
+              <view class="progress" style="width:{{driving_license_behind_progress}}%" wx:if="{{driving_license_behind_progress}}"></view>
+            </view>
+          </ocr-navigator>
+          <view class="panel2-item-t">行驶证副页</view>
         </view>
       </view>
        <view class="title">驾驶证照</view>
@@ -76,7 +78,7 @@
             <icon class="iconfont icon-zhaoxiang" wx:else></icon>
             <view class="progress" style="width:{{driver_license_front_progress}}%" wx:if="{{driver_license_front_progress}}"></view>
           </view>
-          <view class="panel2-item-t">拍照上传驾驶证正面</view>
+          <view class="panel2-item-t">驾驶证正面</view>
         </view>
         <view class="panel2-item">
           <view class="panel2-item-img" data-name="driver_license_behind" bindtap="takePhoto">
@@ -84,7 +86,7 @@
             <icon class="iconfont icon-zhaoxiang" wx:else></icon>
             <view class="progress" style="width:{{driver_license_behind_progress}}%" wx:if="{{driver_license_behind_progress}}"></view>
           </view>
-          <view class="panel2-item-t">拍照上传驾驶证副页</view>
+          <view class="panel2-item-t">驾驶证副页</view>
         </view>
       </view>
       <view class="panel-bottom">
@@ -107,7 +109,9 @@
           <view class="panel-th">总计</view>
         </view>
         <view class="panel-tr" wx:for="{{items}}" wx:key="index">
-          <view class="panel-td">{{item.name}}</view>
+          <view class="panel-td">
+            <input bindinput="nameInput" data-index="{{index}}" value="{{item.name}}" type="text" maxlength="30" placeholder="请输入名称"></input>
+          </view>
           <view class="panel-td">
             <input bindinput="priceInput" data-index="{{index}}" value="{{item.price}}" type="digit" maxlength="5" placeholder="请输入费用"></input>
           </view>
@@ -192,7 +196,7 @@
   </view>
 </view>
 
-<view catchtap="nodata" scroll-y class="content-view {{tabIndex == 2 ? 'content-show' : '' }}">
+<view catchtap="nodata" scroll-y class="content-view" hidden>
   <!--签字确认-->
   <view class="content-wrap">
     <view class="content-inner">
@@ -206,7 +210,7 @@
         <view class="default-button" data-index="0" bindtap="goTab">现场勘验图照</view>
       </view>
       <view class="sub-btn">
-        <button class="default-button" loading="{{submit}}" bindtap="reportfile">保存并转发赔偿通知书</button>
+        <button class="default-button" loading="{{submit}}" bindtap="reportadmin">保存并退出</button>
       </view>
     </view>
   </view>

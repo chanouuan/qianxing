@@ -1,72 +1,91 @@
 <!--pages/law/cardinfo/cardinfo.wxml-->
 <!-- 键盘 -->
-<keyboard wx:if='{{keyboardFlag}}' bind:setlicense="handleSetLicense" bind:closeBoard="handleCloseKeyboard" licenseList="{{form.plate_num}}" />
+<keyboard wx:if='{{keyboardFlag}}' bind:setlicense="handleSetLicense" bind:closeBoard="handleCloseKeyboard" licenseList="{{plate_num}}" />
 
 <view class="container">
-  <form bindsubmit="tapCardinfo">
-    <view class="form-con">
-      <view class="form-item">
-        <view class="form-head">基本信息</view>
-      </view>
-      <view class="form-item">
-        <text class="form-label">姓名</text>
-        <view class="form-text">
-          <input value="{{form.full_name}}" name="full_name" maxlength="20" placeholder-class="form-placeholder" placeholder="请输入姓名"></input>
-        </view>
-      </view>
-      <view class="form-item">
-        <text class="form-label">性别</text>
-        <view class="form-text">
-          <radio-group name="gender">
-            <label><radio value="1" checked="{{form.gender==1}}"/>男</label>
-            <label style="margin-left: 10px;"><radio value="2" checked="{{form.gender==2}}"/>女</label>
-          </radio-group>
-        </view>
-      </view>
-      <view class="form-item">
-        <text class="form-label">出生年月</text>
-        <view class="form-text">
-          <picker bindchange="birthdayChange" name="birthday" mode="date" value="{{form.birthday}}">
-            {{form.birthday}}
-            <icon class="iconfont icon-riqi"></icon>
-          </picker>
-        </view>
-      </view>
-      <view class="form-item">
-        <text class="form-label">车牌号</text>
-        <view class="form-text" catchtap="handleShowKeyboard">
-          <input disabled value="{{form.plate_num}}" name="plate_num" maxlength="10" placeholder="请输入车牌号"></input>
-        </view>
-      </view>
-      <view class="form-item">
-        <text class="form-label">车辆类型</text>
-        <view class="form-text">
-          <picker name="car_type" bindchange="carTypeChange" range-key="name" value="{{carTypeIndex}}" range="{{carTypeItems}}">
-            {{carTypeItems[carTypeIndex].name}}
-          </picker>
-        </view>
-      </view>
-      <view class="form-item">
-        <text class="form-label">住址</text>
-        <view class="form-text">
-          <input value="{{form.addr}}" name="addr" maxlength="50"  placeholder-class="form-placeholder" placeholder="请输入住址"></input>
-        </view>
-      </view>
-      <view class="form-item">
-        <text class="form-label">当事人手机号</text>
-        <view class="form-text">
-          <input value="{{form.telephone}}" type="number" name="telephone" maxlength="11" placeholder-class="form-placeholder" placeholder="请输入手机号"></input>
-        </view>
-      </view>
-      <view class="form-item">
-        <text class="form-label">身份证号</text>
-        <view class="form-text">
-          <input value="{{form.idcard}}" type="idcard" name="idcard" maxlength="18" placeholder-class="form-placeholder" placeholder="请输入身份证号"></input>
-        </view>
-      </view>
-      <view class="btn-panel">
-        <button class="default-button" loading="{{submit}}" form-type="submit">保存并进行下一步</button>
-      </view>
-    </view>
-  </form>
+	<form bindsubmit="tapCardinfo">
+		<view class="form-con">
+			<view class="form-item">
+				<view class="form-head">基本信息</view>
+			</view>
+			<view class="form-item">
+				<text class="form-label">车牌号</text>
+				<view class="form-text" data-index="0" catchtap="handleShowKeyboard">
+					<input disabled value="{{plate_num_list[0]}}" maxlength="10" placeholder="请输入车牌号"></input>
+				</view>
+				<view class="form-mark" catchtap="addPlateNum">
+					<icon class="iconfont icon-add"></icon>
+				</view>
+			</view>
+			<block wx:if="{{plate_num_list.length>1}}">
+				<block wx:for="{{plate_num_list}}" wx:key="index">
+					<block wx:if="{{index>0}}">
+						<view class="form-item">
+							<view class="form-text" data-index="{{index}}" catchtap="handleShowKeyboard">
+								<input disabled value="{{item}}" maxlength="10" placeholder="新增车牌号"></input>
+							</view>
+							<view class="form-mark" data-index="{{index}}" catchtap="removePlateNum">
+								<icon size="20" type="cancel"></icon>
+							</view>
+						</view>
+					</block>
+				</block>
+			</block>
+			<view class="form-item">
+				<text class="form-label">车辆类型</text>
+				<view class="form-text">
+					<picker name="car_type" bindchange="carTypeChange" range-key="name" value="{{carTypeIndex}}" range="{{carTypeItems}}">
+						{{carTypeItems[carTypeIndex].name}}
+					</picker>
+				</view>
+			</view>
+			<view class="form-item">
+				<text class="form-label">姓名</text>
+				<view class="form-text">
+					<input value="{{form.full_name}}" name="full_name" maxlength="20" placeholder-class="form-placeholder" placeholder="请输入姓名"></input>
+				</view>
+			</view>
+			<view class="form-item">
+				<text class="form-label">性别</text>
+				<view class="form-text">
+					<radio-group name="gender">
+						<label>
+							<radio value="1" checked="{{form.gender==1}}" />男</label>
+						<label style="margin-left: 10px;">
+							<radio value="2" checked="{{form.gender==2}}" />女</label>
+					</radio-group>
+				</view>
+			</view>
+			<view class="form-item">
+				<text class="form-label">出生年月</text>
+				<view class="form-text">
+					<picker bindchange="birthdayChange" name="birthday" mode="date" value="{{form.birthday}}">
+						{{form.birthday}}
+						<icon class="iconfont icon-riqi"></icon>
+					</picker>
+				</view>
+			</view>
+			<view class="form-item">
+				<text class="form-label">住址</text>
+				<view class="form-text">
+					<input value="{{form.addr}}" name="addr" maxlength="50" placeholder-class="form-placeholder" placeholder="请输入住址"></input>
+				</view>
+			</view>
+			<view class="form-item">
+				<text class="form-label">当事人手机号</text>
+				<view class="form-text">
+					<input value="{{form.telephone}}" type="number" name="telephone" maxlength="11" placeholder-class="form-placeholder" placeholder="请输入手机号"></input>
+				</view>
+			</view>
+			<view class="form-item">
+				<text class="form-label">身份证号</text>
+				<view class="form-text">
+					<input value="{{form.idcard}}" type="idcard" name="idcard" maxlength="18" placeholder-class="form-placeholder" placeholder="请输入身份证号"></input>
+				</view>
+			</view>
+			<view class="btn-panel">
+				<button class="default-button" loading="{{submit}}" form-type="submit">保存并进行下一步</button>
+			</view>
+		</view>
+	</form>
 </view>

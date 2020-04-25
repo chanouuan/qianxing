@@ -16,9 +16,9 @@
   <view class="handRight">
     <view class="boxGroup">
       <radio-group class="radioGroup" bindchange="radioChange">
-        <radio value="signature_checker" checked>勘验人</radio>
+        <radio value="signature_checker">勘验人</radio>
         <radio value="signature_writer">记录人</radio>
-        <radio value="signature_agent">当事人</radio>
+        <radio value="signature_agent" checked>当事人</radio>
         <radio value="signature_invitee">被邀请人</radio>
       </radio-group>
     </view>

@@ -57,8 +57,8 @@ Page({
 
   tapSave() {
     // 进行下一步
-    const eventChannel = this.getOpenerEventChannel()
-    eventChannel.emit('paperCallBack', {})
-    wx.navigateBack()
+    wx.navigateBack({
+      delta: 2 // 后退2页
+    })
   }
 })

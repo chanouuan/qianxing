@@ -228,7 +228,7 @@ Page({
     }
     wx.showModal({
       title: '',
-      content: '您当前选择的是' + this.data.groupList[this.data.groupIndex].name + '，是否继续？',
+      content: '你确定报案吗？',
       confirmText: '确认',
       cancelText: '取消',
       success: (res) => {

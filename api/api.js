@@ -13,7 +13,7 @@ export const uploadPhoto = (post) => {
   post.body.token = getToken()
   return axios.request({
     upfile: true,
-    url: '/miniprogramServer/upload',
+    url: '/miniprogramserver/upload',
     body: post.body,
     filePath: post.filePath,
     progress: post.progress
@@ -23,7 +23,7 @@ export const uploadPhoto = (post) => {
 // 登录
 export const mplogin = (post) => {
   return axios.request({
-    url: '/miniprogramServer/login',
+    url: '/miniprogramserver/login',
     body: post
   })
 }
@@ -31,7 +31,7 @@ export const mplogin = (post) => {
 // 发送短信验证码
 export const sendSms = (telephone) => {
   return axios.request({
-    url: '/miniprogramServer/sendSms',
+    url: '/miniprogramserver/sendSms',
     body: {
       telephone
     }
@@ -42,7 +42,7 @@ export const sendSms = (telephone) => {
 export const changePhone = (post) => {
   post.token = getToken()
   return axios.request({
-    url: '/miniprogramServer/changePhone',
+    url: '/miniprogramserver/changePhone',
     body: post
   })
 }
@@ -50,7 +50,7 @@ export const changePhone = (post) => {
 // 首页加载
 export const loadData = () => {
   return axios.request({
-    url: '/miniprogramServer/loadData',
+    url: '/miniprogramserver/loadData',
     body: {
       token: getToken()
     }
@@ -61,7 +61,7 @@ export const loadData = () => {
 export const getDistrictGroup = (post) => {
   post.token = getToken()
   return axios.request({
-    url: '/miniprogramServer/getDistrictGroup',
+    url: '/miniprogramserver/getDistrictGroup',
     body: post
   })
 }
@@ -70,7 +70,7 @@ export const getDistrictGroup = (post) => {
 export const reportEvent = (post) => {
   post.token = getToken()
   return axios.request({
-    url: '/miniprogramServer/reportEvent',
+    url: '/miniprogramserver/reportEvent',
     body: post
   })
 }
@@ -79,7 +79,7 @@ export const reportEvent = (post) => {
 export const getUserReportEvents = (post) => {
   post.token = getToken()
   return axios.request({
-    url: '/miniprogramServer/getUserReportEvents',
+    url: '/miniprogramserver/getUserReportEvents',
     body: post
   })
 }
@@ -88,7 +88,7 @@ export const getUserReportEvents = (post) => {
 export const getReportEvents = (post) => {
   post.token = getToken()
   return axios.request({
-    url: '/miniprogramServer/getReportEvents',
+    url: '/miniprogramserver/getReportEvents',
     body: post
   })
 }
@@ -97,7 +97,7 @@ export const getReportEvents = (post) => {
 export const getReportDetail = (post) => {
   post.token = getToken()
   return axios.request({
-    url: '/miniprogramServer/getReportDetail',
+    url: '/miniprogramserver/getReportDetail',
     body: post
   })
 }
@@ -106,7 +106,7 @@ export const getReportDetail = (post) => {
 export const acceptReport = (post) => {
   post.token = getToken()
   return axios.request({
-    url: '/miniprogramServer/acceptReport',
+    url: '/miniprogramserver/acceptReport',
     body: post
   })
 }
@@ -115,7 +115,7 @@ export const acceptReport = (post) => {
 export const reportInfo = (post) => {
   post.token = getToken()
   return axios.request({
-    url: '/miniprogramServer/reportInfo',
+    url: '/miniprogramserver/reportInfo',
     body: post
   })
 }
@@ -124,7 +124,7 @@ export const reportInfo = (post) => {
 export const cardInfo = (post) => {
   post.token = getToken()
   return axios.request({
-    url: '/miniprogramServer/cardInfo',
+    url: '/miniprogramserver/cardInfo',
     body: post
   })
 }
@@ -133,7 +133,7 @@ export const cardInfo = (post) => {
 export const searchPropertyItems = (post) => {
   post.token = getToken()
   return axios.request({
-    url: '/miniprogramServer/searchPropertyItems',
+    url: '/miniprogramserver/searchPropertyItems',
     body: post
   })
 }
@@ -142,7 +142,7 @@ export const searchPropertyItems = (post) => {
 export const reportItem = (post) => {
   post.token = getToken()
   return axios.request({
-    url: '/miniprogramServer/reportItem',
+    url: '/miniprogramserver/reportItem',
     body: post
   })
 }
@@ -151,7 +151,7 @@ export const reportItem = (post) => {
 export const reportFile = (post) => {
   post.token = getToken()
   return axios.request({
-    url: '/miniprogramServer/reportFile',
+    url: '/miniprogramserver/reportFile',
     body: post
   })
 }
@@ -160,7 +160,7 @@ export const reportFile = (post) => {
 export const deleteReport = (post) => {
   post.token = getToken()
   return axios.request({
-    url: '/miniprogramServer/deleteReport',
+    url: '/miniprogramserver/deleteReport',
     body: post
   })
 }
@@ -169,7 +169,7 @@ export const deleteReport = (post) => {
 export const cancelReport = (post) => {
   post.token = getToken()
   return axios.request({
-    url: '/miniprogramServer/cancelReport',
+    url: '/miniprogramserver/cancelReport',
     body: post
   })
 }
@@ -178,7 +178,7 @@ export const cancelReport = (post) => {
 export const getPropertyPayItems = (post) => {
   post.token = getToken()
   return axios.request({
-    url: '/miniprogramServer/getPropertyPayItems',
+    url: '/miniprogramserver/getPropertyPayItems',
     body: post
   })
 }
@@ -187,7 +187,7 @@ export const getPropertyPayItems = (post) => {
 export const createPay = (post) => {
   post.token = getToken()
   return axios.request({
-    url: '/miniprogramServer/createPay',
+    url: '/miniprogramserver/createPay',
     body: post
   })
 }
@@ -196,7 +196,7 @@ export const createPay = (post) => {
 export const payQuery = (post) => {
   post.token = getToken()
   return axios.request({
-    url: '/miniprogramServer/payQuery',
+    url: '/miniprogramserver/payQuery',
     body: post
   })
 }
@@ -214,7 +214,7 @@ export const payParams = (post) => {
 export const getGroupBook = (post) => {
   post.token = getToken()
   return axios.request({
-    url: '/miniprogramServer/getGroupBook',
+    url: '/miniprogramserver/getGroupBook',
     body: post
   })
 }
@@ -222,7 +222,7 @@ export const getGroupBook = (post) => {
 // 移交案件
 export const trunReport = (post) => {
   post.token = getToken()
-  let url = post.level === 1 ? '/miniprogramServer/trunReport' : '/miniprogramServer/trunUserReport'
+  let url = post.level === 1 ? '/miniprogramserver/trunReport' : '/miniprogramserver/trunUserReport'
   return axios.request({
     url: url,
     body: post
@@ -250,7 +250,7 @@ export const allnote = (post) => {
 // 获取用户信息数
 export const getUserCount = () => {
   return axios.request({
-    url: '/miniprogramServer/getUserCount',
+    url: '/miniprogramserver/getUserCount',
     body: {
       token: getToken()
     }
@@ -261,7 +261,7 @@ export const getUserCount = () => {
 export const saveUserInfo = (post) => {
   post.token = getToken()
   return axios.request({
-    url: '/miniprogramServer/saveUserInfo',
+    url: '/miniprogramserver/saveUserInfo',
     body: post
   })
 }
@@ -278,7 +278,7 @@ export const saveUserInfo = (post) => {
 //           resolve(data)
 //         } else {
 //           axios.request({
-//             url: '/miniprogramServer/loadReportConfig',
+//             url: '/miniprogramserver/loadReportConfig',
 //             body: {}
 //           }).then(res => {
 //             wx.setStorage({
@@ -295,7 +295,7 @@ export const saveUserInfo = (post) => {
 //       },
 //       fail() {
 //         axios.request({
-//           url: '/miniprogramServer/loadReportConfig',
+//           url: '/miniprogramserver/loadReportConfig',
 //           body: {}
 //         }).then(res => {
 //           wx.setStorage({

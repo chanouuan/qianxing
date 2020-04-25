@@ -9,8 +9,9 @@
 <!-- 内容 -->
 <view class="mine">
 	<view class='top-bg'>
-		<view class='ava-wrap' wx:if="{{userInfo.avatar}}" bindtap="bindPhone">
-			<image src="{{userInfo.avatar}}" mode="cover"></image>
+		<view class='ava-wrap' wx:if="{{userInfo.telephone}}">
+			<image wx:if="{{userInfo.avatar}}" src="{{userInfo.avatar}}" mode="cover"></image>
+			<open-data wx:else class='avatar' type="userAvatarUrl"></open-data>
 		</view>
 		<view class='def-ava' wx:else bindtap="bindPhone">
 			<icon class='iconfont icon-touxiang'></icon>

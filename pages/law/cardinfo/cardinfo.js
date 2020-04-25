@@ -19,7 +19,10 @@ Page({
     submit: false,
     carTypeItems: [{ id: 0, name: '请选择' }],
     carTypeIndex: 0,
-    form: {}
+    form: {},
+    currentPlateNum: '',
+    plate_num: '',
+    plate_num_list: []
   },
 
   onLoad (options) {
@@ -39,15 +42,17 @@ Page({
         idcard: res.idcard,
         gender: res.gender,
         birthday: res.birthday || '',
-        plate_num: res.plate_num,
         telephone: res.user_mobile,
         car_type: res.car_type
       }
+      this.data.plate_num_list = res.plate_num ? res.plate_num.split(',') : []
       this.data.carTypeItems = this.data.carTypeItems.concat(res.car_type_list)
       this.setData({
         carTypeItems: this.data.carTypeItems,
         carTypeIndex: findIndex(this.data.carTypeItems, this.data.form.car_type),
-        form: this.data.form
+        form: this.data.form,
+        plate_num: this.data.plate_num_list.length ? this.data.plate_num_list[0] : '',
+        plate_num_list: this.data.plate_num_list
       })
     }).catch(err => {
       // 获取失败
@@ -55,9 +60,33 @@ Page({
     })
   },
 
-  handleShowKeyboard() {
-    // 打开键盘
+  addPlateNum() {
+    // 增加车牌号
+    if (this.data.plate_num_list.length < 20) {
+      this.setData({
+        ['plate_num_list[' + (this.data.plate_num_list.length) + ']']: ''
+      })
+    } else {
+      wx.showToast({
+        icon: 'none',
+        title: '最多可增加20个车牌号'
+      })
+    }
+  },
+
+  removePlateNum(e) {
+    // 移除车牌号
+    this.data.plate_num_list.splice(e.currentTarget.dataset.index, 1)
     this.setData({
+      plate_num_list: this.data.plate_num_list
+    })
+  },
+
+  handleShowKeyboard(e) {
+    // 打开键盘
+    this.data.currentPlateNum = e.currentTarget.dataset.index
+    this.setData({
+      plate_num: this.data.plate_num_list[this.data.currentPlateNum],
       keyboardFlag: true
     })
   },
@@ -71,9 +100,11 @@ Page({
 
   handleSetLicense(e) {
     // 键盘组件中拿到车牌号
-    this.setData({
-      'form.plate_num': e.detail.license_num.join('')
-    })
+    if (this.data.currentPlateNum !== '') {
+      this.setData({
+        ['plate_num_list[' + this.data.currentPlateNum + ']']: e.detail.license_num.join('')
+      })
+    }
   },
 
   birthdayChange(e) {
@@ -94,14 +125,15 @@ Page({
     if (this.data.submit) {
       return
     }
-    if (!e.detail.value.full_name) {
+    let data = e.detail.value
+    if (!data.full_name) {
       wx.showToast({
         title: '请输入当事人姓名',
         icon: 'none'
       })
       return
     }
-    if (!/^1[0-9]{10}$/.test(e.detail.value.telephone)) {
+    if (!/^1[0-9]{10}$/.test(data.telephone)) {
       wx.showToast({
         title: '请输入正确的当事人手机号',
         icon: 'none'
@@ -111,8 +143,9 @@ Page({
     this.setData({
       submit: true
     })
-    e.detail.value.report_id = this.data.report_id
-    api.cardInfo(e.detail.value).then(res => {
+    data.report_id = this.data.report_id
+    data.plate_num = this.data.plate_num_list.join(',')
+    api.cardInfo(data).then(res => {
       let routes = getCurrentPages()
       routes.forEach(route => {
         if (~route.route.indexOf('reportfile')) {
@@ -126,7 +159,6 @@ Page({
       })
       wx.navigateBack()
     }).catch(err => {
-      console.log(err)
       this.setData({
         submit: false
       })

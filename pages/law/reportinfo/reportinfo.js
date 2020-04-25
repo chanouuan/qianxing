@@ -52,7 +52,8 @@ Page({
       car_state: 0,
       traffic_state: 0,
       pass_time: 0,
-      colleague_id: 0
+      colleague_id: 0,
+      check_start_time: 0
     }
   },
 
@@ -81,7 +82,8 @@ Page({
         car_state: res.car_state,
         traffic_state: res.traffic_state,
         pass_time: res.pass_time,
-        colleague_id: res.colleague_id
+        colleague_id: res.colleague_id,
+        check_start_time: res.check_start_time || util.formatTime(new Date())
       }
       this.data.weatherItems = this.data.weatherItems.concat(res.weather_list)
       this.data.carTypeItems = this.data.carTypeItems.concat(res.car_type_list)
@@ -94,6 +96,7 @@ Page({
         'datainfo.event_time': this.data.datainfo.event_time,
         'datainfo.stake_number': this.data.datainfo.stake_number,
         'datainfo.address': this.data.datainfo.address,
+        'datainfo.check_start_time': this.data.datainfo.check_start_time,
         weatherItems: this.data.weatherItems,
         carTypeItems: this.data.carTypeItems,
         eventTypeItems: this.data.eventTypeItems,
@@ -218,6 +221,12 @@ Page({
   eventTimeChange(e) {
     this.setData({
       'datainfo.event_time': e.detail.dateString
+    })
+  },
+
+  checkTimeChange(e) {
+    this.setData({
+      'datainfo.check_start_time': e.detail.dateString
     })
   },
 

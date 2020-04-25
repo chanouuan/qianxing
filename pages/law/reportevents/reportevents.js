@@ -157,9 +157,9 @@ Page({
       title: '案件受理',
       content: '请确认是否受理此案件？',
       confirmText: '同意',
-      confirmColor: 'green',
+      confirmColor: '#09bb07',
       cancelText: '不同意',
-      cancelColor: 'red',
+      cancelColor: '#e64340',
       success: (res) => {
         if (res.confirm) {
           api.acceptReport({ report_id: id }).then(res => {

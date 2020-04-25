@@ -5,7 +5,7 @@
       <movable-view wx:if="{{pageFlag}}" class="paper" damping="20" scale-value="0.5" scale-min="0.5" scale-max="1" direction="all" out-of-bounds scale animation="{{false}}">
         <view class="paper-title">高速公路路产勘验（检查）笔录</view>
         <view class="paper-flex-end paper-margin-bottom">
-          <text>黔遵高路</text>龙坪路勘〔2020〕<text></text>号
+          <text></text>路勘〔{{date.year}}〕<text></text>号
         </view>
         <view class="paper-flex-between">
           勘验（检查）时间：<text>{{datainfo.check_start_time.year}}</text>年<text>{{datainfo.check_start_time.month}}</text>月<text>{{datainfo.check_start_time.day}}</text>日<text>{{datainfo.check_start_time.hour}}</text>时<text>{{datainfo.check_start_time.minute}}</text>分至<text>{{datainfo.check_end_time.month}}</text>月<text>{{datainfo.check_end_time.day}}</text>日<text>{{datainfo.check_end_time.hour}}</text>时<text>{{datainfo.check_end_time.minute}}</text>分
@@ -118,7 +118,7 @@
         </view>
         <view class="paper-padding">
           <view class="paper-flex-between paper-padding-top0">
-            被邀请人签名： <view class="paper-img paper-flex1"><image  vx:if="{{datainfo.signature_invitee}}" src="{{datainfo.signature_invitee}}" mode="widthFix"></image></view> 联系电话：<text class="paper-flex1"></text>
+            被邀请人签名： <view class="paper-img paper-flex1"><image vx:if="{{datainfo.signature_invitee}}" src="{{datainfo.signature_invitee}}" mode="widthFix"></image></view> 联系电话：<text class="paper-flex1"></text>
           </view>
           <view class="paper-flex-between">
             备注：<text class="paper-flex1"></text>
@@ -132,6 +132,6 @@
   </view>
   <view class="paper-btn">
     <view class="default-button" bindtap="tapSign">签字</view>
-    <view class="default-button" bindtap="tapSave">保存并进行下一步</view>
+    <view class="default-button" bindtap="tapSave">保存并退出</view>
   </view>
 </view>

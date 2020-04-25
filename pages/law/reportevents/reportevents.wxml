@@ -49,7 +49,7 @@
           <view data-id="{{item.id}}" bindtap="reloadReport" class="default-button">编辑案件</view>
         </block>
         <block wx:elif="{{item.status==3}}">
-          <view data-id="{{item.id}}" bindtap="openAllnote" class="default-button default">下载卷宗</view>
+          <view data-id="{{item.id}}" bindtap="openAllnote" class="default-button default" hidden>下载卷宗</view>
         </block>
       </view>
     </view>
