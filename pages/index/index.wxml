@@ -126,33 +126,21 @@
   <view class="more-con">
     <view class="more-item" bindtap="noopen">
       <view class="more-icon">
-        <image src="../../images/icon-qian@2x.png"></image>
-      </view>
-      <view class="more-desc">费用管理</view>
-    </view>
-    <view class="more-item" bindtap="noopen">
-      <view class="more-icon">
-        <image src="../../images/icon-tongxunlu@2x.png"></image>
-      </view>
-      <view class="more-desc">企业通信录</view>
-    </view>
-    <view class="more-item" bindtap="noopen">
-      <view class="more-icon">
-        <image src="../../images/icon-gongzhang@2x.png"></image>
-      </view>
-      <view class="more-desc">公章申请</view>
-    </view>
-    <view class="more-item" bindtap="noopen">
-      <view class="more-icon">
         <image src="../../images/icon-jiayou@2x.png"></image>
       </view>
       <view class="more-desc">车辆加油</view>
     </view>
     <view class="more-item" bindtap="noopen">
       <view class="more-icon">
-        <image src="../../images/icon-youka@2x.png"></image>
+        <image src="../../images/icon-tongxunlu@2x.png"></image>
       </view>
-      <view class="more-desc">油卡固存</view>
+      <view class="more-desc">通信录</view>
+    </view>
+    <view class="more-item" bindtap="noopen">
+      <view class="more-icon">
+        <image src="../../images/icon-kaoqing@2x.png"></image>
+      </view>
+      <view class="more-desc">考勤打卡</view>
     </view>
     <view class="more-item" bindtap="noopen">
       <view class="more-icon">
@@ -162,9 +150,21 @@
     </view>
     <view class="more-item" bindtap="noopen">
       <view class="more-icon">
-        <image src="../../images/icon-kaoqing@2x.png"></image>
+        <image src="../../images/icon-youka@2x.png"></image>
       </view>
-      <view class="more-desc">考勤打卡</view>
+      <view class="more-desc">油卡圈存</view>
+    </view>
+    <view class="more-item" bindtap="noopen">
+      <view class="more-icon">
+        <image src="../../images/icon-qian@2x.png"></image>
+      </view>
+      <view class="more-desc">费用管理</view>
+    </view>
+    <view class="more-item" bindtap="noopen">
+      <view class="more-icon">
+        <image src="../../images/icon-gongzhang@2x.png"></image>
+      </view>
+      <view class="more-desc">公章申请</view>
     </view>
     <view class="more-item" bindtap="noopen">
       <view class="more-icon">

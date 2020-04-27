@@ -11,6 +11,7 @@ class HttpRequest {
       qs: {},
       body: {},
       proxy: false,
+      reset: 0,
       headers: {
         'Content-Type': 'application/json'
       }
@@ -29,7 +30,34 @@ class HttpRequest {
         formData: options.body,
         name: 'upfile',
         success: res => {
-          this.response(JSON.parse(res.data), resolve, reject)
+          const result =  this.response(JSON.parse(res.data))
+          if (result.code === 1) {
+            resolve(result.data)
+          } else if (result.code === 0) {
+            reject(result.data)
+          } else if (result.code === 2) {
+            // 重连
+            if (options.reset < 1) {
+              options.reset++
+              this.resetLogin().then(res => {
+                options.body = Object.assign(options.body || {}, res)
+                this.upfile(options).then(res => {
+                  resolve(res)
+                }).catch(err => {
+                  reject(err)
+                })
+              }).catch(err => {
+                reject(err)
+              })
+            } else {
+              wx.showToast({
+                title: result.data.message,
+                icon: 'none',
+                duration: 3000
+              })
+              reject(result.data)
+            }        
+          }
         },
         fail: err => {
           wx.showToast({
@@ -43,7 +71,6 @@ class HttpRequest {
             UploadTask.offProgressUpdate(options.progress)
           }
           UploadTask = null
-          options = null
         }
       })
       if (UploadTask) {
@@ -53,17 +80,17 @@ class HttpRequest {
       }
     })
   }
-  response(data, resolve, reject) {
+  response(data) {
     if (typeof data === 'object') {
       if ('errorcode' in data) {
         if (data.errorcode === 0) {
           // 请求成功
-          resolve(data.data)
-          return true
+          return { code: 1, data: data.data }
         }
-        // 用户未登录
         if (data.errorcode === 3010) {
+          // 用户未登录
           setToken('')
+          return { code: 2, data: data }
         }
         wx.showToast({
           title: data.message,
@@ -72,23 +99,45 @@ class HttpRequest {
         })
       }
     }
-    reject(data)
-    return false
+    return { code: 0, data: data }
   }
-  cloudMethod(options) {
+  // cloudMethod(options) {
+  //   return new Promise((resolve, reject) => {
+  //     wx.cloud.callFunction({
+  //       name: 'http_proxy_request',
+  //       data: options,
+  //     }).then(res => {
+  //         this.response(res.result, resolve, reject)
+  //       }).catch(err => {
+  //         wx.showToast({
+  //           title: '连接超时，请检查网络！',
+  //           icon: 'none'
+  //         })
+  //         reject(err)
+  //       })
+  //   })
+  // }
+  resetLogin() {
     return new Promise((resolve, reject) => {
-      wx.cloud.callFunction({
-        name: 'http_proxy_request',
-        data: options,
-      }).then(res => {
-          this.response(res.result, resolve, reject)
-        }).catch(err => {
-          wx.showToast({
-            title: '连接超时，请检查网络！',
-            icon: 'none'
+      wx.login({
+        success: res => {
+          // 登录
+          this.request({
+            url: '/miniprogramserver/login',
+            body: { code: res.code }
+          }).then(res => {
+            setToken(res.token)
+            resolve({
+              token: res.token
+            })
+          }).catch(err => {
+            reject(err)
           })
+        },
+        fail: err => {
           reject(err)
-        })
+        }
+      })
     })
   }
   wxMethod(options) {
@@ -101,7 +150,34 @@ class HttpRequest {
         timeout: options.timeout,
         dataType: 'json',
         success: res => {
-          this.response(res.data, resolve, reject)
+          const result =  this.response(res.data)
+          if (result.code === 1) {
+            resolve(result.data)
+          } else if (result.code === 0) {
+            reject(result.data)
+          } else if (result.code === 2) {
+            // 重连
+            if (options.reset < 1) {
+              options.reset++
+              this.resetLogin().then(res => {
+                options.body = Object.assign(options.body || {}, res)
+                this.wxMethod(options).then(res => {
+                  resolve(res)
+                }).catch(err => {
+                  reject(err)
+                })
+              }).catch(err => {
+                reject(err)
+              })
+            } else {
+              wx.showToast({
+                title: result.data.message,
+                icon: 'none',
+                duration: 3000
+              })
+              reject(result.data)
+            }        
+          }
         },
         fail: err => {
           wx.showToast({
@@ -109,8 +185,6 @@ class HttpRequest {
             icon: 'none'
           })
           reject(err)
-        },
-        complete: res => {
         }
       })
     })
@@ -122,7 +196,7 @@ class HttpRequest {
       return this.upfile(options)
     }
     if (options.proxy) {
-      return this.cloudMethod(options)
+      // return this.cloudMethod(options)
     } else {
       return this.wxMethod(options)
     }

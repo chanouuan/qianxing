@@ -22,6 +22,8 @@ Page({
       res.check_start_time = util.splitTime(res.check_start_time)
       res.check_end_time = util.splitTime(res.check_end_time)
       res.event_time = util.splitTime(res.event_time)
+      res.checker_time = res.checker_time ? util.splitTime(res.checker_time) : {}
+      res.agent_time = res.agent_time ? util.splitTime(res.agent_time) : {}
       res.involved_action = res.involved_action || {}
       res.involved_action_type = res.involved_action_type || {}
       res.items = res.items.map((n,i) => (i+1) + '. ' + n.name + n.amount + n.unit).join('；')
@@ -35,7 +37,6 @@ Page({
         pageFlag: true
       })
     }).catch(err => {
-      console.log(err)
       // 获取失败
       wx.navigateBack()
     })
@@ -47,9 +48,16 @@ Page({
       url: '/pages/law/signature/signature?report_id=' + this.data.report_id,
       events: {
         signatureCallBack: (res) => {
-          this.setData({
+          let data = {
             ['datainfo.' + res.signatureTarget]: res.imageUrl
-          })
+          }
+          if (res.signatureTarget == 'signature_checker') {
+            data['datainfo.checker_time'] = this.data.date
+          }
+          if (res.signatureTarget == 'signature_agent') {
+            data['datainfo.agent_time'] = this.data.date
+          }
+          this.setData(data)
         }
       }
     })

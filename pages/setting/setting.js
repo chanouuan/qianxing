@@ -7,13 +7,26 @@ Page({
 
   data: {
     authModalFlag: false,
-    userInfo: {}
+    userInfo: {},
+    templateId: 'user'
   },
 
   onLoad(options) {
-    this.setData({
-      userInfo: app.globalData.userInfo
-    })
+    this.data.userInfo = app.globalData.userInfo
+    if (this.data.userInfo.group_id > 0 && app.globalData.templateId === 'law') {
+      api.getUserProfile().then(res => {
+        this.data.userInfo.law_num = res.law_num
+        this.setData({
+          userInfo: this.data.userInfo,
+          templateId: app.globalData.templateId
+        })
+      }).catch(err => {})
+    } else {
+      this.setData({
+        userInfo: this.data.userInfo,
+        templateId: app.globalData.templateId
+      })
+    }
   },
 
   saveUserInfo(e) {

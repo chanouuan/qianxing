@@ -32,6 +32,18 @@
           <view>{{item.status==0?'报警时间':'受理时间'}}</view>
           <view style="width:66%">{{item.create_time}}</view>
         </view>
+        <view wx:if="{{item.full_name}}" class="con-body-item">
+          <view>当事人姓名</view>
+          <view>{{item.full_name}}</view>
+        </view>
+        <view wx:if="{{item.plate_num}}" class="con-body-item">
+          <view>事故车辆</view>
+          <view style="width:66%">{{item.plate_num}}</view>
+        </view>
+        <view wx:if="{{item.complete_time}}" class="con-body-item">
+          <view>结案时间</view>
+          <view style="width:66%">{{item.complete_time}}</view>
+        </view>
       </view>
       <view class="con-footer">
         <block wx:if="{{item.status==0}}">

@@ -102,7 +102,7 @@ Component({
         if (vercode.length == this.data.codeLength) {
           api.changePhone({
             telephone: this.data.mobile,
-            msgcode: vercode,
+            msgcode: vercode.join(''),
           }).then(res => {
             wx.showToast({
               title: '绑定成功',

@@ -50,9 +50,7 @@ Page({
     this.getTabBar().switchPage(0)
     // 初始化数据
     if (this.data.userInfo.id) {
-      this.setData({
-        templateId: app.globalData.templateId
-      })
+      this.loadInit(this.data)
     }
   },
 
@@ -81,6 +79,13 @@ Page({
       }
     }
     data.templateId = app.globalData.templateId
+    if (app.globalData.templateId !== 'law') {
+      // 用户端只获取banner图
+      if (this.data.banner.length) {
+        this.setData(data)
+        return
+      }
+    }
     api.loadData().then(res => {
       data.banner = res.banner
       data.userInfo.report_count = res.report_count

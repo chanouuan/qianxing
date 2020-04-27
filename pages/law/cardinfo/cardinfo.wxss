@@ -16,6 +16,10 @@
   padding: 25rpx;
 }
 
+.form-fill {
+  color: #e64340;
+}
+
 .form-head {
   font-weight: bold;
 }

@@ -20,11 +20,13 @@
       <text class="form-label">地点</text>
       <view class="form-text">
         {{datainfo.address}}
+      </view>
+      <view class="form-icon">
         <icon class="iconfont icon-dingwei" bindtap="mapPostion"></icon>
       </view>
     </view>
     <view class="form-item">
-      <text class="form-label">桩号</text>
+      <text class="form-label"><text class="form-fill">*</text>桩号</text>
       <view class="form-text">
         <input bindinput="stakeNumberInput" value="{{datainfo.stake_number}}" maxlength="50" placeholder-class="form-placeholder" placeholder="例如：G75兰海高速K1247+500M下行"></input>
       </view>

@@ -40,7 +40,7 @@
 				</view>
 			</view>
 			<view class="form-item">
-				<text class="form-label">姓名</text>
+				<text class="form-label"><text class="form-fill">*</text>姓名</text>
 				<view class="form-text">
 					<input value="{{form.full_name}}" name="full_name" maxlength="20" placeholder-class="form-placeholder" placeholder="请输入姓名"></input>
 				</view>
@@ -72,7 +72,7 @@
 				</view>
 			</view>
 			<view class="form-item">
-				<text class="form-label">当事人手机号</text>
+				<text class="form-label"><text class="form-fill">*</text>当事人手机号</text>
 				<view class="form-text">
 					<input value="{{form.telephone}}" type="number" name="telephone" maxlength="11" placeholder-class="form-placeholder" placeholder="请输入手机号"></input>
 				</view>

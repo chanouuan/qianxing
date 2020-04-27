@@ -20,6 +20,14 @@ export const uploadPhoto = (post) => {
   })
 }
 
+// 获取用户其他信息
+export const getUserProfile = () => {
+  return axios.request({
+    url: '/miniprogramserver/getUserProfile',
+    body: {token: getToken()}
+  })
+}
+
 // 登录
 export const mplogin = (post) => {
   return axios.request({

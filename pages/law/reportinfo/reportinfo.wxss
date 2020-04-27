@@ -17,6 +17,10 @@
   margin-top: 25rpx;
 }
 
+.form-fill {
+  color: #e64340;
+}
+
 .form-head {
   font-weight: bold;
 }
@@ -60,9 +64,8 @@
   font-size: 20px;
 }
 
-.form-word {
-  height: 20px;
-  line-height: 20px;
+.form-icon icon{
+  font-size: 20px;
 }
 
 .btn-panel {

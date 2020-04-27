@@ -28,6 +28,7 @@ App({
     // 系统参数
     wx.getSystemInfo({
       success: res => {
+        this.globalData.isIpx = res.model.search('iPhone X') !== -1
         this.globalData.statusBarHeight = res.statusBarHeight
         this.globalData.screenHeight = res.screenHeight
         this.globalData.windowHeight = res.windowHeight
@@ -75,6 +76,7 @@ App({
     statusBarHeight: 20,
     screenHeight: 0,
     windowHeight: 0,
+    isIpx: false,
     templateId: 'user',
     userInfo: {}
   },

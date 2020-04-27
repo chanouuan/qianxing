@@ -19,8 +19,8 @@
             <block wx:if="{{index==0}}">前面</block>
             <block wx:elif="{{index==1}}">侧面</block>
             <block wx:elif="{{index==2}}">后面</block>
-            <block wx:elif="{{index==3}}">全景</block>
-            <block wx:elif="{{index==4}}">全景</block>
+            <block wx:elif="{{index==3}}">前全景</block>
+            <block wx:elif="{{index==4}}">后全景</block>
           </view>
         </view>
       </view>

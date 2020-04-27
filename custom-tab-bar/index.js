@@ -3,7 +3,8 @@ const app = getApp()
 Component({
   data: {
     selected: 0,
-    templateId: 'user',
+    isIpx: app.globalData.isIpx,
+    templateId: app.globalData.templateId,
     templateMenu: {
       'user': {
         "color": "#333",
@@ -47,6 +48,7 @@ Component({
   },
   lifetimes: {
     created() {
+      this.data.isIpx = app.globalData.isIpx
       this.data.templateId = app.globalData.templateId
     }
   },
