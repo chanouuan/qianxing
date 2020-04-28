@@ -4,6 +4,9 @@ const util = require('../../../utils/util.js')
 const app = getApp()
 
 const findIndex = (arr, id, init) => {
+  if (id === null) {
+    return 0
+  }
   for (let i = 0, j = arr.length; i < j; i++) {
     if (arr[i].id == id) {
       return i
@@ -130,6 +133,13 @@ Page({
         passTimeIndex: findIndex(this.data.passTimeItems, this.data.datainfo.pass_time, 3),
         colleagueIndex: findIndex(this.data.colleagueItems, this.data.datainfo.colleague_id)
       }, () => {
+        this.data.datainfo.weather = this.data.weatherItems[this.data.weatherIndex].id
+        this.data.datainfo.car_type = this.data.carTypeItems[this.data.carTypeIndex].id
+        this.data.datainfo.event_type = this.data.eventTypeItems[this.data.eventTypeIndex].id
+        this.data.datainfo.driver_state = this.data.driverStateItems[this.data.driverStateIndex].id
+        this.data.datainfo.car_state = this.data.carStateItems[this.data.carStateIndex].id
+        this.data.datainfo.traffic_state = this.data.trafficStateItems[this.data.trafficStateIndex].id
+        this.data.datainfo.pass_time = this.data.passTimeItems[this.data.passTimeIndex].id
         if (!this.data.datainfo.location) {
           // 定位
           this.mapPostion()
