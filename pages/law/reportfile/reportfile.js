@@ -492,6 +492,7 @@ Page({
       items.push({
         property_id: n.property_id,
         name: n.name,
+        unit: n.unit,
         amount: n.amount,
         price: n.price
       })
@@ -503,7 +504,8 @@ Page({
       involved_build_project: this.data.involved_build_project,
       involved_act: this.data.involved_act,
       involved_action_type: JSON.stringify(this.data.involved_action_type),
-      extra_info: this.data.extra_info
+      extra_info: this.data.extra_info,
+      new: 1
     }).then(res => {
       wx.navigateTo({
         url: '/pages/law/paper/paper?report_id=' + this.data.report_id,

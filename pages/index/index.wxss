@@ -1,5 +1,9 @@
 /**=======================用户端样式=======================**/
 
+page {
+  background-color: #fff;
+}
+
 .swiper {
   height: 360rpx;
   width: 100%;
@@ -82,11 +86,11 @@
   margin-top: 30rpx;
   color: #333;
   text-align: center;
-  font-size: 12px;
+  font-size: 26rpx;
 }
 
 .con-title {
-  margin-top: 12rpx;
+  border-top: 12rpx solid #F7F8FA;
   padding: 46rpx 30rpx;
   font-size: 35rpx;
   font-weight: 700;
@@ -95,7 +99,6 @@
 }
 
 .more-con {
-  height: 520rpx;
   background-color: #fff;
   display: flex;
   flex-direction: row;
@@ -126,5 +129,5 @@
 .more-desc {
   text-align: center;
   color: #333;
-  font-size: 12px;
+  font-size: 26rpx;
 }

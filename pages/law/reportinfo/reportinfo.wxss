@@ -2,19 +2,18 @@
 
 .container {
   height: auto;
-  padding-bottom: 25rpx;
+  padding: 0 20rpx 20rpx 20rpx;
 }
 
 .form-con {
   font-size: 14px;
   background-color: #fff;
-  box-shadow: 0px 6px 10px 0px rgba(221, 243, 255, 0.2);
+  box-shadow: 5px 5px 10px 0px rgba(222, 222, 222, 0.3);
   border-radius: 20rpx;
-  width: 700rpx;
+  width: 100%;
   color: #222;
-  margin: 0 auto;
-  padding: 25rpx;
-  margin-top: 25rpx;
+  padding: 20rpx;
+  margin-top: 20rpx;
 }
 
 .form-fill {
@@ -32,7 +31,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1rpx solid #f5f5f5;
 }
 
 .form-item:last-child {
@@ -48,6 +47,28 @@
 .form-placeholder {
   font-size: 12px;
   color: #ccc;
+}
+
+.form-inline {
+  flex: 1;
+  overflow: hidden;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.form-way {
+  max-width: 220rpx;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.form-inline input {
+  text-align: center;
+  width: 100rpx;
+  border-bottom: 1rpx solid rgba(34, 34, 34, 0.5);
 }
 
 .form-text {

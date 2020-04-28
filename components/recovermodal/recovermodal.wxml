@@ -1,0 +1,15 @@
+<view class="modal-warp">
+	<view class='modal-box'>
+		<view class='close-modal' bindtap='closeModal'>
+			<icon class='iconfont icon-guanbi1'></icon>
+		</view>
+		<view class='box-head'>
+			<pickerYMDHM placeholder="请输入时间" date="{{recover_time}}" bind:onPickerChange="onChange">
+				选择恢复畅通时间：{{recover_time}}
+			</pickerYMDHM>
+		</view>
+		<view class="modal-footer">
+			<view class="default-button" catchtap="onSubmit">提交</view>
+		</view>
+	</view>
+</view>

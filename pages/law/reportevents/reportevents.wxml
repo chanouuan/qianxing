@@ -1,6 +1,8 @@
 <!--pages/user/reportevents/reportevents.wxml-->
 <!--移交弹框-->
 <trun-modal wx:if="{{trunFlag}}" parameter="{{trunParam}}" bind:closemodal="closeTrunModal" bind:bindok="trunOk"></trun-modal>
+<!--恢复畅通弹框-->
+<recover-modal wx:if="{{recoverFlag}}" parameter="{{recoverParam}}" bind:closemodal="closeRecoverModal" bind:bindok="recoverOk"></recover-modal>
 <view class="container">
   <tab tabList="{{[{name: '待受理'},{name: '受理中'},{name: '已完成'}]}}" currentTab="{{tabIndex}}" catch:clickTab="onClickTab" />
   <view class="add-btn" catchtap="reloadReport">
@@ -12,7 +14,7 @@
       <view class="con-header">
         <view class="con-header-addr" data-index="{{index}}" bindtap="position">
           <icon class="iconfont icon-dingwei"></icon>
-          <view>{{item.stake_number==0?item.stake_number:item.address}}</view>
+          <view>{{item.stake_number?item.stake_number:item.address}}</view>
         </view>
         <view class="status-{{item.status}}">{{item.status_str}}</view>
       </view>
@@ -20,7 +22,7 @@
         <view class="con-body-item">
           <view>{{item.status==0?'报警人':'当事人'}}电话</view>
           <view>{{item.user_mobile?item.user_mobile:'未确认'}}</view>
-          <view class="con-body-tel-icon" data-index="{{index}}" bindtap="callUser">
+          <view wx:if="{{item.status!=3}}" class="con-body-tel-icon" data-index="{{index}}" bindtap="callUser">
             <icon class="iconfont icon-call"></icon>
           </view>
         </view>
@@ -44,6 +46,14 @@
           <view>结案时间</view>
           <view style="width:66%">{{item.complete_time}}</view>
         </view>
+        <view wx:if="{{item.total_money}}" class="con-body-item">
+          <view>赔偿金额</view>
+          <view style="width:66%">{{item.total_money}}元</view>
+        </view>
+        <view wx:if="{{item.recover_time}}" class="con-body-item">
+          <view>恢复通行时间</view>
+          <view style="width:66%">{{item.recover_time}}</view>
+        </view>
       </view>
       <view class="con-footer">
         <block wx:if="{{item.status==0}}">
@@ -52,16 +62,18 @@
           <view bindtap="acceptReport" data-id="{{item.id}}" class="default-button">受理报案</view>
         </block>
         <block wx:elif="{{item.status==1}}">
-          <view class="default-button default">通知交警</view>
-          <view class="default-button default">通知救援</view>
-          <view data-id="{{item.id}}" bindtap="reloadReport" class="default-button">案件处置</view>
-          <view bindtap="turnReport" data-id="{{item.id}}" data-level="1" class="default-button default">移交</view>
+          <view wx:if="{{!item.is_load}}" class="default-button default" data-id="{{item.id}}" bindtap="noticeRescue">通知救援</view>
+          <view bindtap="turnReport" data-id="{{item.id}}" data-level="1" class="default-button default">案件移交</view>
+          <view data-id="{{item.id}}" bindtap="reloadReport" class="default-button {{item.is_load&&!item.recover_time?'default':''}}">案件处置</view>
         </block>
         <block wx:elif="{{item.status==2}}">
-          <view data-id="{{item.id}}" bindtap="reloadReport" class="default-button">编辑案件</view>
+          <view data-id="{{item.id}}" bindtap="reloadReport" class="default-button default">修改卷宗</view>
         </block>
         <block wx:elif="{{item.status==3}}">
           <view data-id="{{item.id}}" bindtap="openAllnote" class="default-button default" hidden>下载卷宗</view>
+        </block>
+        <block wx:if="{{item.is_load&&!item.recover_time}}">
+          <view class="default-button" data-id="{{item.id}}" bindtap="confirmPass">恢复畅通</view>
         </block>
       </view>
     </view>

@@ -110,7 +110,7 @@
         </view>
         <view class="panel-tr" wx:for="{{items}}" wx:key="index">
           <view class="panel-td">
-            <input bindinput="nameInput" data-index="{{index}}" value="{{item.name}}" type="text" maxlength="30" placeholder="请输入名称"></input>
+            <input bindinput="nameInput" data-index="{{index}}" value="{{item.name}}" type="text" maxlength="50" placeholder="请输入名称"></input>
           </view>
           <view class="panel-td">
             <input bindinput="priceInput" data-index="{{index}}" value="{{item.price}}" type="digit" maxlength="5" placeholder="请输入费用"></input>

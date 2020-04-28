@@ -218,6 +218,15 @@ export const payParams = (post) => {
   })
 }
 
+// 恢复畅通
+export const recoverPass = (post) => {
+  post.token = getToken()
+  return axios.request({
+    url: '/miniprogramserver/recoverPass',
+    body: post
+  })
+}
+
 // 移交单位人员
 export const getGroupBook = (post) => {
   post.token = getToken()

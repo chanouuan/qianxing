@@ -13,6 +13,8 @@ Page({
     },
     trunFlag: false,
     trunParam: {},
+    recoverFlag: false,
+    recoverParam: {},
     tabIndex: 0,
     isEnd: false,
     isEmpty: false,
@@ -145,8 +147,11 @@ Page({
       report_id: e.detail.id,
       target_id: e.detail.value
     }).then(res => {
-      wx.hideLoading()
-      this.reloadList()
+      wx.hideLoading({
+        complete: (res) => {
+          this.reloadList()
+        }
+      })
     }).catch(err => {})
   },
 
@@ -185,6 +190,51 @@ Page({
     wx.navigateTo({
       url: '/pages/law/reportinfo/reportinfo?report_id=' + id
     })
+  },
+
+  noticeRescue(e) {
+    // 通知救援
+    let id = ~~e.currentTarget.dataset.id
+    wx.showToast({
+      icon: 'none',
+      title: '暂未开通'
+    })
+  },
+
+  confirmPass(e) {
+    // 确认恢复通行
+    let id = ~~e.currentTarget.dataset.id
+    this.setData({
+      recoverFlag: true,
+      recoverParam: { id }
+    })
+  },
+
+  closeRecoverModal(e) {
+    // 关闭恢复畅通弹框
+    this.setData({
+      recoverFlag: false
+    })
+  },
+
+  recoverOk(e) {
+    // 恢复畅通成功
+    this.setData({
+      recoverFlag: false
+    })
+    wx.showLoading({
+      title: '提交中...'
+    })
+    api.recoverPass({
+      report_id: e.detail.id,
+      recover_time: e.detail.recover_time
+    }).then(res => {
+      wx.hideLoading({
+        complete: (res) => {
+          this.reloadList()
+        }
+      })
+    }).catch(err => {})
   },
 
   deletereport(e) {

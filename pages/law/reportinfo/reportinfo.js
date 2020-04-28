@@ -3,13 +3,13 @@ const api = require('../../../api/api.js')
 const util = require('../../../utils/util.js')
 const app = getApp()
 
-const findIndex = (arr, id) => {
+const findIndex = (arr, id, init) => {
   for (let i = 0, j = arr.length; i < j; i++) {
     if (arr[i].id == id) {
       return i
     }
   }
-  return 0
+  return init ? init : 0
 }
 
 const getPassTime = () => {
@@ -41,12 +41,17 @@ Page({
     passTimeIndex: 0,
     colleagueItems: [{ id: 0, name: '请选择' }],
     colleagueIndex: 0,
+    wayline: [], // 桩号路段
+    waylineIndex: 0,
+    wayk: '',
+    waym: '',
+    waydirection: ['上行', '下行', '双向'], // 行车方向
+    waydirectionIndex: 0,
     datainfo: {
       event_time: null,
       weather: 0,
       car_type: 0,
       address: '',
-      stake_number: '',
       event_type: 0,
       driver_state: 0,
       car_state: 0,
@@ -74,7 +79,6 @@ Page({
         location: res.location,
         event_time: res.event_time || util.formatTime(new Date()),
         address: res.address || '',
-        stake_number: res.stake_number || '',
         weather: res.weather,
         car_type: res.car_type,
         event_type: res.event_type,
@@ -92,9 +96,22 @@ Page({
       this.data.carStateItems = this.data.carStateItems.concat(res.car_state_list)
       this.data.trafficStateItems = this.data.trafficStateItems.concat(res.traffic_state_list)
       this.data.colleagueItems = this.data.colleagueItems.concat(res.colleague_list)
+      // 桩号 G75兰海高速K1247+500M下行
+      res.way_line = res.way_line || ''
+      res.way_line = res.way_line.split(',')
+      res.stake_number = res.stake_number || ''
+      res.stake_number = res.stake_number.split(' ')
+      this.data.waylineIndex = res.way_line.indexOf(res.stake_number[0])
+      this.data.waylineIndex = this.data.waylineIndex === -1 ? 0 : this.data.waylineIndex
+      this.data.waydirectionIndex = this.data.waydirection.indexOf(res.stake_number[6])
+      this.data.waydirectionIndex = this.data.waydirectionIndex === -1 ? 0 : this.data.waydirectionIndex
       this.setData({
+        wayline: res.way_line,
+        waylineIndex: this.data.waylineIndex,
+        wayk: res.stake_number[2] ? res.stake_number[2] : '',
+        waym: res.stake_number[4] ? res.stake_number[4] : '',
+        waydirectionIndex: this.data.waydirectionIndex,
         'datainfo.event_time': this.data.datainfo.event_time,
-        'datainfo.stake_number': this.data.datainfo.stake_number,
         'datainfo.address': this.data.datainfo.address,
         'datainfo.check_start_time': this.data.datainfo.check_start_time,
         weatherItems: this.data.weatherItems,
@@ -104,13 +121,13 @@ Page({
         carStateItems: this.data.carStateItems,
         trafficStateItems: this.data.trafficStateItems,
         colleagueItems: this.data.colleagueItems,
-        weatherIndex: findIndex(this.data.weatherItems, this.data.datainfo.weather),
-        carTypeIndex: findIndex(this.data.carTypeItems, this.data.datainfo.car_type),
-        eventTypeIndex: findIndex(this.data.eventTypeItems, this.data.datainfo.event_type),
-        driverStateIndex: findIndex(this.data.driverStateItems, this.data.datainfo.driver_state),
-        carStateIndex: findIndex(this.data.carStateItems, this.data.datainfo.car_state),
-        trafficStateIndex: findIndex(this.data.trafficStateItems, this.data.datainfo.traffic_state),
-        passTimeIndex: findIndex(this.data.passTimeItems, this.data.datainfo.pass_time),
+        weatherIndex: findIndex(this.data.weatherItems, this.data.datainfo.weather, 1),
+        carTypeIndex: findIndex(this.data.carTypeItems, this.data.datainfo.car_type, 1),
+        eventTypeIndex: findIndex(this.data.eventTypeItems, this.data.datainfo.event_type, 1),
+        driverStateIndex: findIndex(this.data.driverStateItems, this.data.datainfo.driver_state, 1),
+        carStateIndex: findIndex(this.data.carStateItems, this.data.datainfo.car_state, 1),
+        trafficStateIndex: findIndex(this.data.trafficStateItems, this.data.datainfo.traffic_state, 2),
+        passTimeIndex: findIndex(this.data.passTimeItems, this.data.datainfo.pass_time, 3),
         colleagueIndex: findIndex(this.data.colleagueItems, this.data.datainfo.colleague_id)
       }, () => {
         if (!this.data.datainfo.location) {
@@ -205,6 +222,17 @@ Page({
     this.setData({
       submit: true
     })
+    // 组合桩号
+    let stake_number = [
+      this.data.wayline[this.data.waylineIndex] ? this.data.wayline[this.data.waylineIndex] : '',
+      'K',
+      this.data.wayk === '' ? 0 : this.data.wayk,
+      '+',
+      this.data.waym === '' ? 0 : this.data.waym,
+      'M',
+      this.data.waydirection[this.data.waydirectionIndex] ? this.data.waydirection[this.data.waydirectionIndex] : '',
+    ]
+    this.data.datainfo.stake_number = stake_number.join(' ')
     this.data.datainfo.report_id = this.data.report_id
     api.reportInfo(this.data.datainfo).then(res => {
       this.data.datainfo.report_id = res.report_id
@@ -230,6 +258,26 @@ Page({
     })
   },
 
+  waylineChange(e) {
+    this.setData({
+      waylineIndex: e.detail.value
+    })
+  },
+
+  waydirectionChange(e) {
+    this.setData({
+      waydirectionIndex: e.detail.value
+    })
+  },
+
+  waykInput(e) {
+    this.data.wayk = e.detail.value
+  },
+
+  waymInput(e) {
+    this.data.waym = e.detail.value
+  },
+
   passTimeChange(e) {
     this.data.datainfo.pass_time = this.data.passTimeItems[e.detail.value].id
     this.setData({
@@ -249,10 +297,6 @@ Page({
     this.setData({
       carTypeIndex: e.detail.value
     })
-  },
-
-  stakeNumberInput(e) {
-    this.data.datainfo.stake_number = e.detail.value
   },
 
   eventTypeChange(e) {

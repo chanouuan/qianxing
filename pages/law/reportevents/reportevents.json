@@ -1,7 +1,8 @@
 {
   "usingComponents": {
     "tab": "/components/tab/tab",
-    "trun-modal": "/components/trunmodal/trunmodal"
+    "trun-modal": "/components/trunmodal/trunmodal",
+    "recover-modal": "/components/recovermodal/recovermodal"
   },
   "navigationBarTitleText": "我的案件",
   "enablePullDownRefresh": true,

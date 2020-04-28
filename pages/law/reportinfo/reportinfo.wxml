@@ -3,7 +3,7 @@
 <view class="container">
   <view class="form-con">
     <view class="form-item">
-      <view class="form-head">车主信息</view>
+      <view class="form-head">事件基本信息</view>
     </view>
     <view class="form-item">
       <text class="form-label">事发时间</text>
@@ -27,8 +27,18 @@
     </view>
     <view class="form-item">
       <text class="form-label"><text class="form-fill">*</text>桩号</text>
-      <view class="form-text">
-        <input bindinput="stakeNumberInput" value="{{datainfo.stake_number}}" maxlength="50" placeholder-class="form-placeholder" placeholder="例如：G75兰海高速K1247+500M下行"></input>
+      <view class="form-inline">
+        <picker bindchange="waylineChange" value="{{waylineIndex}}" range="{{wayline}}">
+          <view class="form-way">{{wayline[waylineIndex]}}</view>
+        </picker>
+        <text>K</text>
+        <input bindinput="waykInput" value="{{wayk}}" maxlength="8" type="digit"/>
+        <text>+</text>
+        <input bindinput="waymInput" value="{{waym}}" maxlength="8" type="digit"/>
+        <text>M</text>
+        <picker bindchange="waydirectionChange" value="{{waydirectionIndex}}" range="{{waydirection}}">
+          {{waydirection[waydirectionIndex]}}
+        </picker>
       </view>
     </view>
     <view class="form-item">
