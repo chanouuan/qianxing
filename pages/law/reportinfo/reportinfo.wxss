@@ -1,5 +1,12 @@
 /* pages/law/reportinfo/reportinfo.wxss */
 
+/*radio 选项框大小  */
+radio .wx-radio-input {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+}
+
 .container {
   height: auto;
   padding: 0 20rpx 20rpx 20rpx;

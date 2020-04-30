@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "pickerYMDHM": "/components/pickerYMDHM/pickerYMDHM"
+  }
+}

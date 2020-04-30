@@ -57,7 +57,7 @@ icon {
   line-height: 80rpx;
   text-align: center;
   color: #fff;
-  background: linear-gradient(180deg, rgb(132, 163, 233), rgb(22, 91, 220));
+  background: linear-gradient(180deg, rgb(54, 119, 245), rgb(22, 91, 219));
   border-radius: 80rpx;
   margin: 0;
   padding: 0;

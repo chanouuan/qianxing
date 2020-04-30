@@ -1,7 +1,7 @@
 <!--pages/user/reportevents/reportevents.wxml-->
 
 <view class="container">
-  <tab tabList="{{[{name: '全部案件'},{name: '已完成'}]}}" currentTab="{{tabIndex}}" catch:clickTab="onClickTab" />
+  <tab tabList="{{tabList}}" currentTab="{{tabIndex}}" catch:clickTab="onClickTab" />
   <view class="empty" wx:if="{{isEmpty}}">暂无记录</view>
   <view class="con-main {{datalist.length?'con-show':''}}">
     <view class="con-item" wx:for="{{datalist}}" wx:key="id">
@@ -31,7 +31,7 @@
         </view>
       </view>
       <view class="con-footer">
-        <view wx:if="{{item.status>1}}" class="default-button default" data-id="{{item.id}}" bindtap="openDocument">查看文书</view>
+        <view wx:if="{{item.status>1&&item.total_money>0}}" class="default-button default" data-id="{{item.id}}" bindtap="openDocument">查看文书</view>
         <!--暂不支持缴费-->
         <view wx:if="{{item.status==2&&0}}" class="default-button" data-id="{{item.id}}" bindtap="handleStep1">交纳赔偿金</view>
       </view>

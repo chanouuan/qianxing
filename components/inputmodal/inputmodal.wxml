@@ -1,0 +1,13 @@
+<view class="modal-warp">
+	<view class='modal-box'>
+		<view class='close-modal' bindtap='closeModal'>
+			<icon class='iconfont icon-guanbi1'></icon>
+		</view>
+		<view class='box-head'>
+			{{name}}<input style="{{style}}" bindinput="onInput" placeholder="{{placeholder}}" type="{{type}}" maxlength="{{maxlength}}" value="{{value}}" focus></input>
+		</view>
+		<view class="modal-footer">
+			<view class="default-button" catchtap="onSubmit">提交</view>
+		</view>
+	</view>
+</view>

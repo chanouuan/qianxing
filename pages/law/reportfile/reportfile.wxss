@@ -35,7 +35,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 }
 
 .content-wrap {
-  padding: 50px 0 120rpx 0;
+  padding: 50px 0 140rpx 0;
   height: auto;
 }
 
@@ -149,7 +149,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 120rpx;
+  height: 140rpx;
   display: flex;
   align-items: center;
   background: #fff;

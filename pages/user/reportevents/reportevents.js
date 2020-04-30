@@ -8,6 +8,10 @@ Page({
   data: {
     form: {},
     tabIndex: 0,
+    tabList: [
+      {name: '全部案件', 'count': 0},
+      {name: '已完成', 'count': 0}
+    ],
     isEnd: false,
     isEmpty: false,
     datalist: []
@@ -24,6 +28,11 @@ Page({
   loadList() {
     wx.showNavigationBarLoading()
     api.getReportEvents(this.data.form).then(res => {
+      if (res.count.length) {
+        res.count.forEach((n, i) => {
+          this.data.tabList[i].count = n
+        })
+      }
       if (res.list.length) {
         res.list.map(n => {
           let date = util.splitTime(n.event_time)
@@ -34,7 +43,8 @@ Page({
         this.setData({
           isEnd: false,
           isEmpty: false,
-          datalist: this.data.datalist.concat(res.list)
+          datalist: this.data.datalist.concat(res.list),
+          tabList: this.data.tabList
         }, () => {
           wx.hideNavigationBarLoading()
           wx.stopPullDownRefresh()
@@ -44,7 +54,8 @@ Page({
         this.setData({
           isEnd: this.data.datalist.length > 0,
           isEmpty: this.data.datalist.length === 0,
-          datalist: this.data.datalist
+          datalist: this.data.datalist,
+          tabList: this.data.tabList
         }, () => {
           wx.hideNavigationBarLoading()
           wx.stopPullDownRefresh()

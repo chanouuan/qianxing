@@ -1,4 +1,6 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "input-modal": "/components/inputmodal/inputmodal"
+  },
   "navigationBarTitleText": "案件处理"
 }

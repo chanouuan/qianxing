@@ -4,9 +4,6 @@ const util = require('../../../utils/util.js')
 const app = getApp()
 
 const findIndex = (arr, id, init) => {
-  if (id === null) {
-    return 0
-  }
   for (let i = 0, j = arr.length; i < j; i++) {
     if (arr[i].id == id) {
       return i
@@ -61,7 +58,10 @@ Page({
       traffic_state: 0,
       pass_time: 0,
       colleague_id: 0,
-      check_start_time: 0
+      check_start_time: 0,
+      is_property: 1,
+      is_load: 0,
+      total_money: 0
     }
   },
 
@@ -71,6 +71,7 @@ Page({
     })
     // 获取案件信息
     wx.showLoading({
+      mask: true,
       title: '加载中...'
     })
     api.getReportDetail({
@@ -90,7 +91,10 @@ Page({
         traffic_state: res.traffic_state,
         pass_time: res.pass_time,
         colleague_id: res.colleague_id,
-        check_start_time: res.check_start_time || util.formatTime(new Date())
+        check_start_time: res.check_start_time || util.formatTime(new Date()),
+        is_property: res.is_property,
+        is_load: res.is_load,
+        total_money: res.total_money
       }
       this.data.weatherItems = this.data.weatherItems.concat(res.weather_list)
       this.data.carTypeItems = this.data.carTypeItems.concat(res.car_type_list)
@@ -117,6 +121,9 @@ Page({
         'datainfo.event_time': this.data.datainfo.event_time,
         'datainfo.address': this.data.datainfo.address,
         'datainfo.check_start_time': this.data.datainfo.check_start_time,
+        'datainfo.is_property': this.data.datainfo.is_property,
+        'datainfo.is_load': this.data.datainfo.is_load,
+        'datainfo.total_money': this.data.datainfo.total_money,
         weatherItems: this.data.weatherItems,
         carTypeItems: this.data.carTypeItems,
         eventTypeItems: this.data.eventTypeItems,
@@ -225,6 +232,26 @@ Page({
   },
 
   reportInfo() {
+    // 确认信息提交
+    if (this.data.datainfo.is_property) {
+      this.submitReportInfo()
+    } else {
+      // 无路产损失
+      wx.showModal({
+        title: '',
+        content: '当前案件无路产损失，将不进行现场勘验，是否确认提交？',
+        confirmText: '确认',
+        cancelText: '取消',
+        success: (res) => {
+          if (res.confirm) {
+            this.submitReportInfo()
+          }
+        }
+      })
+    }
+  },
+
+  submitReportInfo() {
     // 信息提交
     if (this.data.submit) {
       return
@@ -245,15 +272,24 @@ Page({
     this.data.datainfo.stake_number = stake_number.join(' ')
     this.data.datainfo.report_id = this.data.report_id
     api.reportInfo(this.data.datainfo).then(res => {
-      this.data.datainfo.report_id = res.report_id
-      wx.redirectTo({
-        url: '/pages/law/reportfile/reportfile?report_id=' + res.report_id
-      })
+      if (!res.report_id) {
+        // 未有路产损失的情况
+        wx.navigateBack()
+      } else {
+        this.data.datainfo.report_id = res.report_id
+        wx.redirectTo({
+          url: '/pages/law/reportfile/reportfile?report_id=' + res.report_id
+        })
+      }
     }).catch(err => {
       this.setData({
         submit: false
       })
     })
+  },
+
+  isPropertyChange(e) {
+    this.data.datainfo.is_property = ~~e.detail.value
   },
 
   eventTimeChange(e) {

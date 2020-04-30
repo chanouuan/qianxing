@@ -42,14 +42,15 @@
   height: 100rpx;
   line-height: 100rpx;
   width: 100%;
-  overflow: hidden;
 }
 
 .con-header-addr {
   font-size: 14px;
+  flex: 1;
   display: flex;
   align-items: center;
   white-space: nowrap;
+  overflow: hidden;
 }
 
 .con-header-addr icon {

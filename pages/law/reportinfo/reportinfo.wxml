@@ -104,6 +104,22 @@
   
   <view class="form-con">
     <view class="form-item">
+      <text class="form-label">路产情况</text>
+      <view class="form-text">
+        <block wx:if="{{!datainfo.total_money&&!datainfo.is_load}}">
+          <radio-group bindchange="isPropertyChange">
+            <label>
+              <radio value="1" checked="{{datainfo.is_property==1}}" />有路产损失</label>
+            <label style="margin-left: 20rpx;">
+              <radio value="0" checked="{{datainfo.is_property==0}}" />无路产损失</label>
+          </radio-group>
+        </block>
+        <block wx:else>
+          {{datainfo.is_property==1?'有路产损失':'无路产损失'}}
+        </block>
+      </view>
+    </view>
+    <view class="form-item">
       <text class="form-label">勘验时间</text>
       <view class="form-text">
         <block wx:if="{{datainfo.check_start_time}}">

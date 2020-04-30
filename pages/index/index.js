@@ -86,8 +86,14 @@ Page({
         return
       }
     }
-    api.loadData().then(res => {
-      data.banner = res.banner
+    api.loadData({
+      page: 'index',
+      view: app.globalData.templateId,
+      group_id: data.userInfo.group_id
+    }).then(res => {
+      if (!this.data.banner.length) {
+        data.banner = res.banner
+      }
       data.userInfo.report_count = res.report_count
       this.setData(data)
     }).catch(err => {

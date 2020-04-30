@@ -134,7 +134,7 @@
 .paper-btn {
   position: relative;
   z-index: 999;
-  height: 120rpx;
+  height: 160rpx;
   display: flex;
   justify-content: space-evenly;
   align-items: center;

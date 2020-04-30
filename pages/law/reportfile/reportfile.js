@@ -57,6 +57,7 @@ Page({
     this.data.report_id = options.report_id
     // 获取案件信息
     wx.showLoading({
+      mask: true,
       title: '加载中...'
     })
     api.getReportDetail({

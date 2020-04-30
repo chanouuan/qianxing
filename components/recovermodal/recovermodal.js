@@ -22,7 +22,7 @@ Component({
     onSubmit() {
       // 提交
       wx.showModal({
-        title: '消息提醒',
+        title: '',
         content: '请确认事故现场通行是否已恢复？',
         success: (res) => {
           if (res.confirm) {

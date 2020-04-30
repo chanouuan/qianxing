@@ -56,12 +56,11 @@ export const changePhone = (post) => {
 }
 
 // 首页加载
-export const loadData = () => {
+export const loadData = (post) => {
+  post.token = getToken()
   return axios.request({
     url: '/miniprogramserver/loadData',
-    body: {
-      token: getToken()
-    }
+    body: post
   })
 }
 
@@ -124,6 +123,15 @@ export const reportInfo = (post) => {
   post.token = getToken()
   return axios.request({
     url: '/miniprogramserver/reportInfo',
+    body: post
+  })
+}
+
+// 保存案件信息
+export const saveReportInfo = (post) => {
+  post.token = getToken()
+  return axios.request({
+    url: '/miniprogramserver/saveReportInfo',
     body: post
   })
 }

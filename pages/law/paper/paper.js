@@ -5,6 +5,7 @@ const util = require('../../../utils/util.js')
 Page({
   data: {
     pageFlag: false,
+    inputFlag: false,
     report_id: 0,
     date: util.splitTime(new Date()),
     datainfo: {}
@@ -57,10 +58,61 @@ Page({
           if (res.signatureTarget == 'signature_agent') {
             data['datainfo.agent_time'] = this.data.date
           }
+          if (res.signatureTarget == 'signature_invitee') {
+            // 输入邀请人手机号
+            data['inputFlag'] = true
+          }
           this.setData(data)
         }
       }
     })
+  },
+
+  closeInputModal(e) {
+    // 关闭弹框
+    this.setData({
+      inputFlag: false
+    })
+  },
+
+  inputOk(e) {
+    // 输入邀请人手机号成功
+    let value = e.detail.value
+    if (!value) {
+      wx.showToast({
+        icon: 'none',
+        title: '未输入手机号'
+      })
+      this.setData({
+        inputFlag: false
+      })
+      return
+    }
+    if (!/^1[0-9]{10}$/.test(value)) {
+      wx.showToast({
+        title: '请输入正确的手机号',
+        icon: 'none'
+      })
+      return
+    }
+    this.setData({
+      inputFlag: false
+    })
+    wx.showLoading({
+      title: '提交中...'
+    })
+    api.saveReportInfo({
+      report_id: this.data.report_id,
+      invitee_mobile: value
+    }).then(res => {
+      wx.hideLoading({
+        complete: () => {
+          this.setData({
+            ['datainfo.invitee_mobile']: value
+          })
+        }
+      })
+    }).catch(err => {})
   },
 
   tapSave() {

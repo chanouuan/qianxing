@@ -1,4 +1,5 @@
-
+<!--邀请人手机号弹框-->
+<input-modal wx:if="{{inputFlag}}" type="number" maxlength="11" placeholder="请输入被邀请人手机号" bind:closemodal="closeInputModal" bind:bindok="inputOk"></input-modal>
 <view class="paper-panel">
   <view class="paper-wrap">
     <movable-area class="movable-area">
@@ -11,11 +12,11 @@
           勘验（检查）时间：<text>{{datainfo.check_start_time.year}}</text>年<text>{{datainfo.check_start_time.month}}</text>月<text>{{datainfo.check_start_time.day}}</text>日<text>{{datainfo.check_start_time.hour}}</text>时<text>{{datainfo.check_start_time.minute}}</text>分至<text>{{datainfo.check_end_time.month}}</text>月<text>{{datainfo.check_end_time.day}}</text>日<text>{{datainfo.check_end_time.hour}}</text>时<text>{{datainfo.check_end_time.minute}}</text>分
         </view>
         <view class="paper-flex-between">
-          勘验（检查）地点：<text class="paper-flex5">{{datainfo.address}}</text>天气情况：<text class="paper-flex2">{{datainfo.weather}}</text>
+          勘验（检查）地点：<text class="paper-flex5">{{datainfo.stake_number}}</text>天气情况：<text class="paper-flex2">{{datainfo.weather}}</text>
         </view>
         <view>勘验（检查）情况及结果：</view>
         <view class="paper-flex-between">
-          1.事发时间：<text>{{datainfo.event_time.year}}</text>年<text>{{datainfo.event_time.month}}</text>月<text>{{datainfo.event_time.day}}</text>日 ，事发地点：<text class="paper-flex4">{{datainfo.address}}</text>
+          1.事发时间：<text>{{datainfo.event_time.year}}</text>年<text>{{datainfo.event_time.month}}</text>月<text>{{datainfo.event_time.day}}</text>日 ，事发地点：<text class="paper-flex4">{{datainfo.stake_number}}</text>
         </view>
         <view>
           2.涉案车辆：<text>1</text>辆
@@ -107,7 +108,7 @@
             上述勘验、检查情况及结果：<text class="paper-checkbox">☐属实</text><text class="paper-checkbox paper-margin-left">☐不属实</text>，理由： <text class="paper-flex1"></text>
           </view>
           <view class="paper-flex-between">
-            当事人或其代理人： <view class="paper-img paper-flex1"><image  vx:if="{{datainfo.signature_agent}}" src="{{datainfo.signature_agent}}" mode="widthFix"></image></view> 联系电话：<text class="paper-flex1">{{datainfo.user_mobile}}</text>
+            当事人或其代理人： <view class="paper-img paper-flex1"><image  vx:if="{{datainfo.signature_agent}}" src="{{datainfo.signature_agent}}" mode="widthFix"></image></view> 联系电话：<text class="paper-flex1">{{datainfo.user_mobile||''}}</text>
           </view>
           <view class="paper-flex-end">
             <text>{{datainfo.agent_time.year}}</text>年<text>{{datainfo.agent_time.month}}</text>月<text>{{datainfo.agent_time.day}}</text>日
@@ -118,7 +119,7 @@
         </view>
         <view class="paper-padding">
           <view class="paper-flex-between paper-padding-top0">
-            被邀请人签名： <view class="paper-img paper-flex1"><image vx:if="{{datainfo.signature_invitee}}" src="{{datainfo.signature_invitee}}" mode="widthFix"></image></view> 联系电话：<text class="paper-flex1"></text>
+            被邀请人签名： <view class="paper-img paper-flex1"><image vx:if="{{datainfo.signature_invitee}}" src="{{datainfo.signature_invitee}}" mode="widthFix"></image></view> 联系电话：<text class="paper-flex1">{{datainfo.invitee_mobile||''}}</text>
           </view>
           <view class="paper-flex-between">
             备注：<text class="paper-flex1"></text>

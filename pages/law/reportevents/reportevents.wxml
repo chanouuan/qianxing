@@ -4,7 +4,7 @@
 <!--恢复畅通弹框-->
 <recover-modal wx:if="{{recoverFlag}}" parameter="{{recoverParam}}" bind:closemodal="closeRecoverModal" bind:bindok="recoverOk"></recover-modal>
 <view class="container">
-  <tab tabList="{{[{name: '待受理'},{name: '受理中'},{name: '已完成'}]}}" currentTab="{{tabIndex}}" catch:clickTab="onClickTab" />
+  <tab tabList="{{tabList}}" currentTab="{{tabIndex}}" catch:clickTab="onClickTab" />
   <view class="add-btn" catchtap="reloadReport">
     <icon class="iconfont icon-add"></icon>
   </view>
@@ -22,7 +22,7 @@
         <view class="con-body-item">
           <view>{{item.status==0?'报警人':'当事人'}}电话</view>
           <view>{{item.user_mobile?item.user_mobile:'未确认'}}</view>
-          <view wx:if="{{item.status!=3}}" class="con-body-tel-icon" data-index="{{index}}" bindtap="callUser">
+          <view wx:if="{{item.status!=3&&item.user_mobile}}" class="con-body-tel-icon" data-index="{{index}}" bindtap="callUser">
             <icon class="iconfont icon-call"></icon>
           </view>
         </view>
@@ -31,7 +31,7 @@
           <view>{{item.report_type}}</view>
         </view>
         <view class="con-body-item">
-          <view>{{item.status==0?'报警时间':'受理时间'}}</view>
+          <view>{{item.status==0?'报警时间':'接案时间'}}</view>
           <view style="width:66%">{{item.create_time}}</view>
         </view>
         <view wx:if="{{item.full_name}}" class="con-body-item">
@@ -41,6 +41,10 @@
         <view wx:if="{{item.plate_num}}" class="con-body-item">
           <view>事故车辆</view>
           <view style="width:66%">{{item.plate_num}}</view>
+        </view>
+        <view wx:if="{{item.status&&!item.is_property}}" class="con-body-item">
+          <view>路产情况</view>
+          <view>无路产损失</view>
         </view>
         <view wx:if="{{item.complete_time}}" class="con-body-item">
           <view>结案时间</view>
@@ -63,8 +67,8 @@
         </block>
         <block wx:elif="{{item.status==1}}">
           <view wx:if="{{!item.is_load}}" class="default-button default" data-id="{{item.id}}" bindtap="noticeRescue">通知救援</view>
-          <view bindtap="turnReport" data-id="{{item.id}}" data-level="1" class="default-button default">案件移交</view>
-          <view data-id="{{item.id}}" bindtap="reloadReport" class="default-button {{item.is_load&&!item.recover_time?'default':''}}">案件处置</view>
+          <view wx:if="{{!item.is_load}}" bindtap="turnReport" data-id="{{item.id}}" data-level="1" class="default-button default">案件移交</view>
+          <view data-id="{{item.id}}" bindtap="reloadReport" class="default-button {{(item.is_load&&!item.recover_time)||item.recover_time?'default':''}}">{{item.recover_time?'修改卷宗':'案件处置'}}</view>
         </block>
         <block wx:elif="{{item.status==2}}">
           <view data-id="{{item.id}}" bindtap="reloadReport" class="default-button default">修改卷宗</view>
