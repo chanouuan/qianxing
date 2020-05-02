@@ -66,21 +66,21 @@
         </view>
         <view>在勘验、检查中，依法收集、制作了以下证据材料（附后）：</view>
         <view class="paper-flex-between">
-          <text class="paper-checkbox">☐当事人身份证件</text>
-          <text class="paper-checkbox paper-margin-left">☐驾驶证</text>
+          <text class="paper-checkbox">{{datainfo.data_idcard?'☑':'☐'}}当事人身份证件</text>
+          <text class="paper-checkbox paper-margin-left">{{datainfo.data_driver?'☑':'☐'}}驾驶证</text>
           <text class="paper-checkbox paper-margin-left">☐驾驶人从业资格证</text>
-          <text class="paper-checkbox paper-margin-left">☐行驶证</text>
+          <text class="paper-checkbox paper-margin-left">{{datainfo.data_driving?'☑':'☐'}}行驶证</text>
           <text class="paper-checkbox paper-margin-left paper-flex1">☐道路运输证</text>
         </view>
         <view class="paper-flex-between">
-          <text class="paper-checkbox">☐路政赔（补）偿清单</text>
-          <text class="paper-checkbox paper-margin-left">☐现场照片</text>
+          <text class="paper-checkbox">☑路政赔（补）偿清单</text>
+          <text class="paper-checkbox paper-margin-left">{{datainfo.data_site?'☑':'☐'}}现场照片</text>
           <text class="paper-checkbox paper-margin-left">☐现场示意图</text>
           <text class="paper-checkbox paper-margin-left paper-flex1">☐超限检测磅单</text>
         </view>
         <view class="paper-flex-between">
           <text class="paper-checkbox">☐车辆通行费发票</text>
-          <text class="paper-checkbox paper-margin-left">☑视频资料</text>
+          <text class="paper-checkbox paper-margin-left">☐视频资料</text>
           <text class="paper-checkbox paper-margin-left">☐音频资料</text>
           <text class="paper-checkbox paper-margin-left">☐电子数据</text>
           <text class="paper-checkbox paper-margin-left">☐其他：</text>

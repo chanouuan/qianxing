@@ -19,9 +19,8 @@
 }
 
 .tab-item {
-	font-family: SourceHanSansCN-Normal;
 	display: inline-block;
-	margin-right: 40px;
+	margin-right: 88rpx;
 	font-size: 14px;
 	color: rgba(34, 34, 34, 1);
 	position: relative;
@@ -32,17 +31,18 @@
 }
 
 .count {
-	width: 38rpx;
-	height: 38rpx;
-	line-height: 38rpx;
+	min-width: 34rpx;
+	height: 34rpx;
+	line-height: 34rpx;
   background: rgb(245, 112, 112);
-  border-radius: 50%;
+  border-radius: 20rpx;
   position: absolute;
-  right: -38rpx;
+  right: -34rpx;
   top: 10rpx;
   color: #fff;
 	font-size: 22rpx;
 	text-align: center;
+	padding: 0 4rpx;
 }
 
 .item {

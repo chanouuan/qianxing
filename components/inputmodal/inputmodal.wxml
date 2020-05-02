@@ -4,7 +4,7 @@
 			<icon class='iconfont icon-guanbi1'></icon>
 		</view>
 		<view class='box-head'>
-			{{name}}<input style="{{style}}" bindinput="onInput" placeholder="{{placeholder}}" type="{{type}}" maxlength="{{maxlength}}" value="{{value}}" focus></input>
+			{{name}}<input style="{{style}}" bindinput="onInput" placeholder="{{placeholder}}" type="{{type}}" maxlength="{{maxlength}}" value="{{value}}"></input>
 		</view>
 		<view class="modal-footer">
 			<view class="default-button" catchtap="onSubmit">提交</view>

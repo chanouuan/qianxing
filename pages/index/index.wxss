@@ -61,9 +61,9 @@ page {
 }
 
 .show-count {
-  width: 38rpx;
-  height: 38rpx;
-  line-height: 38rpx;
+  min-width: 34rpx;
+  height: 34rpx;
+  line-height: 34rpx;
   background: rgb(245, 112, 112);
   border-radius: 50%;
   position: absolute;
