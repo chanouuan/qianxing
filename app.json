@@ -12,16 +12,11 @@
     "pages/law/reportfile/reportfile",
     "pages/law/signature/signature",
     "pages/law/paper/paper",
+    "pages/law/camera/camera",
     "pages/mine/mine",
     "pages/about/about",
     "pages/setting/setting"
   ],
-  "plugins": {
-    "ocr-plugin": {
-      "version": "3.0.3",
-      "provider": "wx4418e3e031e551be"
-    }
-  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",

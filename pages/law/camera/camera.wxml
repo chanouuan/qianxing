@@ -1,0 +1,26 @@
+<camera wx:if="{{showcamera}}" flash="{{flash}}" device-position="back" bindstop="onstop" binderror="onerror" bindinitdone="oninitdone">
+	<cover-view wx:if="{{loadcamera}}" class="camera-wrap">
+		<cover-view class="camera-flash camera-bg">
+			<cover-image class="camera-light" bindtap="takelight" src="{{flash=='off'?'../../../images/camera/on.png':'../../../images/camera/off.png'}}"></cover-image>
+		</cover-view>
+		<cover-view class="camera-title camera-bg">{{title}}</cover-view>
+		<cover-view class="camera-area">
+			<cover-view class="camera-border"></cover-view>
+			<cover-view id="frame" class="camera-frame"></cover-view>
+			<cover-view class="camera-border"></cover-view>
+		</cover-view>
+		<cover-view class="camera-remark camera-bg">拍照要求：清晰完整、避免缺边、模糊、反光。</cover-view>
+		<cover-view class="camera-op camera-bg">
+			<cover-image bindtap="back" src="../../../images/camera/back.png" class="camera-back">
+				返回
+			</cover-image>
+			<cover-image bindtap="takephoto" src="../../../images/camera/photo.png" class="camera-take">
+				拍照
+			</cover-image>
+			<cover-image bindtap="takealbum" src="../../../images/camera/album.png" class="camera-album">
+				相册
+			</cover-image>
+		</cover-view>
+	</cover-view>
+</camera>
+<canvas wx:if="{{showcanvas}}" id="canvas" type="2d" canvas-id="canvas"></canvas>

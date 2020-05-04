@@ -82,7 +82,10 @@ Page({
       }
       if (res.site_photos && res.site_photos.length) {
         data.site_photos = res.site_photos.map(n => {
-          return { src: n.src, progress: 0 }
+          return {
+            src: n.src,
+            progress: 0
+          }
         })
       }
       this.setData(data)
@@ -173,7 +176,9 @@ Page({
     if (!name) return
     this.data.clearTime = setTimeout(() => {
       wx.showNavigationBarLoading()
-      api.searchPropertyItems({ name }).then(result => {
+      api.searchPropertyItems({
+        name
+      }).then(result => {
         wx.hideNavigationBarLoading()
         if (result && result.length) {
           wx.showActionSheet({
@@ -294,170 +299,53 @@ Page({
     })
   },
 
-  driversuccess(e) {
-    // 行驶证识别正面
-    if (this.data.driving_license_front_progress) {
+  cutPhoto(e) {
+    // ocr识别
+    let name = e.currentTarget.dataset.name
+    if (this.data[name + '_progress']) {
       wx.showToast({
         icon: 'none',
         title: '正在上传图片...'
       })
       return
     }
-    // 上传图片
-    let options = {
-      filePath: e.detail.image_path,
-      body: {
-        report_id: this.data.report_id,
-        report_field: 'driving_license_front',
-        plate_num: e.detail.plate_num.text,
-        car_type: e.detail.vehicle_type.text
-      },
-      progress: (res) => {
-        this.setData({
-          driving_license_front_progress: res.progress === 100 ? 0 : res.progress
-        })
-      }
-    }
-    wx.showLoading({
-      mask: true,
-      title: '图片上传中...'
-    })
-    api.uploadPhoto(options).then(res => {
-      // 上传成功
-      wx.hideLoading({
-        complete: () => {
-          this.setData({
-            driving_license_front: res.url
+    wx.navigateTo({
+      url: '/pages/law/camera/camera',
+      events: {
+        cameraCallBack: res => {
+          // 上传图片
+          wx.showLoading({
+            mask: true,
+            title: '图片上传中...'
+          })
+          api.uploadPhoto({
+            filePath: res.filePath,
+            body: Object.assign({
+              report_id: this.data.report_id,
+              report_field: name
+            }, res.res),
+            progress: res => {
+              this.setData({
+                [name + '_progress']: res.progress === 100 ? 0 : res.progress
+              })
+            }
+          }).then(res => {
+            // 上传成功
+            wx.hideLoading({
+              complete: () => {
+                this.setData({
+                  [name]: res.url
+                })
+              }
+            })
+          }).catch(err => {
+            this.data[name + '_progress'] = 0
           })
         }
-      })
-    }).catch(err => {
-      this.data.driving_license_front_progress = 0
-    })
-  },
-
-  driverbehindsuccess(e) {
-    // 行驶证识别背面
-    if (this.data.driving_license_behind_progress) {
-      wx.showToast({
-        icon: 'none',
-        title: '正在上传图片...'
-      })
-      return
-    }
-    // 上传图片
-    let options = {
-      filePath: e.detail.image_path,
-      body: {
-        report_id: this.data.report_id,
-        report_field: 'driving_license_behind'
       },
-      progress: (res) => {
-        this.setData({
-          driving_license_behind_progress: res.progress === 100 ? 0 : res.progress
-        })
+      success: res => {
+        res.eventChannel.emit('putData', e.currentTarget.dataset)
       }
-    }
-    wx.showLoading({
-      mask: true,
-      title: '图片上传中...'
-    })
-    api.uploadPhoto(options).then(res => {
-      // 上传成功
-      wx.hideLoading({
-        complete: () => {
-          this.setData({
-            driving_license_behind: res.url
-          })
-        }
-      })
-    }).catch(err => {
-      this.data.driving_license_behind_progress = 0
-    })
-  },
-
-  idcardsuccess(e) {
-    // 身份证识别正面
-    if (this.data.idcard_front_progress) {
-      wx.showToast({
-        icon: 'none',
-        title: '正在上传图片...'
-      })
-      return
-    }
-    // 上传图片
-    let options = {
-      filePath: e.detail.image_path,
-      body: {
-        report_id: this.data.report_id,
-        report_field: 'idcard_front',
-        name: e.detail.name.text,
-        nationality: e.detail.nationality.text,
-        addr: e.detail.address.text,
-        idcard: e.detail.id.text
-      },
-      progress: (res) => {
-        this.setData({
-          idcard_front_progress: res.progress === 100 ? 0 : res.progress
-        })
-      }
-    }
-    wx.showLoading({
-      mask: true,
-      title: '图片上传中...'
-    })
-    api.uploadPhoto(options).then(res => {
-      // 上传成功
-      wx.hideLoading({
-        complete: () => {
-          this.setData({
-            idcard_front: res.url
-          })
-        }
-      })
-    }).catch(err => {
-      this.data.idcard_front_progress = 0
-    })
-  },
-
-  idcardbehindsuccess(e) {
-    // 身份证识别背面
-    if (this.data.idcard_behind_progress) {
-      wx.showToast({
-        icon: 'none',
-        title: '正在上传图片...'
-      })
-      return
-    }
-    // 上传图片
-    let options = {
-      filePath: e.detail.image_path,
-      body: {
-        report_id: this.data.report_id,
-        report_field: 'idcard_behind',
-        valid_date: e.detail.valid_date.text // 有效期
-      },
-      progress: (res) => {
-        this.setData({
-          idcard_behind_progress: res.progress === 100 ? 0 : res.progress
-        })
-      }
-    }
-    wx.showLoading({
-      mask: true,
-      title: '图片上传中...'
-    })
-    api.uploadPhoto(options).then(res => {
-      // 上传成功
-      wx.hideLoading({
-        complete: () => {
-          this.setData({
-            idcard_behind: res.url
-          })
-        }
-      })
-    }).catch(err => {
-      this.data.idcard_behind_progress = 0
     })
   },
 
@@ -535,7 +423,7 @@ Page({
     }
     wx.showModal({
       title: '',
-      content: '是否确认转发赔偿通知书给当事人？',
+      content: '是否确认发送赔偿通知书给当事人？',
       confirmText: '确认',
       cancelText: '取消',
       success: (res) => {
