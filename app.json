@@ -13,6 +13,7 @@
     "pages/law/signature/signature",
     "pages/law/paper/paper",
     "pages/law/camera/camera",
+    "pages/law/propertylist/propertylist",
     "pages/mine/mine",
     "pages/about/about",
     "pages/setting/setting"

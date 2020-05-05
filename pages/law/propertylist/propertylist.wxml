@@ -1,0 +1,22 @@
+<!--pages/law/propertylist/propertylist.wxml-->
+<view class="panel-con">
+  <view class="panel-table">
+    <view class="panel-tr">
+      <view class="panel-th">项目名称</view>
+      <view class="panel-th">单位</view>
+      <view class="panel-th">收费标准</view>
+    </view>
+    <block wx:for="{{list}}" wx:key="index">
+      <view class="panel-tr">
+        <view class="panel-tt">{{index}}</view>
+      </view>
+      
+      <view class="panel-tr" wx:for="{{item}}" wx:key="index">
+        <view class="panel-td">{{item.name}}</view>
+        <view class="panel-td">{{item.unit}}</view>
+        <view class="panel-td">{{item.price}}</view>
+      </view>
+    </block>
+  </view>
+</view>
+

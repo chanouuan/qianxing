@@ -1,0 +1,48 @@
+/* pages/law/propertylist/propertylist.wxss */
+
+.panel-con {
+  padding: 20rpx;
+  background-color: #fff;
+}
+
+.panel-table {
+  width: 100%;
+  border-top: 1rpx solid #f5f5f5;
+  border-left: 1rpx solid #f5f5f5;
+  border-right: 1rpx solid #f5f5f5;
+  font-size: 26rpx;
+  text-align: center;
+}
+
+.panel-tr {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1rpx solid #f5f5f5;
+  padding: 20rpx 0;
+}
+
+.panel-th {
+  flex: 1;
+  font-weight: bold;
+}
+
+.panel-td {
+  flex: 1;
+}
+
+.panel-tr .panel-th:first-child {
+  flex: 2;
+}
+
+.panel-tr .panel-td:first-child {
+  flex: 2;
+}
+
+.panel-tt {
+  flex: 1;
+  text-align: left;
+  font-weight: bold;
+  padding-left: 20rpx;
+  color: #e64340;
+}

@@ -31,19 +31,30 @@ Page({
   onShow() {
     // 检查权限
     wx.getSetting({
-      success: (res) => {
+      success: res => {
         if (!res.authSetting['scope.camera']) {
-          wx.showModal({
-            title: '温馨提示',
-            content: ' 获取摄像头失败，请前往设置打开摄像头权限',
-            cancelText: '取消',
-            confirmText: '设置',
-            success: function (res) {
-              if (res.confirm) {
-                wx.openSetting()
-              } else {
-                wx.navigateBack()
-              }
+          // 授权询问
+          wx.authorize({
+            scope: 'scope.camera',
+            success: res => {
+              this.setData({
+                showcamera: true
+              })
+            },
+            fail: err =>  {
+              wx.showModal({
+                title: '温馨提示',
+                content: '如需正常使用此功能，请前往设置打开摄像头权限',
+                cancelText: '取消',
+                confirmText: '设置',
+                success: res => {
+                  if (res.confirm) {
+                    wx.openSetting()
+                  } else {
+                    wx.navigateBack()
+                  }
+                }
+              })
             }
           })
         } else {
@@ -174,6 +185,10 @@ Page({
       wx.navigateBack()
       return
     }
+    wx.showLoading({
+      mask: true,
+      title: '正在识别'
+    })
     wx.getFileSystemManager().readFile({
       filePath: filePath,
       encoding: 'base64',

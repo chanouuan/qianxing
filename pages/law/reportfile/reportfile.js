@@ -169,6 +169,32 @@ Page({
     this.totalMoney()
   },
 
+  removeitem(e) {
+    // 删除路产项
+    let index = ~~e.currentTarget.dataset.index
+    wx.showModal({
+      title: '',
+      content: '是否删除“' + this.data.items[index].name + '”？',
+      success: (res) => {
+        if (res.confirm) {
+          this.data.items.splice(index, 1)
+          this.setData({
+            items: this.data.items
+          }, () => {
+            this.totalMoney()
+          })
+        }
+      }
+    })
+  },
+
+  propertylist() {
+    // 查看产路赔损项目列表
+    wx.navigateTo({
+      url: '/pages/law/propertylist/propertylist'
+    })
+  },
+
   searchInput(e) {
     // 搜索收费项目
     let name = e.detail.value

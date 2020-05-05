@@ -154,6 +154,15 @@ export const searchPropertyItems = (post) => {
   })
 }
 
+// 获取路产赔损项目列表
+export const getPropertyItems = (post) => {
+  post.token = getToken()
+  return axios.request({
+    url: '/miniprogramserver/getPropertyItems',
+    body: post
+  })
+}
+
 // 保存勘验笔录
 export const reportItem = (post) => {
   post.token = getToken()

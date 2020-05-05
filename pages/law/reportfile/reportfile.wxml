@@ -3,7 +3,7 @@
 <!--菜单-->
 <tab tabList="{{[{name:'证件采集'},{name:'勘验笔录'}]}}" currentTab="{{tabIndex}}" catch:clickTab="onClickTab" />
 
-<view catchtap="nodata" scroll-y class="content-view {{tabIndex == 0 ? 'content-show' : '' }}">
+<view catchtap="nodata" class="content-view {{tabIndex == 0 ? 'content-show' : '' }}">
   <!--证件采集-->
   <view class="content-wrap">
     <view class="content-inner">
@@ -88,11 +88,14 @@
   </view>
 </view>
 
-<view catchtap="nodata" scroll-y class="content-view {{tabIndex == 1 ? 'content-show' : '' }}">
+<view catchtap="nodata" class="content-view {{tabIndex == 1 ? 'content-show' : '' }}">
   <!--勘验笔录-->
   <view class="content-wrap">
     <view class="content-inner">
-      <view class="title">路产受损清单</view>
+      <view class="title pitem">
+        <text>路产受损清单</text>
+        <icon bindtap="propertylist" class="iconfont icon-orderlist"></icon>
+      </view>
       <view class="panel-table">
         <view class="panel-tr">
           <view class="panel-th">项目名称</view>
@@ -111,6 +114,7 @@
             <input bindinput="amountInput" data-index="{{index}}" value="{{item.amount}}" type="number" maxlength="5" placeholder="请输入数量"></input>
           </view>
           <view class="panel-td">{{item.price*item.amount}}</view>
+          <icon data-index="{{index}}" bindtap="removeitem" class="item-cancel" size="15" type="cancel"></icon>
         </view>
         <view class="panel-tr">
           <view class="panel-td-r">总收费：{{totalMoney}} 元</view>
@@ -188,7 +192,7 @@
   </view>
 </view>
 
-<view catchtap="nodata" scroll-y class="content-view" hidden>
+<view catchtap="nodata" class="content-view" wx:if="{{false}}">
   <!--签字确认-->
   <view class="content-wrap">
     <view class="content-inner">
