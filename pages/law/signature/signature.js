@@ -378,30 +378,6 @@ Page({
     this.data.signatureTarget = e.detail.value
   },
 
-  previewCanvasImg() {
-    console.log(this.data.cutArea)
-    //预览
-    wx.createSelectorQuery()
-    .select('#' + this.data.canvasName)
-    .fields({ node: true, size: true })
-    .exec((res) => {
-      wx.canvasToTempFilePath({
-        canvas: res[0].node,
-        x: this.data.cutArea.left - 10,
-        y: this.data.cutArea.top - 10,
-        width: this.data.cutArea.right - this.data.cutArea.left + 20,
-        height: this.data.cutArea.bottom - this.data.cutArea.top + 20,
-        fileType: 'png',
-        quality: 1,
-        success(res) {
-          wx.previewImage({
-            urls: [res.tempFilePath]
-          })
-        }
-      })
-    })
-  },
-
   subCanvas() {
     // 完成
     if (!this.data.cutArea.top && !this.data.cutArea.right && !this.data.cutArea.bottom && !this.data.cutArea.left) {
@@ -443,7 +419,7 @@ Page({
               wx.navigateBack()
             }).catch(err => {})
           },
-          fail(err) {
+          fail: (err) => {
             wx.hideLoading()
             wx.showModal({
               content: err.errMsg

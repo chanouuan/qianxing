@@ -23,4 +23,4 @@
 		</cover-view>
 	</cover-view>
 </camera>
-<canvas wx:if="{{showcanvas}}" id="canvas" type="2d" canvas-id="canvas"></canvas>
+<canvas wx:if="{{showcanvas}}" style="width:{{canvas_width}}px;height:{{canvas_height}}px" id="canvas" type="2d" canvas-id="canvas"></canvas>

@@ -263,12 +263,10 @@ Page({
         })
         api.uploadPhoto(options).then(res => {
           // 上传成功
-          wx.hideLoading({
-            complete: () => {
-              this.setData({
-                ['site_photos[' + index + '].src']: res.url
-              })
-            }
+          this.setData({
+            ['site_photos[' + index + '].src']: res.url
+          }, () => {
+            wx.hideLoading()
           })
         }).catch(err => {
           this.data.site_photos[index].progress = 0
@@ -311,12 +309,10 @@ Page({
         })
         api.uploadPhoto(options).then(res => {
           // 上传成功
-          wx.hideLoading({
-            complete: () => {
-              this.setData({
-                [name]: res.url
-              })
-            }
+          this.setData({
+            [name]: res.url
+          }, () => {
+            wx.hideLoading()
           })
         }).catch(err => {
           this.data[name + '_progress'] = 0
@@ -357,12 +353,10 @@ Page({
             }
           }).then(res => {
             // 上传成功
-            wx.hideLoading({
-              complete: () => {
-                this.setData({
-                  [name]: res.url
-                })
-              }
+            this.setData({
+              [name]: res.url
+            }, () => {
+              wx.hideLoading()
             })
           }).catch(err => {
             this.data[name + '_progress'] = 0

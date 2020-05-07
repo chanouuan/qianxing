@@ -9,7 +9,7 @@
 				<view class="form-head">基本信息</view>
 			</view>
 			<view class="form-item">
-				<text class="form-label">车牌号</text>
+				<text class="form-label"><text class="form-fill">*</text>车牌号</text>
 				<view class="form-text" data-index="0" catchtap="handleShowKeyboard">
 					<input disabled value="{{plate_num_list[0]}}" maxlength="10" placeholder="请输入车牌号"></input>
 				</view>

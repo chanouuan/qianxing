@@ -31,7 +31,8 @@ App({
         this.globalData.isIpx = res.model.search('iPhone X') !== -1
         this.globalData.statusBarHeight = res.statusBarHeight
         this.globalData.screenHeight = res.screenHeight
-        this.globalData.windowHeight = res.windowHeight
+        this.globalData.screenWidth = res.screenWidth
+        this.globalData.pixelRatio = res.pixelRatio
       }
     })
 
@@ -75,7 +76,8 @@ App({
   globalData: {
     statusBarHeight: 20,
     screenHeight: 0,
-    windowHeight: 0,
+    screenWidth: 0,
+    pixelRatio: 1,
     isIpx: false,
     templateId: 'user',
     userInfo: {}

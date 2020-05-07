@@ -1,9 +1,13 @@
+const app = getApp()
+
 Page({
 
   data: {
     showcamera: false,
     showcanvas: false,
     loadcamera: false,
+    canvas_width: 0,
+    canvas_height: 0,
     flash: 'off',
     title: '',
     ocr_type: 0, // 1：身份证；3：行驶证；4：驾驶证；
@@ -41,7 +45,7 @@ Page({
                 showcamera: true
               })
             },
-            fail: err =>  {
+            fail: err => {
               wx.showModal({
                 title: '温馨提示',
                 content: '如需正常使用此功能，请前往设置打开摄像头权限',
@@ -83,17 +87,46 @@ Page({
       title: '正在处理'
     })
     this.data.ctx.takePhoto({
-      // quality: 'high',
-      success: (res) => {
-        let tempImagePath = res.tempImagePath
-        const query = wx.createSelectorQuery()
-        query.select('#frame').boundingClientRect()
-        query.exec((res) => {
-          this.setData({
-            showcanvas: true
-          }, () => {
-            this.drawcanvas(tempImagePath, res[0])
-          })
+      quality: 'high',
+      success: res => {
+        const filePath = res.tempImagePath
+        // 获取图片宽度
+        wx.getImageInfo({
+          src: filePath,
+          success: res => {
+            const imgWidth = res.width
+            const imgHeight = res.height
+            // 获取拍照区域
+            wx.createSelectorQuery()
+              .select('#frame')
+              .boundingClientRect()
+              .exec(res => {
+                const rect = {
+                  left: ~~res[0].left,
+                  top: ~~res[0].top,
+                  width: ~~res[0].width,
+                  height: ~~res[0].height
+                }
+                // 缩放比例
+                let x = (imgWidth > app.globalData.screenWidth ? app.globalData.screenWidth / imgWidth : 1)
+                let y = (imgHeight > app.globalData.screenHeight ? app.globalData.screenHeight / imgHeight : 1)
+                rect.sleft = ~~(rect.left / x)
+                rect.swidth = ~~(rect.width / x)
+                rect.stop = ~~(rect.top / y)
+                rect.sheight = ~~(rect.height / y)
+                // 设置canvas大小
+                this.setData({
+                  canvas_width: rect.width,
+                  canvas_height: rect.height,
+                  showcanvas: true
+                }, () => {
+                  this.drawcanvas(filePath, rect)
+                })
+              })
+          },
+          fail: err => {
+            this.showmsg(err)
+          }
         })
       },
       fail: (err) => {
@@ -114,42 +147,54 @@ Page({
         const canvas = res[0].node
         const ctx = canvas.getContext('2d')
 
-        canvas.width = res[0].width
-        canvas.height = res[0].height
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        canvas.width = rect.width
+        canvas.height = rect.height
+        
+        // 清理画布
+        ctx.clearRect(0, 0, rect.width, rect.height)
         ctx.fillStyle = 'rgb(255, 255, 255)'
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
+        ctx.fillRect(0, 0, rect.width, rect.height)
 
         // 画图片
         let imgdata = canvas.createImage()
         imgdata.onload = (e) => {
-          ctx.drawImage(imgdata, 0, 0, canvas.width, canvas.height)
-          // 剪切图片
-          wx.canvasToTempFilePath({
-            canvas: canvas,
-            x: rect.left,
-            y: rect.top,
-            width: rect.width,
-            height: rect.height,
-            destWidth: rect.width,
-            destHeight: rect.height,
-            fileType: 'jpg',
-            quality: 1,
-            success: (res) => {
-              // 剪切成功 res.tempFilePath
-              this.ocr(res.tempFilePath)
-            },
-            fail(err) {
-              this.showmsg(err.errMsg)
-            }
-          })
+          ctx.drawImage(imgdata, rect.sleft, rect.stop, rect.swidth, rect.sheight, 0, 0, rect.width, rect.height)
+          // 保存为本地图片
+          this.canvastotmp(canvas, 1)
         }
         imgdata.onerror = (e) => {
           console.error('拍照图片创建失败', e)
-          this.showmsg(e)
+          this.showmsg('拍照图片创建失败，请重试')
         }
         imgdata.src = filePath
       })
+  },
+
+  canvastotmp(canvas, reload) {
+    // 将画布保存为图片
+    wx.canvasToTempFilePath({
+      canvas: canvas,
+      x: 0,
+      y: 0,
+      width: canvas.width,
+      height: canvas.height,
+      destWidth: canvas.width,
+      destHeight: canvas.height,
+      fileType: 'jpg',
+      quality: 1,
+      success: res => {
+        // 剪切成功 res.tempFilePath
+        this.ocr(res.tempFilePath)
+      },
+      fail: err => {
+        if (reload < 2) {
+          // 重试
+          this.canvastotmp(canvas, reload++)
+        } else {
+          this.showmsg(err.errMsg)
+        }
+      }
+    })
   },
 
   takealbum() {
