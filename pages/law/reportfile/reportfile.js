@@ -107,7 +107,18 @@ Page({
     let value = e.detail.value
     this.data.involved_action = {}
     value.forEach(n => {
+      // a b 二选一
+      if (n === 'a') {
+        this.data.involved_action.b = false
+      }
+      if (n === 'b') {
+        this.data.involved_action.a = false
+      }
       this.data.involved_action[n] = true
+    })
+    this.setData({
+      ['involved_action.a']: !!this.data.involved_action.a,
+      ['involved_action.b']: !!this.data.involved_action.b
     })
   },
 

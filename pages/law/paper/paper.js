@@ -28,6 +28,7 @@ Page({
       res.involved_action = res.involved_action || {}
       res.involved_action_type = res.involved_action_type || {}
       res.items = res.items.map((n,i) => (i+1) + '. ' + n.name + n.amount + n.unit).join('；')
+      res.items = res.items ? res.items + '（以下空白）。' : ''
       res.items = [
         res.items.substr(0, 35),
         res.items.substr(35, 40),

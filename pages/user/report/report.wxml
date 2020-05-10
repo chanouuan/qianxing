@@ -13,7 +13,7 @@
       <view class="mark-tip">请选择报警类型</view>
       <view class="mark-type">
         <view bindtap="changeReportType" data-type="1" class="{{report_type==1?'active':''}}">交通事故</view>
-        <view bindtap="changeReportType" data-type="2" class="{{report_type==2?'active':''}}">车辆事故</view>
+        <view bindtap="changeReportType" data-type="2" class="{{report_type==2?'active':''}}">车辆故障</view>
       </view>
       <view class="mark-addr">
         <view class="mark-addr-icon">

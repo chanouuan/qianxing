@@ -130,7 +130,7 @@
         </block>
       </view>
     </view>
-    <view class="form-item">
+    <view class="form-item" wx:if="{{is_law}}">
       <text class="form-label">协同人员</text>
       <view class="form-text">
         <picker bindchange="colleagueChange" range-key="name" value="{{colleagueIndex}}" range="{{colleagueItems}}">

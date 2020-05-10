@@ -47,6 +47,7 @@ Page({
     waym: '',
     waydirection: ['上行', '下行', '双向'], // 行车方向
     waydirectionIndex: 0,
+    is_law: 1, // 是否受理人操作，协同人员也可以进入操作
     datainfo: {
       event_time: null,
       weather: 0,
@@ -93,8 +94,8 @@ Page({
         colleague_id: res.colleague_id,
         check_start_time: res.check_start_time || util.formatTime(new Date()),
         is_property: res.is_property,
-        is_load: res.is_load,
-        total_money: res.total_money
+        is_load: res.is_load || 0,
+        total_money: res.total_money || 0
       }
       this.data.weatherItems = this.data.weatherItems.concat(res.weather_list)
       this.data.carTypeItems = this.data.carTypeItems.concat(res.car_type_list)
@@ -113,6 +114,7 @@ Page({
       this.data.waydirectionIndex = this.data.waydirection.indexOf(res.stake_number[6])
       this.data.waydirectionIndex = this.data.waydirectionIndex === -1 ? 0 : this.data.waydirectionIndex
       this.setData({
+        is_law: this.data.datainfo.colleague_id !== app.globalData.userInfo.id,
         wayline: res.way_line,
         waylineIndex: this.data.waylineIndex,
         wayk: res.stake_number[2] ? res.stake_number[2] : '',
