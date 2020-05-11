@@ -35,7 +35,6 @@ Page({
       report_id: this.data.report_id,
       data_type: 'card'
     }).then(res => {
-      wx.hideLoading()
       this.data.form = {
         addr: res.addr,
         full_name: res.full_name,
@@ -53,6 +52,8 @@ Page({
         form: this.data.form,
         plate_num: this.data.plate_num_list.length ? this.data.plate_num_list[0] : '',
         plate_num_list: this.data.plate_num_list
+      }, () => {
+        wx.hideLoading()
       })
     }).catch(err => {
       // 获取失败

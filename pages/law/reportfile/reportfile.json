@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "tab": "/components/tab/tab"
+    "tab": "/components/tab/tab",
+    "input-modal": "/components/inputmodal/inputmodal"
   },
   "navigationBarTitleText": "案件处理"
 }

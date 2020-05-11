@@ -60,6 +60,13 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   color: #333;
 }
 
+.tip {
+  font-size: 26rpx;
+  color: #576b95;
+  text-align: center;
+  padding-top: 20rpx; 
+}
+
 .pitem {
   display: flex;
   justify-content: space-between;
@@ -67,7 +74,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 
 .pitem icon {
   color: #576b95;
-  font-size: 40rpx;
+  font-size: 45rpx;
 }
 
 .panel1 {
@@ -88,7 +95,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   border-radius: 5rpx;
 }
 
-.panel1-item icon {
+.bgimg {
   width: 100rpx;
   height: 100rpx;
   line-height: 100rpx;
@@ -106,8 +113,16 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 
 .panel1-item-t {
   font-size: 12px;
-  padding: 10rpx 0;
   text-align: center;
+  margin: 20rpx 0;
+  width: 222rpx;
+  overflow: hidden;
+}
+
+.delimg {
+  position: absolute;
+  right: -10rpx;
+  top: -10rpx;
 }
 
 .panel2 {

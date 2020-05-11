@@ -1,5 +1,6 @@
 <!--pages/law/reportfile/reportfile.wxml-->
-
+<!--现场图照名称填写弹框-->
+<input-modal wx:if="{{inputFlag}}" value="{{input_site_photo_name}}" parameter="{{input_parameter}}" maxlength="20" placeholder="请输入现场图照名称" bind:closemodal="closeInputModal" bind:bindok="inputOk"></input-modal>
 <!--菜单-->
 <tab tabList="{{[{name:'证件采集'},{name:'勘验笔录'}]}}" currentTab="{{tabIndex}}" catch:clickTab="onClickTab" />
 
@@ -7,23 +8,26 @@
   <!--证件采集-->
   <view class="content-wrap">
     <view class="content-inner">
-      <view class="title">现场图照</view>
+      <view class="title pitem">
+        <text>现场图照</text>
+        <icon bindtap="addSitePhoto" class="iconfont icon-add"></icon>
+      </view>
       <view class="panel1">
         <view wx:for="{{site_photos}}" wx:key="index">
-          <view data-index="{{index}}" class="panel1-item" bindtap="takeSitePhotos">
+          <view data-index="{{index}}" class="panel1-item" catchtap="takeSitePhotos">
             <image mode="aspectFill" src="{{item.src}}" wx:if="{{item.src}}"></image>
-            <icon class="iconfont icon-zhaoxiang" wx:else></icon>
-            <view class="progress" style="width:{{item.progress}}%" wx:if="{{item.progress}}"></view>
+            <icon class="iconfont icon-zhaoxiang bgimg" wx:else></icon>
+            <icon wx:if="{{index>4}}" data-index="{{index}}" catchtap="delSitePhoto" class="delimg" size="18" type="cancel"></icon>
           </view>
           <view class="panel1-item-t">
-            <block wx:if="{{index==0}}">前面</block>
-            <block wx:elif="{{index==1}}">侧面</block>
-            <block wx:elif="{{index==2}}">后面</block>
-            <block wx:elif="{{index==3}}">前全景</block>
-            <block wx:elif="{{index==4}}">后全景</block>
+            <view data-index="{{index}}" catchtap="changePhotoName">
+              <text wx:if="{{index<=4||item.name}}">{{item.name?item.name:(index==0?'前面':(index==1?'侧面':(index==2?'后面':(index==3?'前全景':(index==4?'后全景':'')))))}}</text>
+              <text wx:else style="color:#ccc">图照名称</text>
+            </view>
           </view>
         </view>
       </view>
+      <view class="tip">（现场图照需拍摄方位、全貌、特征）</view>
       <view class="title">身份证照</view>
       <view class="panel2">
         <view class="panel2-item">

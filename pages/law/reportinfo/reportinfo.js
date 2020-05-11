@@ -79,7 +79,6 @@ Page({
       report_id: this.data.report_id,
       data_type: 'info'
     }).then(res => {
-      wx.hideLoading()
       this.data.datainfo = {
         location: res.location,
         event_time: res.event_time || util.formatTime(new Date()),
@@ -142,6 +141,7 @@ Page({
         passTimeIndex: findIndex(this.data.passTimeItems, this.data.datainfo.pass_time, 3),
         colleagueIndex: findIndex(this.data.colleagueItems, this.data.datainfo.colleague_id)
       }, () => {
+        wx.hideLoading()
         this.data.datainfo.weather = this.data.weatherItems[this.data.weatherIndex].id
         this.data.datainfo.car_type = this.data.carTypeItems[this.data.carTypeIndex].id
         this.data.datainfo.event_type = this.data.eventTypeItems[this.data.eventTypeIndex].id

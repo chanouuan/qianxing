@@ -13,12 +13,10 @@ Page({
       title: '加载中...'
     })
     api.getUserCount().then(data => {
-      wx.hideLoading({
-        complete: (res) => {
-          this.setData({
-            userInfo: data
-          })
-        }
+      this.setData({
+        userInfo: data
+      }, () => {
+        wx.hideLoading()
       })
     }).catch(err => {})
   }

@@ -20,6 +20,15 @@ export const uploadPhoto = (post) => {
   })
 }
 
+// 更新现场图照
+export const saveSitePhoto = (post) => {
+  post.token = getToken()
+  return axios.request({
+    url: '/miniprogramserver/saveSitePhoto',
+    body: post
+  })
+}
+
 // 获取用户其他信息
 export const getUserProfile = () => {
   return axios.request({

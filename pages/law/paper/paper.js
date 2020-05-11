@@ -19,7 +19,6 @@ Page({
       report_id: this.data.report_id,
       data_type: 'paper'
     }).then(res => {
-      wx.hideLoading()
       res.check_start_time = util.splitTime(res.check_start_time)
       res.check_end_time = util.splitTime(res.check_end_time)
       res.event_time = util.splitTime(res.event_time)
@@ -37,6 +36,8 @@ Page({
       this.setData({
         datainfo: res,
         pageFlag: true
+      }, () => {
+        wx.hideLoading()
       })
     }).catch(err => {
       // 获取失败
@@ -106,12 +107,10 @@ Page({
       report_id: this.data.report_id,
       invitee_mobile: value
     }).then(res => {
-      wx.hideLoading({
-        complete: () => {
-          this.setData({
-            ['datainfo.invitee_mobile']: value
-          })
-        }
+      this.setData({
+        ['datainfo.invitee_mobile']: value
+      }, () => {
+        wx.hideLoading()
       })
     }).catch(err => {})
   },

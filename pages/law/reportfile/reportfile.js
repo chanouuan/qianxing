@@ -4,41 +4,40 @@ Page({
 
   data: {
     tabIndex: 0,
+    inputFlag: false,
+    input_site_photo_name: '',
+    input_parameter: {},
     submit: false,
     report_id: 0,
     // 照相参数
-    site_photos: [{
-        src: null,
-        progress: 0
+    site_photos: [
+      {
+        src: ''
       },
       {
-        src: null,
-        progress: 0
+        src: ''
       },
       {
-        src: null,
-        progress: 0
+        src: ''
       },
       {
-        src: null,
-        progress: 0
+        src: ''
       },
       {
-        src: null,
-        progress: 0
+        src: ''
       }
     ],
-    idcard_front: null,
+    idcard_front: '',
     idcard_front_progress: 0,
-    idcard_behind: null,
+    idcard_behind: '',
     idcard_behind_progress: 0,
-    driver_license_front: null,
+    driver_license_front: '',
     driver_license_front_progress: 0,
-    driver_license_behind: null,
+    driver_license_behind: '',
     driver_license_behind_progress: 0,
-    driving_license_front: null,
+    driving_license_front: '',
     driving_license_front_progress: 0,
-    driving_license_behind: null,
+    driving_license_behind: '',
     driving_license_behind_progress: 0,
     // 赔偿清单参数
     items: [],
@@ -64,31 +63,27 @@ Page({
       report_id: this.data.report_id,
       data_type: 'all'
     }).then(res => {
-      wx.hideLoading()
       let data = {
-        idcard_front: res.idcard_front,
-        idcard_behind: res.idcard_behind,
-        driver_license_front: res.driver_license_front,
-        driver_license_behind: res.driver_license_behind,
-        driving_license_front: res.driving_license_front,
-        driving_license_behind: res.driving_license_behind,
+        idcard_front: res.idcard_front || '',
+        idcard_behind: res.idcard_behind || '',
+        driver_license_front: res.driver_license_front || '',
+        driver_license_behind: res.driver_license_behind || '',
+        driving_license_front: res.driving_license_front || '',
+        driving_license_behind: res.driving_license_behind || '',
         involved_action: res.involved_action || {},
         involved_act: res.involved_act,
-        extra_info: res.extra_info,
-        involved_build_project: res.involved_build_project,
+        extra_info: res.extra_info || '',
+        involved_build_project: res.involved_build_project || '',
         involved_action_type: res.involved_action_type || {},
         items: res.items,
         totalMoney: res.total_money
       }
       if (res.site_photos && res.site_photos.length) {
-        data.site_photos = res.site_photos.map(n => {
-          return {
-            src: n.src,
-            progress: 0
-          }
-        })
+        data.site_photos = res.site_photos
       }
-      this.setData(data)
+      this.setData(data, () => {
+        wx.hideLoading()
+      })
     }).catch(err => {
       // 获取失败
       wx.navigateBack()
@@ -239,40 +234,138 @@ Page({
     }, 300)
   },
 
-  takeSitePhotos(e) {
-    // 拍照
-    let index = e.currentTarget.dataset.index
-    if (this.data.site_photos[index].progress) {
+  addSitePhoto() {
+    // 增加现场图照
+    if (this.data.site_photos.length > 5 && !this.data.site_photos[this.data.site_photos.length - 1].src) {
       wx.showToast({
         icon: 'none',
-        title: '正在上传图片...'
+        title: '请先拍照上传前一张图照'
       })
       return
     }
+    if (this.data.site_photos.length >= 11) {
+      wx.showToast({
+        icon: 'none',
+        title: '不能上传更多现场图照了'
+      })
+      return
+    }
+    this.data.site_photos.push({
+      src: '',
+      name: ''
+    })
+    this.setData({
+      site_photos: this.data.site_photos
+    })
+  },
+
+  closeInputModal(e) {
+    // 关闭现场图照名称填写弹框
+    this.setData({
+      inputFlag: false
+    })
+  },
+
+  inputOk(e) {
+    // 现场图照名称填写回调
+    let index = e.detail.index
+    let value = e.detail.value
+    this.setData({
+      inputFlag: false
+    })
+    wx.showLoading({
+      title: '提交中...'
+    })
+    api.saveSitePhoto({
+      report_id: this.data.report_id,
+      index: index,
+      name: value
+    }).then(res => {
+      this.setData({
+        ['site_photos[' + index + '].name']: value
+      }, () => {
+        wx.hideLoading()
+      })
+    }).catch(err => {})
+  },
+
+  changePhotoName(e) {
+    // 修改现场图照名称
+    let index = ~~e.currentTarget.dataset.index
+    if (!this.data.site_photos[index].src) {
+      wx.showToast({
+        icon: 'none',
+        title: '请先拍照上传'
+      })
+      return
+    }
+    let name = this.data.site_photos[index].name
+    name = name ? name:(index===0?'前面':(index===1?'侧面':(index===2?'后面':(index===3?'前全景':(index===4?'后全景':'')))))
+    this.setData({
+      inputFlag: true,
+      input_site_photo_name: name,
+      input_parameter: {
+        index: index
+      }
+    })
+  },
+
+  delSitePhoto(e) {
+    // 删除现场图照
+    let index = ~~e.currentTarget.dataset.index
+    wx.showModal({
+      title: '',
+      content: '是否删除“' + (this.data.site_photos[index].name || '现场图照') + '”？',
+      success: (res) => {
+        if (res.confirm) {
+          if (!this.data.site_photos[index].src) {
+            this.data.site_photos.splice(index, 1)
+            this.setData({
+              site_photos: this.data.site_photos
+            })
+          } else {
+            wx.showLoading({
+              title: '提交中...'
+            })
+            api.saveSitePhoto({
+              report_id: this.data.report_id,
+              remove: 1,
+              index: index
+            }).then(res => {
+              this.data.site_photos.splice(index, 1)
+              this.setData({
+                site_photos: this.data.site_photos
+              }, () => {
+                wx.hideLoading()
+              })
+            }).catch(err => {})
+          }
+        }
+      }
+    })
+  },
+
+  takeSitePhotos(e) {
+    // 现场拍照
+    let index = e.currentTarget.dataset.index
     wx.chooseImage({
       count: 1,
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
-      success: (res) => {
+      success: res => {
         // 上传图片
-        let options = {
+        wx.showLoading({
+          mask: true,
+          title: '图片上传中...'
+        })
+        api.uploadPhoto({
           filePath: res.tempFilePaths[0],
           body: {
             report_id: this.data.report_id,
             report_field: 'site_photos',
             report_field_index: index
-          },
-          progress: (res) => {
-            this.setData({
-              ['site_photos[' + index + '].progress']: res.progress === 100 ? 0 : res.progress
-            })
           }
-        }
-        wx.showLoading({
-          mask: true,
-          title: '图片上传中...'
-        })
-        api.uploadPhoto(options).then(res => {
+        }).then(res => {
           // 上传成功
           this.setData({
             ['site_photos[' + index + '].src']: res.url
@@ -280,53 +373,7 @@ Page({
             wx.hideLoading()
           })
         }).catch(err => {
-          this.data.site_photos[index].progress = 0
-        })
-      }
-    })
-  },
-
-  takePhoto(e) {
-    // 拍照
-    let name = e.currentTarget.dataset.name
-    if (this.data[name + '_progress']) {
-      wx.showToast({
-        icon: 'none',
-        title: '正在上传图片...'
-      })
-      return
-    }
-    wx.chooseImage({
-      count: 1,
-      sizeType: ['compressed'],
-      sourceType: ['album', 'camera'],
-      success: (res) => {
-        // 上传图片
-        let options = {
-          filePath: res.tempFilePaths[0],
-          body: {
-            report_id: this.data.report_id,
-            report_field: name
-          },
-          progress: (res) => {
-            this.setData({
-              [name + '_progress']: res.progress === 100 ? 0 : res.progress
-            })
-          }
-        }
-        wx.showLoading({
-          mask: true,
-          title: '图片上传中...'
-        })
-        api.uploadPhoto(options).then(res => {
-          // 上传成功
-          this.setData({
-            [name]: res.url
-          }, () => {
-            wx.hideLoading()
-          })
-        }).catch(err => {
-          this.data[name + '_progress'] = 0
+          console.error('现场图照上传失败', err)
         })
       }
     })
