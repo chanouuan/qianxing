@@ -19,10 +19,10 @@
         <view class="status-{{item.status}}">{{item.status_str}}</view>
       </view>
       <view class="con-body">
-        <view class="con-body-item">
-          <view>{{item.status==0?'报警人':'当事人'}}电话</view>
-          <view>{{item.user_mobile?item.user_mobile:'未确认'}}</view>
-          <view wx:if="{{item.status!=3&&item.user_mobile}}" class="con-body-tel-icon" data-index="{{index}}" bindtap="callUser">
+        <view class="con-body-item" wx:if="{{item.status!=3&&item.user_mobile}}">
+          <view>报警人电话</view>
+          <view>{{item.user_mobile}}</view>
+          <view class="con-body-tel-icon" data-index="{{index}}" bindtap="callUser">
             <icon class="iconfont icon-call"></icon>
           </view>
         </view>
@@ -33,14 +33,6 @@
         <view class="con-body-item">
           <view>{{item.status==0?'报警时间':'接案时间'}}</view>
           <view style="width:66%">{{item.create_time}}</view>
-        </view>
-        <view wx:if="{{item.full_name}}" class="con-body-item">
-          <view>当事人姓名</view>
-          <view>{{item.full_name}}</view>
-        </view>
-        <view wx:if="{{item.plate_num}}" class="con-body-item">
-          <view>事故车辆</view>
-          <view style="width:66%">{{item.plate_num}}</view>
         </view>
         <view wx:if="{{item.status&&!item.is_property}}" class="con-body-item">
           <view>路产情况</view>
@@ -73,11 +65,11 @@
         <block wx:elif="{{item.status==2&&!item.load2}}">
           <view data-id="{{item.id}}" bindtap="reloadReport" class="default-button default">修改卷宗</view>
         </block>
-        <block wx:elif="{{item.status==3}}">
-          <view data-id="{{item.id}}" bindtap="openAllnote" class="default-button default" hidden>下载卷宗</view>
-        </block>
         <block wx:if="{{item.is_load&&!item.recover_time}}">
           <view class="default-button" data-id="{{item.id}}" bindtap="confirmPass">恢复畅通</view>
+        </block>
+        <block wx:if="{{item.status==2||item.status==3}}">
+          <view data-id="{{item.id}}" bindtap="showReport" class="default-button default">查看案件</view>
         </block>
       </view>
     </view>

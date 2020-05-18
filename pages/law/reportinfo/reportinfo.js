@@ -27,8 +27,6 @@ Page({
     submit: false,
     weatherItems: [{ id: 0, name: '请选择' }],
     weatherIndex: 0,
-    carTypeItems: [{ id: 0, name: '请选择' }],
-    carTypeIndex: 0,
     eventTypeItems: [{ id: 0, name: '请选择' }], // 事件类型
     eventTypeIndex: 0,
     driverStateItems: [{ id: 0, name: '请选择' }], // 受伤情况
@@ -41,6 +39,10 @@ Page({
     passTimeIndex: 0,
     colleagueItems: [{ id: 0, name: '请选择' }],
     colleagueIndex: 0,
+    // 桩号参数
+    positionType: ['桩号', '其他'], // 定位方式
+    positionTypeIndex: 0,
+    positionValue: '',
     wayline: [], // 桩号路段
     waylineIndex: 0,
     wayk: '',
@@ -97,27 +99,34 @@ Page({
         total_money: res.total_money || 0
       }
       this.data.weatherItems = this.data.weatherItems.concat(res.weather_list)
-      this.data.carTypeItems = this.data.carTypeItems.concat(res.car_type_list)
       this.data.eventTypeItems = this.data.eventTypeItems.concat(res.event_type_list)
       this.data.driverStateItems = this.data.driverStateItems.concat(res.driver_state_list)
       this.data.carStateItems = this.data.carStateItems.concat(res.car_state_list)
       this.data.trafficStateItems = this.data.trafficStateItems.concat(res.traffic_state_list)
       this.data.colleagueItems = this.data.colleagueItems.concat(res.colleague_list)
       // 桩号 G75兰海高速K1247+500M下行
-      res.way_line = res.way_line || ''
-      res.way_line = res.way_line.split(',')
-      res.stake_number = res.stake_number || ''
-      res.stake_number = res.stake_number.split(' ')
-      this.data.waylineIndex = res.way_line.indexOf(res.stake_number[0])
-      this.data.waylineIndex = this.data.waylineIndex === -1 ? 0 : this.data.waylineIndex
-      this.data.waydirectionIndex = this.data.waydirection.indexOf(res.stake_number[6])
-      this.data.waydirectionIndex = this.data.waydirectionIndex === -1 ? 0 : this.data.waydirectionIndex
+      res.way_line = res.way_line ? res.way_line.split(',') : []
+      this.data.positionTypeIndex = res.stake_number ? ~~res.stake_number.substr(0, 1) : 0 // 定位方式
+      res.stake_number = res.stake_number ? res.stake_number.substr(1) : ''
+      if (this.data.positionTypeIndex == 0) {
+        res.stake_number = res.stake_number ? res.stake_number.split(' ') : []
+        this.data.waylineIndex = res.way_line.indexOf(res.stake_number[0])
+        this.data.waylineIndex = this.data.waylineIndex === -1 ? 0 : this.data.waylineIndex
+        this.data.waydirectionIndex = this.data.waydirection.indexOf(res.stake_number[6])
+        this.data.waydirectionIndex = this.data.waydirectionIndex === -1 ? 0 : this.data.waydirectionIndex
+        this.data.wayk = res.stake_number[2] ? res.stake_number[2] : ''
+        this.data.waym = res.stake_number[4] ? res.stake_number[4] : ''
+      } else if (this.data.positionTypeIndex == 1) {
+        this.data.positionValue = res.stake_number
+      }
+      
       this.setData({
-        is_law: this.data.datainfo.colleague_id !== app.globalData.userInfo.id,
+        positionTypeIndex: this.data.positionTypeIndex,
+        positionValue: this.data.positionValue,
         wayline: res.way_line,
         waylineIndex: this.data.waylineIndex,
-        wayk: res.stake_number[2] ? res.stake_number[2] : '',
-        waym: res.stake_number[4] ? res.stake_number[4] : '',
+        wayk: this.data.wayk,
+        waym: this.data.waym,
         waydirectionIndex: this.data.waydirectionIndex,
         'datainfo.event_time': this.data.datainfo.event_time,
         'datainfo.address': this.data.datainfo.address,
@@ -126,24 +135,22 @@ Page({
         'datainfo.is_load': this.data.datainfo.is_load,
         'datainfo.total_money': this.data.datainfo.total_money,
         weatherItems: this.data.weatherItems,
-        carTypeItems: this.data.carTypeItems,
         eventTypeItems: this.data.eventTypeItems,
         driverStateItems: this.data.driverStateItems,
         carStateItems: this.data.carStateItems,
         trafficStateItems: this.data.trafficStateItems,
         colleagueItems: this.data.colleagueItems,
         weatherIndex: findIndex(this.data.weatherItems, this.data.datainfo.weather, 1),
-        carTypeIndex: findIndex(this.data.carTypeItems, this.data.datainfo.car_type, 1),
         eventTypeIndex: findIndex(this.data.eventTypeItems, this.data.datainfo.event_type, 1),
         driverStateIndex: findIndex(this.data.driverStateItems, this.data.datainfo.driver_state, 1),
         carStateIndex: findIndex(this.data.carStateItems, this.data.datainfo.car_state, 1),
         trafficStateIndex: findIndex(this.data.trafficStateItems, this.data.datainfo.traffic_state, 2),
         passTimeIndex: findIndex(this.data.passTimeItems, this.data.datainfo.pass_time, 3),
-        colleagueIndex: findIndex(this.data.colleagueItems, this.data.datainfo.colleague_id)
+        colleagueIndex: findIndex(this.data.colleagueItems, this.data.datainfo.colleague_id),
+        is_law: this.data.datainfo.colleague_id !== app.globalData.userInfo.id
       }, () => {
         wx.hideLoading()
         this.data.datainfo.weather = this.data.weatherItems[this.data.weatherIndex].id
-        this.data.datainfo.car_type = this.data.carTypeItems[this.data.carTypeIndex].id
         this.data.datainfo.event_type = this.data.eventTypeItems[this.data.eventTypeIndex].id
         this.data.datainfo.driver_state = this.data.driverStateItems[this.data.driverStateIndex].id
         this.data.datainfo.car_state = this.data.carStateItems[this.data.carStateIndex].id
@@ -262,16 +269,21 @@ Page({
       submit: true
     })
     // 组合桩号
-    let stake_number = [
-      this.data.wayline[this.data.waylineIndex] ? this.data.wayline[this.data.waylineIndex] : '',
-      'K',
-      this.data.wayk === '' ? 0 : this.data.wayk,
-      '+',
-      this.data.waym === '' ? 0 : this.data.waym,
-      'M',
-      this.data.waydirection[this.data.waydirectionIndex] ? this.data.waydirection[this.data.waydirectionIndex] : '',
-    ]
-    this.data.datainfo.stake_number = stake_number.join(' ')
+    let stake_number = this.data.positionTypeIndex + ''
+    if (this.data.positionTypeIndex == 0) {
+      stake_number += [
+        this.data.wayline[this.data.waylineIndex] ? this.data.wayline[this.data.waylineIndex] : '',
+        'K',
+        this.data.wayk === '' ? 0 : this.data.wayk,
+        '+',
+        this.data.waym === '' ? 0 : this.data.waym,
+        'M',
+        this.data.waydirection[this.data.waydirectionIndex] ? this.data.waydirection[this.data.waydirectionIndex] : '',
+      ].join(' ')
+    } else if (this.data.positionTypeIndex == 1) {
+      stake_number += this.data.positionValue
+    }
+    this.data.datainfo.stake_number = stake_number
     this.data.datainfo.report_id = this.data.report_id
     api.reportInfo(this.data.datainfo).then(res => {
       if (!res.report_id) {
@@ -290,10 +302,6 @@ Page({
     })
   },
 
-  isPropertyChange(e) {
-    this.data.datainfo.is_property = ~~e.detail.value
-  },
-
   eventTimeChange(e) {
     this.setData({
       'datainfo.event_time': e.detail.dateString
@@ -306,24 +314,10 @@ Page({
     })
   },
 
-  waylineChange(e) {
+  changeinput(e) {
     this.setData({
-      waylineIndex: e.detail.value
+      [e.currentTarget.dataset.name]: e.detail.value
     })
-  },
-
-  waydirectionChange(e) {
-    this.setData({
-      waydirectionIndex: e.detail.value
-    })
-  },
-
-  waykInput(e) {
-    this.data.wayk = e.detail.value
-  },
-
-  waymInput(e) {
-    this.data.waym = e.detail.value
   },
 
   passTimeChange(e) {
@@ -337,13 +331,6 @@ Page({
     this.data.datainfo.weather = this.data.weatherItems[e.detail.value].id
     this.setData({
       weatherIndex: e.detail.value
-    })
-  },
-
-  carTypeChange(e) {
-    this.data.datainfo.car_type = this.data.carTypeItems[e.detail.value].id
-    this.setData({
-      carTypeIndex: e.detail.value
     })
   },
 

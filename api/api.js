@@ -309,6 +309,15 @@ export const saveUserInfo = (post) => {
   })
 }
 
+// 保存案件当事人
+export const saveReportPerson = (post) => {
+  post.token = getToken()
+  return axios.request({
+    url: '/miniprogramserver/saveReportPerson',
+    body: post
+  })
+}
+
 // 获取报案配置
 // export const loadReportConfig = () => {
 //   return new Promise((resolve, reject) => {

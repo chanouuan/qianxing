@@ -1,6 +1,3 @@
-
-const api = require('../../../api/api.js')
-
 Page({
 
   /**
@@ -34,8 +31,7 @@ Page({
     chirography: [], //笔迹
     currentChirography: {}, //当前笔迹
     linePrack: [], //划线轨迹 , 生成线条的实际点
-    signatureTarget: 'signature_agent',
-    report_id: 0
+    signatureTarget: 'signature_agent'
   },
 
   uploadScaleStart(e) {
@@ -69,11 +65,11 @@ Page({
 
   uploadScaleMove(e) {
     // 笔迹移动
-    if (e.type != 'touchmove') return false;
+    if (e.type != 'touchmove') return false
     if (e.cancelable) {
       // 判断默认行为是否已经被禁用
       if (!e.defaultPrevented) {
-        e.preventDefault();
+        e.preventDefault()
       }
     }
     let point = {
@@ -401,23 +397,13 @@ Page({
           fileType: 'png',
           quality: 1,
           success: (res) => {
-            // 上传图片
-            api.uploadPhoto({
+            wx.hideLoading()
+            const eventChannel = this.getOpenerEventChannel()
+            eventChannel.emit('signatureCallBack', {
               filePath: res.tempFilePath,
-              body: {
-                report_id: this.data.report_id,
-                report_field: this.data.signatureTarget
-              }
-            }).then(res => {
-              // 上传成功
-              wx.hideLoading()
-              const eventChannel = this.getOpenerEventChannel()
-              eventChannel.emit('signatureCallBack', {
-                imageUrl: res.url,
-                signatureTarget: this.data.signatureTarget
-              })
-              wx.navigateBack()
-            }).catch(err => {})
+              signatureTarget: this.data.signatureTarget
+            })
+            wx.navigateBack()
           },
           fail: (err) => {
             wx.hideLoading()
@@ -430,8 +416,6 @@ Page({
   },
 
   onLoad(options) {
-    this.data.report_id = options.report_id
-
     wx.createSelectorQuery()
     .select('#' + this.data.canvasName)
     .fields({ node: true, size: true })

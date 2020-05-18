@@ -8,9 +8,14 @@ Page({
   data: {
     form: {},
     tabIndex: 0,
-    tabList: [
-      {name: '全部案件', 'count': 0},
-      {name: '已完成', 'count': 0}
+    tabList: [{
+        name: '全部案件',
+        'count': 0
+      },
+      {
+        name: '已完成',
+        'count': 0
+      }
     ],
     isEnd: false,
     isEmpty: false,
@@ -94,19 +99,25 @@ Page({
   openDocument(e) {
     // 查看文书
     let id = ~~e.currentTarget.dataset.id
-    if (this.data.docfile) {
-      return this.opendocfile()
-    }
     wx.showLoading({
-      title: '下载中...',
-      mask: true
+      title: '下载中...'
     })
-    api.paynote({ report_id: id }).then(res => {
+    api.paynote({
+      report_id: id
+    }).then(res => {
       wx.downloadFile({
         url: res.url,
         success: (res) => {
-          this.data.docfile = res.tempFilePath
-          this.opendocfile()
+          wx.openDocument({
+            filePath: res.tempFilePath,
+            success(res) {},
+            fail(err) {
+              wx.showToast({
+                icon: 'none',
+                title: '文档打开失败，请重试。',
+              })
+            }
+          })
         },
         fail(err) {
           wx.showToast({
@@ -119,21 +130,6 @@ Page({
         }
       })
     }).catch(err => {})
-  },
-
-  opendocfile() {
-    wx.openDocument({
-      filePath: this.data.docfile,
-      success(res) {
-        
-      },
-      fail(err) {
-        wx.showToast({
-          icon: 'none',
-          title: '文档打开失败，请重试。',
-        })
-      }
-    })
   },
 
   handleStep1(e) {

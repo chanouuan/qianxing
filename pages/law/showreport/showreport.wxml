@@ -1,0 +1,165 @@
+<view class="container">
+	<view class="form-con">
+		<view class="form-item">
+			<view class="form-head">报送信息</view>
+		</view>
+		<view class="form-item">
+			<text class="form-label">事发时间</text>
+			<view class="form-text">
+				{{datainfo.event_time}}
+			</view>
+		</view>
+		<view class="form-item">
+			<text class="form-label">地点</text>
+			<view class="form-text">
+				{{datainfo.address}}
+			</view>
+		</view>
+		<view class="form-item">
+			<text class="form-label">桩号</text>
+			<view class="form-text">
+				{{datainfo.stake_number}}
+			</view>
+		</view>
+		<view class="form-item">
+			<text class="form-label">天气</text>
+			<view class="form-text">
+				{{datainfo.weather}}
+			</view>
+		</view>
+		<view class="form-item">
+			<text class="form-label">事件类型</text>
+			<view class="form-text">
+				{{datainfo.event_type}}
+			</view>
+		</view>
+		<view class="form-item">
+			<text class="form-label">受伤情况</text>
+			<view class="form-text">
+				{{datainfo.driver_state}}
+			</view>
+		</view>
+		<view class="form-item">
+			<text class="form-label">车辆情况</text>
+			<view class="form-text">
+				{{datainfo.car_state}}
+			</view>
+		</view>
+		<view class="form-item">
+			<text class="form-label">交通情况</text>
+			<view class="form-text">
+				{{datainfo.traffic_state}}
+			</view>
+		</view>
+		<view class="form-item">
+			<text class="form-label">预计通行时间</text>
+			<view class="form-text">
+				{{datainfo.pass_time}}分钟
+			</view>
+		</view>
+	</view>
+
+	<view class="form-con">
+		<view class="form-item">
+			<view class="form-head">勘验信息</view>
+		</view>
+		<view class="form-item">
+			<text class="form-label">受理时间</text>
+			<view class="form-text">
+				{{datainfo.create_time}}
+			</view>
+		</view>
+		<view class="form-item">
+			<text class="form-label">勘验时间</text>
+			<view class="form-text">
+				{{datainfo.check_start_time}}
+			</view>
+		</view>
+		<view class="form-item" wx:if="{{datainfo.recover_time}}">
+			<text class="form-label">交通恢复时间</text>
+			<view class="form-text">
+				{{datainfo.recover_time}}
+			</view>
+		</view>
+		<view class="form-item" wx:if="{{datainfo.complete_time}}">
+			<text class="form-label">结案时间</text>
+			<view class="form-text">
+				{{datainfo.complete_time}}
+			</view>
+		</view>
+		<view class="form-item">
+			<text class="form-label">执法人员</text>
+			<view class="form-text">
+				{{datainfo.law_name}} {{datainfo.colleague_name}}
+			</view>
+		</view>
+    <view class="form-item">
+			<text class="form-label">路产情况</text>
+			<view class="form-text">
+				{{datainfo.is_property?'有路产损失':'无路产损失'}}
+			</view>
+		</view>
+	</view>
+
+	<view class="form-con" wx:if="{{datainfo.is_property}}">
+		<view class="form-item">
+			<view class="form-head">路产受损清单</view>
+		</view>
+    <block wx:for="{{datainfo.items}}" wx:key="index">
+      <view class="form-item" style="background:#f5f5f5">
+        <text class="form-label">项目名称</text>
+        <view class="form-text">{{item.name}}</view>
+      </view>
+      <view class="form-item">
+        <text class="form-label">数量</text>
+        <view class="form-text">{{item.price}} {{item.unit||''}}</view>
+      </view>
+      <view class="form-item">
+        <text class="form-label">合计</text>
+        <view class="form-text">{{item.total_money}}元</view>
+      </view>
+    </block>
+    <view class="form-item">
+			<text class="form-label">赔偿总金额</text>
+			<view class="form-text">
+				{{datainfo.total_money}}元
+			</view>
+		</view>
+	</view>
+
+  <view class="form-con" wx:if="{{datainfo.is_property}}">
+		<view class="form-item">
+			<view class="form-head">当事人信息</view>
+		</view>
+    <block wx:for="{{datainfo.persons}}" wx:key="index">
+      <view class="form-item" style="background:#f5f5f5">
+        <text class="form-label">姓名</text>
+        <view class="form-text">{{item.full_name}}</view>
+      </view>
+      <view class="form-item">
+        <text class="form-label">手机号</text>
+        <view class="form-text">{{item.user_mobile}}</view>
+      </view>
+      <view class="form-item">
+        <text class="form-label">车牌号</text>
+        <view class="form-text">{{item.plate_num}}</view>
+      </view>
+      <view class="form-item">
+        <text class="form-label">车辆类型</text>
+        <view class="form-text">{{item.car_type}}</view>
+      </view>
+      <view class="form-item">
+        <text class="form-label">身份证号</text>
+        <view class="form-text">{{item.idcard||''}}</view>
+      </view>
+      <view class="form-item">
+        <text class="form-label">住址</text>
+        <view class="form-text">{{item.addr||''}}</view>
+      </view>
+      <view class="form-item">
+        <text class="form-label">赔偿金额</text>
+        <view class="form-text">{{item.money}}元</view>
+      </view>
+    </block>
+	</view>
+</view>

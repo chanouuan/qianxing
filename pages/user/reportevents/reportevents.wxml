@@ -27,11 +27,11 @@
         </view>
         <view class="con-body-l">
           <text class="con-body-mark">赔偿金额：</text>
-          <text>{{item.total_money}}元</text>
+          <text>{{item.money}}元</text>
         </view>
       </view>
       <view class="con-footer">
-        <view wx:if="{{item.status>1&&item.total_money>0}}" class="default-button default" data-id="{{item.id}}" bindtap="openDocument">查看文书</view>
+        <view wx:if="{{item.status>1&&item.money>0}}" class="default-button default" data-id="{{item.id}}" bindtap="openDocument">查看文书</view>
         <!--暂不支持缴费-->
         <view wx:if="{{item.status==2&&0}}" class="default-button" data-id="{{item.id}}" bindtap="handleStep1">交纳赔偿金</view>
       </view>

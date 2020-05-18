@@ -26,34 +26,33 @@
       </view>
     </view>
     <view class="form-item">
-      <text class="form-label"><text class="form-fill">*</text>桩号</text>
-      <view class="form-inline">
-        <picker bindchange="waylineChange" value="{{waylineIndex}}" range="{{wayline}}">
+      <view class="form-label">
+        <picker bindchange="changeinput" data-name="positionTypeIndex" value="{{positionTypeIndex}}" range="{{positionType}}">
+          <text class="form-fill">*</text>{{positionType[positionTypeIndex]}}
+        </picker>
+      </view>
+      <view wx:if="{{positionTypeIndex==0}}" class="form-inline">
+        <picker bindchange="changeinput" data-name="waylineIndex" value="{{waylineIndex}}" range="{{wayline}}">
           <view class="form-way">{{wayline[waylineIndex]}}</view>
         </picker>
         <text>K</text>
-        <input bindinput="waykInput" value="{{wayk}}" maxlength="8" type="digit"/>
+        <input bindinput="changeinput" data-name="wayk" value="{{wayk}}" maxlength="8" type="digit"/>
         <text>+</text>
-        <input bindinput="waymInput" value="{{waym}}" maxlength="8" type="digit"/>
+        <input bindinput="changeinput" data-name="waym" value="{{waym}}" maxlength="8" type="digit"/>
         <text>M</text>
-        <picker bindchange="waydirectionChange" value="{{waydirectionIndex}}" range="{{waydirection}}">
+        <picker bindchange="changeinput" data-name="waydirectionIndex" value="{{waydirectionIndex}}" range="{{waydirection}}">
           {{waydirection[waydirectionIndex]}}
         </picker>
       </view>
+      <view wx:else="{{positionTypeIndex==1}}" class="form-text">
+				<input value="{{positionValue}}" data-name="positionValue" bindinput="changeinput" maxlength="30" placeholder-class="form-placeholder" placeholder="请输入其他定位地点"></input>
+			</view>
     </view>
     <view class="form-item">
       <text class="form-label">天气</text>
       <view class="form-text">
         <picker bindchange="weatherChange" range-key="name" value="{{weatherIndex}}" range="{{weatherItems}}">
           {{weatherItems[weatherIndex].name}}
-        </picker>
-      </view>
-    </view>
-    <view class="form-item">
-      <text class="form-label">车型</text>
-      <view class="form-text">
-        <picker bindchange="carTypeChange" range-key="name" value="{{carTypeIndex}}" range="{{carTypeItems}}">
-          {{carTypeItems[carTypeIndex].name}}
         </picker>
       </view>
     </view>
@@ -107,7 +106,7 @@
       <text class="form-label">路产情况</text>
       <view class="form-text">
         <block wx:if="{{!datainfo.total_money&&!datainfo.is_load}}">
-          <radio-group bindchange="isPropertyChange">
+          <radio-group data-name="datainfo.is_property" bindchange="changeinput">
             <label>
               <radio value="1" checked="{{datainfo.is_property==1}}" />有路产损失</label>
             <label style="margin-left: 20rpx;">

@@ -3,7 +3,7 @@
 <view class="paper-panel">
   <view class="paper-wrap">
     <movable-area class="movable-area">
-      <movable-view wx:if="{{pageFlag}}" class="paper" damping="20" scale-value="0.5" scale-min="0.5" scale-max="1" direction="all" out-of-bounds scale animation="{{false}}">
+      <movable-view wx:if="{{pageFlag}}" class="paper" x="0" y="0" damping="20" scale-value="0.5" scale-min="0.5" scale-max="1" direction="all" out-of-bounds scale animation="{{false}}">
         <view class="paper-title">高速公路路产勘验（检查）笔录</view>
         <view class="paper-flex-end paper-margin-bottom">
           <text>{{datainfo.way_name}}</text>路勘〔{{date.year}}〕<text></text>号
@@ -22,9 +22,15 @@
           2.涉案车辆：<text>{{datainfo.plate_num_count}}</text>辆
         </view>
         <view>
-          <view>车牌：{{datainfo.plate_num||'/'}}</view> 
-          <view>车型：{{datainfo.car_type||'/'}}</view> 
-          <view>驾驶人：{{datainfo.full_name||'/'}}</view>
+          <view>
+            车牌：<block wx:for="{{datainfo.persons}}" wx:key="index">{{item.plate_num}}　</block>
+          </view>
+          <view>
+            车型：<block wx:for="{{datainfo.persons}}" wx:key="index">{{item.car_type}}　</block>
+          </view>
+          <view>
+            驾驶人：<block wx:for="{{datainfo.persons}}" wx:key="index">{{item.full_name}}　</block>
+          </view>
         </view>
         <view>3.导致路政赔（补）偿的行为：</view>
         <view><text class="paper-checkbox">{{datainfo.involved_action.a?'☑':'☐'}}涉案车辆发生交通事故。</text></view>
@@ -88,7 +94,7 @@
         </view>
         <view class="paper-padding">
           <view class="paper-flex-between">
-            勘验（检查）人：<view class="paper-img paper-flex1"><image wx:if="{{datainfo.signature_checker}}" src="{{datainfo.signature_checker}}" mode="widthFix"></image><view wx:else>/</view></view> 记录人：<view class="paper-img paper-flex1"><image  wx:if="{{datainfo.signature_writer}}" src="{{datainfo.signature_writer}}" mode="widthFix"></image><view wx:else>/</view></view>
+            勘验（检查）人：<view class="paper-img paper-flex1"><image wx:if="{{datainfo.signature_checker}}" src="{{datainfo.signature_checker}}" mode="widthFix"></image><block wx:else>/</block></view> 记录人：<view class="paper-img paper-flex1"><image  wx:if="{{datainfo.signature_writer}}" src="{{datainfo.signature_writer}}" mode="widthFix"></image><block wx:else>/</block ></view>
           </view>
           <view class="paper-flex-between">
             执法证号：<text class="paper-flex1">{{datainfo.law_lawnum}}　{{datainfo.colleague_lawnum}}</text>
@@ -103,12 +109,13 @@
         <view>
           以下由当事人或其代理人填写：
         </view>
+        <block wx:for="{{datainfo.persons}}" wx:key="index">
         <view class="paper-padding">
           <view class="paper-flex-between paper-padding-top0">
             上述勘验、检查情况及结果：<text class="paper-checkbox">☐属实</text><text class="paper-checkbox paper-margin-left">☐不属实</text>，理由： <text class="paper-flex1"></text>
           </view>
           <view class="paper-flex-between">
-            当事人或其代理人： <view class="paper-img paper-flex1"><image wx:if="{{datainfo.signature_agent}}" src="{{datainfo.signature_agent}}" mode="widthFix"></image><view wx:else>/</view></view> 联系电话：<text class="paper-flex1">{{datainfo.user_mobile||'/'}}</text>
+            当事人或其代理人： <view class="paper-img paper-flex1"><image wx:if="{{item.signature_agent}}" src="{{item.signature_agent}}" mode="widthFix"></image><block wx:else>/</block ></view> 联系电话：<text class="paper-flex1">{{item.user_mobile||'/'}}</text>
           </view>
           <view class="paper-flex-end">
             <text>{{datainfo.agent_time.year}}</text>年<text>{{datainfo.agent_time.month}}</text>月<text>{{datainfo.agent_time.day}}</text>日
@@ -119,20 +126,28 @@
         </view>
         <view class="paper-padding">
           <view class="paper-flex-between paper-padding-top0">
-            被邀请人签名： <view class="paper-img paper-flex1"><image wx:if="{{datainfo.signature_invitee}}" src="{{datainfo.signature_invitee}}" mode="widthFix"></image><view wx:else>/</view></view> 联系电话：<text class="paper-flex1">{{datainfo.invitee_mobile||'/'}}</text>
+            被邀请人签名： <view class="paper-img paper-flex1"><image wx:if="{{item.signature_invitee}}" src="{{item.signature_invitee}}" mode="widthFix"></image><block wx:else>/</block ></view> 联系电话：<text class="paper-flex1">{{item.invitee_mobile||'/'}}</text>
           </view>
           <view class="paper-flex-between">
             备注：<text class="paper-flex1"></text>
           </view>
         </view>
+        </block>
       </movable-view>
       <view wx:else class="loading-wrap">
         <icon class="icon-loading"></icon>
       </view>
     </movable-area>
   </view>
-  <view class="paper-btn">
-    <view class="default-button" bindtap="tapSign">签字</view>
-    <view class="default-button" bindtap="tapSave">保存并退出</view>
+  <view class="paper-footer">
+    <view class="paper-person-tip">选择当事人</view>
+    <view class="paper-person">
+      <view wx:for="{{datainfo.persons}}" wx:key="index" data-index="{{index}}" catchtap="selectPerson" class="paper-person-item {{person_index==index?'active':''}}">
+          {{item.full_name||('当事人'+(index+1))}}
+        </view>
+    </view>
+    <view class="paper-btn">
+      <view style="width:320rpx" class="default-button" bindtap="tapSave">保存并退出</view>
+    </view>
   </view>
 </view>

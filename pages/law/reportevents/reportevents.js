@@ -271,6 +271,14 @@ Page({
     })
   },
 
+  showReport(e) {
+    // 查看报案
+    let id = ~~e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '/pages/law/showreport/showreport?report_id=' + id,
+    })
+  },
+
   openAllnote(e) {
     // 查看卷宗
     let id = ~~e.currentTarget.dataset.id

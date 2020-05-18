@@ -5,6 +5,33 @@
   padding: 0 20rpx 20rpx 20rpx;
 }
 
+.person-panel {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.person-item {
+  width: 160rpx;
+  height: 100rpx;
+  margin-right: 20rpx;
+  background-color: #e5e5e5;
+  border-radius: 5rpx;
+  margin-bottom: 20rpx;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.person-panel .active {
+  background-color: #298df8;
+  color: #fff;
+}
+
+.person-item:last-child {
+  margin-right: 0;
+}
+
 .form-con {
   font-size: 14px;
   background-color: #fff;

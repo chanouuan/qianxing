@@ -28,21 +28,29 @@
         </view>
       </view>
       <view class="tip">（现场图照需拍摄方位、全貌、特征）</view>
+      <view class="title pitem">
+        <text>当事人证件</text>
+        <icon bindtap="addPersonPhoto" class="iconfont icon-add"></icon>
+      </view>
+      <view class="person-panel">
+        <view wx:for="{{persons}}" wx:key="index" data-index="{{index}}" catchtap="selectPersonPhoto" class="person-item {{person_index==index?'active':''}}">
+          {{item.full_name||('当事人'+(index+1))}}
+          <icon wx:if="{{index>0}}" data-index="{{index}}" catchtap="delPersonPhoto" class="delimg" size="18" type="cancel"></icon>
+        </view>
+      </view>
       <view class="title">身份证照</view>
       <view class="panel2">
         <view class="panel2-item">
           <view class="panel2-item-img" data-name="idcard_front" data-ocr_type="1" data-title="身份证头像面" bindtap="cutPhoto">
-            <image mode="aspectFill" src="{{idcard_front}}" wx:if="{{idcard_front}}"></image>
+            <image mode="aspectFill" src="{{persons[person_index].idcard_front}}" wx:if="{{persons[person_index].idcard_front}}"></image>
             <icon class="iconfont icon-zhaoxiang" wx:else></icon>
-            <view class="progress" style="width:{{idcard_front_progress}}%" wx:if="{{idcard_front_progress}}"></view>
           </view>
           <view class="panel2-item-t">身份证头像面</view>
         </view>
         <view class="panel2-item">
           <view class="panel2-item-img" data-name="idcard_behind" data-title="身份证国徽面" bindtap="cutPhoto">
-            <image mode="aspectFill" src="{{idcard_behind}}" wx:if="{{idcard_behind}}"></image>
+            <image mode="aspectFill" src="{{persons[person_index].idcard_behind}}" wx:if="{{persons[person_index].idcard_behind}}"></image>
             <icon class="iconfont icon-zhaoxiang" wx:else></icon>
-            <view class="progress" style="width:{{idcard_behind_progress}}%" wx:if="{{idcard_behind_progress}}"></view>
           </view>
           <view class="panel2-item-t">身份证国徽面</view>
         </view>
@@ -51,36 +59,32 @@
       <view class="panel2">
         <view class="panel2-item">
           <view class="panel2-item-img" data-name="driving_license_front" data-ocr_type="3" data-title="行驶证正面" bindtap="cutPhoto">
-            <image mode="aspectFill" src="{{driving_license_front}}" wx:if="{{driving_license_front}}"></image>
+            <image mode="aspectFill" src="{{persons[person_index].driving_license_front}}" wx:if="{{persons[person_index].driving_license_front}}"></image>
             <icon class="iconfont icon-zhaoxiang" wx:else></icon>
-            <view class="progress" style="width:{{driving_license_front_progress}}%" wx:if="{{driving_license_front_progress}}"></view>
           </view>
           <view class="panel2-item-t">行驶证正面</view>
         </view>
         <view class="panel2-item">
           <view class="panel2-item-img" data-name="driving_license_behind" data-title="行驶证副页" bindtap="cutPhoto">
-            <image mode="aspectFill" src="{{driving_license_behind}}" wx:if="{{driving_license_behind}}"></image>
+            <image mode="aspectFill" src="{{persons[person_index].driving_license_behind}}" wx:if="{{persons[person_index].driving_license_behind}}"></image>
             <icon class="iconfont icon-zhaoxiang" wx:else></icon>
-            <view class="progress" style="width:{{driving_license_behind_progress}}%" wx:if="{{driving_license_behind_progress}}"></view>
           </view>
           <view class="panel2-item-t">行驶证副页</view>
         </view>
       </view>
-       <view class="title">驾驶证照</view>
+      <view class="title">驾驶证照</view>
       <view class="panel2">
         <view class="panel2-item">
           <view class="panel2-item-img" data-name="driver_license_front" data-ocr_type="4" data-title="驾驶证正面" bindtap="cutPhoto">
-            <image mode="aspectFill" src="{{driver_license_front}}" wx:if="{{driver_license_front}}"></image>
+            <image mode="aspectFill" src="{{persons[person_index].driver_license_front}}" wx:if="{{persons[person_index].driver_license_front}}"></image>
             <icon class="iconfont icon-zhaoxiang" wx:else></icon>
-            <view class="progress" style="width:{{driver_license_front_progress}}%" wx:if="{{driver_license_front_progress}}"></view>
           </view>
           <view class="panel2-item-t">驾驶证正面</view>
         </view>
         <view class="panel2-item">
           <view class="panel2-item-img" data-name="driver_license_behind" data-title="驾驶证副页" bindtap="cutPhoto">
-            <image mode="aspectFill" src="{{driver_license_behind}}" wx:if="{{driver_license_behind}}"></image>
+            <image mode="aspectFill" src="{{persons[person_index].driver_license_behind}}" wx:if="{{persons[person_index].driver_license_behind}}"></image>
             <icon class="iconfont icon-zhaoxiang" wx:else></icon>
-            <view class="progress" style="width:{{driver_license_behind_progress}}%" wx:if="{{driver_license_behind_progress}}"></view>
           </view>
           <view class="panel2-item-t">驾驶证副页</view>
         </view>

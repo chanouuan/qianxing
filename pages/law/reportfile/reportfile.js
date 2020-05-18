@@ -9,9 +9,8 @@ Page({
     input_parameter: {},
     submit: false,
     report_id: 0,
-    // 照相参数
-    site_photos: [
-      {
+    // 现场图照参数
+    site_photos: [{
         src: ''
       },
       {
@@ -27,18 +26,9 @@ Page({
         src: ''
       }
     ],
-    idcard_front: '',
-    idcard_front_progress: 0,
-    idcard_behind: '',
-    idcard_behind_progress: 0,
-    driver_license_front: '',
-    driver_license_front_progress: 0,
-    driver_license_behind: '',
-    driver_license_behind_progress: 0,
-    driving_license_front: '',
-    driving_license_front_progress: 0,
-    driving_license_behind: '',
-    driving_license_behind_progress: 0,
+    // 多当事人参数
+    person_index: 0,
+    persons: [],
     // 赔偿清单参数
     items: [],
     searchItemName: '',
@@ -64,12 +54,7 @@ Page({
       data_type: 'all'
     }).then(res => {
       let data = {
-        idcard_front: res.idcard_front || '',
-        idcard_behind: res.idcard_behind || '',
-        driver_license_front: res.driver_license_front || '',
-        driver_license_behind: res.driver_license_behind || '',
-        driving_license_front: res.driving_license_front || '',
-        driving_license_behind: res.driving_license_behind || '',
+        persons: res.persons || [],
         involved_action: res.involved_action || {},
         involved_act: res.involved_act,
         extra_info: res.extra_info || '',
@@ -91,6 +76,67 @@ Page({
   },
 
   nodata() {},
+
+  selectPersonPhoto(e) {
+    // 选择当事人证件照
+    let index = e.currentTarget.dataset.index
+    this.setData({
+      person_index: index
+    })
+  },
+
+  delPersonPhoto(e) {
+    // 删除当事人证件照
+    let index = ~~e.currentTarget.dataset.index
+    wx.showModal({
+      title: '',
+      content: '是否删除“' + (this.data.persons[index].full_name || '当事人') + '”？',
+      success: (res) => {
+        if (res.confirm) {
+          wx.showLoading({
+            title: '提交中...'
+          })
+          api.saveReportPerson({
+            report_id: this.data.report_id,
+            person_id: this.data.persons[index].id
+          }).then(res => {
+            this.data.persons.splice(index, 1)
+            this.setData({
+              persons: this.data.persons
+            }, () => {
+              wx.hideLoading()
+            })
+          }).catch(err => {})
+        }
+      }
+    })
+  },
+
+  addPersonPhoto() {
+    // 添加当事人证件照
+    wx.showLoading({
+      title: '提交中...'
+    })
+    api.saveReportPerson({
+      report_id: this.data.report_id
+    }).then(res => {
+      this.data.persons.push({
+        id: res.person_id,
+        full_name: '',
+        idcard_front: '',
+        idcard_behind: '',
+        driver_license_front: '',
+        driver_license_behind: '',
+        driving_license_front: '',
+        driving_license_behind: ''
+      })
+      this.setData({
+        persons: this.data.persons
+      }, () => {
+        wx.hideLoading()
+      })
+    }).catch(err => {})
+  },
 
   changeinput(e) {
     // input
@@ -300,7 +346,7 @@ Page({
       return
     }
     let name = this.data.site_photos[index].name
-    name = name ? name:(index===0?'前面':(index===1?'侧面':(index===2?'后面':(index===3?'前全景':(index===4?'后全景':'')))))
+    name = name ? name : (index === 0 ? '前面' : (index === 1 ? '侧面' : (index === 2 ? '后面' : (index === 3 ? '前全景' : (index === 4 ? '后全景' : '')))))
     this.setData({
       inputFlag: true,
       input_site_photo_name: name,
@@ -382,13 +428,6 @@ Page({
   cutPhoto(e) {
     // ocr识别
     let name = e.currentTarget.dataset.name
-    if (this.data[name + '_progress']) {
-      wx.showToast({
-        icon: 'none',
-        title: '正在上传图片...'
-      })
-      return
-    }
     wx.navigateTo({
       url: '/pages/law/camera/camera',
       events: {
@@ -402,22 +441,18 @@ Page({
             filePath: res.filePath,
             body: Object.assign({
               report_id: this.data.report_id,
-              report_field: name
-            }, res.res),
-            progress: res => {
-              this.setData({
-                [name + '_progress']: res.progress === 100 ? 0 : res.progress
-              })
-            }
+              report_field: name,
+              report_field_index: this.data.persons[this.data.person_index].id
+            }, res.res)
           }).then(res => {
             // 上传成功
             this.setData({
-              [name]: res.url
+              ['persons[' + this.data.person_index + '].' + name]: res.url
             }, () => {
               wx.hideLoading()
             })
           }).catch(err => {
-            this.data[name + '_progress'] = 0
+            console.error('证件图照上传失败', err)
           })
         }
       },
@@ -466,13 +501,12 @@ Page({
     })
     api.reportItem({
       report_id: this.data.report_id,
-      items: JSON.stringify(items),
-      involved_action: JSON.stringify(this.data.involved_action),
+      items: items,
+      involved_action: this.data.involved_action,
       involved_build_project: this.data.involved_build_project,
       involved_act: this.data.involved_act,
-      involved_action_type: JSON.stringify(this.data.involved_action_type),
-      extra_info: this.data.extra_info,
-      new: 1
+      involved_action_type: this.data.involved_action_type,
+      extra_info: this.data.extra_info
     }).then(res => {
       wx.navigateTo({
         url: '/pages/law/paper/paper?report_id=' + this.data.report_id,
