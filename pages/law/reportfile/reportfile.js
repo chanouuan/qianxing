@@ -209,11 +209,12 @@ Page({
 
   amountInput(e) {
     // 数量
-    let value = parseInt(e.detail.value)
+    let value = parseFloat(e.detail.value)
     let index = e.currentTarget.dataset.index
-    if (isNaN(value)) {
+    if (isNaN(value) || e.detail.value.substr(-1) === '.') {
       this.data.items[index].amount = 0
     } else {
+      value = parseFloat(value.toFixed(1))
       this.setData({
         ['items[' + index + '].amount']: value
       })

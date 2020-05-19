@@ -3,7 +3,7 @@
 <view class="paper-panel">
   <view class="paper-wrap">
     <movable-area class="movable-area">
-      <movable-view wx:if="{{pageFlag}}" class="paper" x="0" y="0" damping="20" scale-value="0.5" scale-min="0.5" scale-max="1" direction="all" out-of-bounds scale animation="{{false}}">
+      <movable-view wx:if="{{pageFlag}}" class="paper" damping="20" scale-value="0.5" scale-min="0.5" scale-max="1" direction="all" out-of-bounds scale animation="{{false}}">
         <view class="paper-title">高速公路路产勘验（检查）笔录</view>
         <view class="paper-flex-end paper-margin-bottom">
           <text>{{datainfo.way_name}}</text>路勘〔{{date.year}}〕<text></text>号
@@ -94,7 +94,7 @@
         </view>
         <view class="paper-padding">
           <view class="paper-flex-between">
-            勘验（检查）人：<view class="paper-img paper-flex1"><image wx:if="{{datainfo.signature_checker}}" src="{{datainfo.signature_checker}}" mode="widthFix"></image><block wx:else>/</block></view> 记录人：<view class="paper-img paper-flex1"><image  wx:if="{{datainfo.signature_writer}}" src="{{datainfo.signature_writer}}" mode="widthFix"></image><block wx:else>/</block ></view>
+            勘验（检查）人：<view class="paper-img paper-flex1"><image wx:if="{{datainfo.signature_checker}}" src="{{datainfo.signature_checker}}" mode="widthFix"></image><block wx:else>/</block> <image  wx:if="{{datainfo.signature_writer}}" src="{{datainfo.signature_writer}}" mode="widthFix"></image><block wx:else>/</block></view> 记录人：<view class="paper-img paper-flex1"><image  wx:if="{{datainfo.signature_writer}}" src="{{datainfo.signature_writer}}" mode="widthFix"></image><block wx:else>/</block></view>
           </view>
           <view class="paper-flex-between">
             执法证号：<text class="paper-flex1">{{datainfo.law_lawnum}}　{{datainfo.colleague_lawnum}}</text>

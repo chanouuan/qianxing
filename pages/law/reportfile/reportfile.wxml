@@ -119,7 +119,7 @@
             <input bindinput="priceInput" data-index="{{index}}" value="{{item.price}}" type="digit" maxlength="5" placeholder="请输入费用"></input>
           </view>
           <view class="panel-td">
-            <input bindinput="amountInput" data-index="{{index}}" value="{{item.amount}}" type="number" maxlength="5" placeholder="请输入数量"></input>
+            <input bindinput="amountInput" data-index="{{index}}" value="{{item.amount}}" type="digit" maxlength="5" placeholder="请输入数量"></input>
           </view>
           <view class="panel-td">{{item.price*item.amount}}</view>
           <icon data-index="{{index}}" bindtap="removeitem" class="item-cancel" size="15" type="cancel"></icon>
